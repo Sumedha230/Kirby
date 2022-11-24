@@ -10,7 +10,7 @@ import random
 def main():
     load_dotenv()
 
-    token = "MTA0Mzg1ODk0MDk5MzIyODgwMA.GveYd-.4aYJr0O8BbDz8nJxX1ztO2lX9cpMpzjId8sxeo"
+    token = "MTA0Mzg1ODk0MDk5MzIyODgwMA.GjcoGW.bPCb5Nthf_6mWLTM9VP2TrOwXZ-dA2fnZcLKmg"
 
 
     bot = commands.Bot(intents=discord.Intents.all() , command_prefix= "k!" , description='Cute Kirby!')

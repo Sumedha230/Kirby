@@ -15,7 +15,7 @@ def main():
     token = "MTA0Mzg1ODk0MDk5MzIyODgwMA.Gm_EjW.NqIKfa5fplbIlTHi1PPzOPHL3xWudW6sroqW5s"
 
 
-    bot = commands.Bot(intents=discord.Intents.all() , command_prefix= "k!" , description='Cute Kirby!')
+    bot = commands.Bot(intents=discord.Intents.all() , command_prefix= ["k!","K!"] , description='Cute Kirby!')
 
     @bot.event
     async def on_ready():

@@ -5,7 +5,6 @@ from dotenv.main import load_dotenv
 from discord.ext import commands
 from discord.ext.commands import Bot
 from discord import app_commands
-import interactions
 import random
 
 

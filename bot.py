@@ -14,13 +14,11 @@ def main():
 
     token = "MTA0Mzg1ODk0MDk5MzIyODgwMA.Gm_EjW.NqIKfa5fplbIlTHi1PPzOPHL3xWudW6sroqW5s"
 
-
     bot = commands.Bot(intents=discord.Intents.all() , command_prefix= ["k!","K!"] , description='Cute Kirby!')
 
     @bot.event
     async def on_ready():
-        print(f"{bot.user.name}has Connected")
-    
+        print(f"{bot.user.name} has Connected")         
 
     @bot.command()
     async def ping(ctx):
@@ -86,7 +84,7 @@ def main():
             "https://media.discordapp.net/attachments/1045618240900050954/1045656005356310558/WiffleGif.gif",
             "https://media.discordapp.net/attachments/1045618240900050954/1045657796986802217/kirboslapping.gif"
         ]
-        embed=discord.Embed(title=f"{ctx.author.name} has slapped {user.name}",color = discord.Colour.purple())
+        embed=discord.Embed(title=f"{ctx.author.name} has slapped {user.name}!",color = discord.Colour.purple())
         randomgif = random.choice(randomgifs)
         embed.set_image(url = randomgif)
         await ctx.send(embed=embed)
@@ -160,7 +158,7 @@ def main():
         embed=discord.Embed(title=f"{ctx.author.name} is missing {user.name}",color = discord.Colour.purple())
         randomgif = random.choice(randomgifs)
         embed.set_image(url = randomgif)
-        await ctx.send(embed=embed)   
+        await ctx.send(embed=embed)  
 
     bot.run(token)
     

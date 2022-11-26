@@ -158,6 +158,17 @@ def main():
         randomgif = random.choice(randomgifs)
         embed.set_image(url = randomgif)
         await ctx.send(embed=embed)  
+    @bot.command()
+    async def tickle(ctx,user:discord.Member=None):
+        randomgifs = [
+            "https://media.discordapp.net/attachments/1045618240900050954/1046100540821610516/91a686f18ccc56616078a25bb55bfed9.gif",
+            "https://media.discordapp.net/attachments/1045618240900050954/1046100541475930112/tickle-feet.gif",
+            "https://media.discordapp.net/attachments/1045618240900050954/1046100541152964638/giphy_5.gif"
+        ]
+        embed=discord.Embed(title=f"{ctx.author.name} is tickling {user.name} ! hehe",color = discord.Colour.purple())
+        randomgif = random.choice(randomgifs)
+        embed.set_image(url = randomgif)
+        await ctx.send(embed=embed)        
 
     bot.run(token)
     

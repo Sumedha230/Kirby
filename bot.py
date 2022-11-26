@@ -140,7 +140,15 @@ def main():
     @bot.command()
     async def love(ctx,user:discord.Member=None):
         randomgifs = [
-            "https://media.discordapp.net/attachments/1045618240900050954/1045664205388398643/love-kirby.gif"
+            "https://media.discordapp.net/attachments/1045618240900050954/1045664205388398643/love-kirby.gif",
+            "https://media.discordapp.net/attachments/1045618240900050954/1046156748983124050/love-gif.gif",
+            "https://media.discordapp.net/attachments/1045618240900050954/1046156765412200528/icegif-876.gif",
+            "https://media.discordapp.net/attachments/1045618240900050954/1046156775352713326/icegif-592.gif",
+            "https://media.discordapp.net/attachments/1045618240900050954/1046156785515495504/icegif-581.gif",
+            "https://media.discordapp.net/attachments/1045618240900050954/1046157241130156102/DarlingRectangularIsabellinewheatear-max-1mb.gif",
+            "https://media.discordapp.net/attachments/1045618240900050954/1046157205617004594/cute-love.gif",
+            "https://media.discordapp.net/attachments/1045618240900050954/1046157189548609546/WindingShorttermAfricanharrierhawk-size_restricted.gif",
+            "https://media.discordapp.net/attachments/1045618240900050954/1046157176118456441/bunny-rabbit.gif"
         ]
         embed=discord.Embed(title=f"{ctx.author.name} sends love to {user.name}",color = discord.Colour.purple())
         randomgif = random.choice(randomgifs)
@@ -152,7 +160,12 @@ def main():
         randomgifs = [
             "https://media.discordapp.net/attachments/949680123869814794/1045693438982619146/miss-you-shy-bear-wgvvsi8epdvui25t.gif",
             "https://media.discordapp.net/attachments/949680123869814794/1045693439276236810/b5395bd842e048cd00cc021b50c37ba6.gif",
-            "https://media.discordapp.net/attachments/949680123869814794/1045693439574024282/missing-you-badly-waiting.gif"
+            "https://media.discordapp.net/attachments/949680123869814794/1045693439574024282/missing-you-badly-waiting.gif",
+            "https://media.discordapp.net/attachments/1045618240900050954/1046155561265287188/7fd9ff3c81c5ea8cf317c05794a22363.gif",
+            "https://media.discordapp.net/attachments/1045618240900050954/1046155628684525698/dog-triste.gif",
+            "https://media.discordapp.net/attachments/1045618240900050954/1046155851494326372/i-miss-you-so-much-i-miss-you.gif",
+            "https://media.discordapp.net/attachments/1045618240900050954/1046155978267164692/SjOp.gif",
+            "https://media.discordapp.net/attachments/1045618240900050954/1046156399069102090/i-miss-you-bear-crying-d9eflc3t9immbccm.gif"
         ]
         embed=discord.Embed(title=f"{ctx.author.name} is missing {user.name}",color = discord.Colour.purple())
         randomgif = random.choice(randomgifs)
@@ -163,7 +176,13 @@ def main():
         randomgifs = [
             "https://media.discordapp.net/attachments/1045618240900050954/1046100540821610516/91a686f18ccc56616078a25bb55bfed9.gif",
             "https://media.discordapp.net/attachments/1045618240900050954/1046100541475930112/tickle-feet.gif",
-            "https://media.discordapp.net/attachments/1045618240900050954/1046100541152964638/giphy_5.gif"
+            "https://media.discordapp.net/attachments/1045618240900050954/1046100541152964638/giphy_5.gif",
+            "https://media.discordapp.net/attachments/1045618240900050954/1046153500029100043/bae.gif",
+            "https://media.discordapp.net/attachments/1045618240900050954/1046154095213420564/giphy_6.gif",
+            "https://media.discordapp.net/attachments/1045618240900050954/1046154459635527710/6VniMLU.gif",
+            "https://media.discordapp.net/attachments/1045618240900050954/1046154782680813578/aaaaaaaahahahah-tickling-is-awesome.gif",
+            "https://media.discordapp.net/attachments/1045618240900050954/1046154913308221540/371fa72fcc90fc98902266fa258718c3.gif",
+            "https://media.discordapp.net/attachments/1045618240900050954/1046155310815002654/butt-tickles.gif"
         ]
         embed=discord.Embed(title=f"{ctx.author.name} is tickling {user.name} ! hehe",color = discord.Colour.purple())
         randomgif = random.choice(randomgifs)

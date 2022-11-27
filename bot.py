@@ -201,7 +201,17 @@ def main():
         embed=discord.Embed(title=f"{ctx.author.name} is spitting on {user.name} !",color = discord.Colour.purple())
         randomgif = random.choice(randomgifs)
         embed.set_image(url = randomgif)
-        await ctx.send(embed=embed)    
+        await ctx.send(embed=embed)  
+        
+    @bot.command()
+    async def cry(ctx,user:discord.Member=None):
+        randomgifs = [
+            
+        ]
+        embed=discord.Embed(title=f"{user.name} made {ctx.author.name} cry! Truly a monster",color = discord.Colour.purple())
+        randomgif = random.choice(randomgifs)
+        embed.set_image(url = randomgif)
+        await ctx.send(embed=embed)        
 
     bot.run(token)
     

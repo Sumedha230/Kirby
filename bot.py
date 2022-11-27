@@ -187,7 +187,21 @@ def main():
         embed=discord.Embed(title=f"{ctx.author.name} is tickling {user.name} ! hehe",color = discord.Colour.purple())
         randomgif = random.choice(randomgifs)
         embed.set_image(url = randomgif)
-        await ctx.send(embed=embed)        
+        await ctx.send(embed=embed)
+        
+    @bot.command()
+    async def spit(ctx,user:discord.Member=None):
+        randomgifs = [
+            "https://media.discordapp.net/attachments/1045618240900050954/1046353978193084426/18s1.gif",
+            "https://media.discordapp.net/attachments/1045618240900050954/1046353997621108806/OnlyDisloyalHare-size_restricted.gif",
+            "https://media.discordapp.net/attachments/1045618240900050954/1046354474748362762/GrouchyCleverGreatdane-size_restricted.gif",
+            "https://media.discordapp.net/attachments/1045618240900050954/1046354573641658418/hasbulla-magomedov-hasbulla.gif",
+            "https://media.discordapp.net/attachments/1045618240900050954/1046354595431067648/giphy.gif"
+        ]
+        embed=discord.Embed(title=f"{ctx.author.name} is spitting on {user.name} !",color = discord.Colour.purple())
+        randomgif = random.choice(randomgifs)
+        embed.set_image(url = randomgif)
+        await ctx.send(embed=embed)    
 
     bot.run(token)
     

@@ -179,6 +179,9 @@ def main():
     
     @bot.command(aliases=["Slap"])
     async def slap(ctx,user:discord.Member=None):
+        if user.id == ctx.author.id:
+            await ctx.send("Bro atleast find someone to do an interaction with ")
+            return
         if user == None:
             humans = [m for m in ctx.guild.members if not m.bot]
             user = random.choice(humans)
@@ -199,6 +202,9 @@ def main():
 
     @bot.command(aliases=["Kiss"])
     async def kiss(ctx,user:discord.Member=None):
+        if user.id == ctx.author.id:
+            await ctx.send("Bro atleast find someone to do an interaction with ")
+            return
         if user == None:
             humans = [m for m in ctx.guild.members if not m.bot]
             user = random.choice(humans)
@@ -224,6 +230,9 @@ def main():
 
     @bot.command(aliases=["Realkiss","RealKiss","REALKISS","RK","rk"])
     async def realkiss(ctx,user:discord.Member=None):
+        if user.id == ctx.author.id:
+            await ctx.send("Bro atleast find someone to do an interaction with ")
+            return
         if user == None:
             humans = [m for m in ctx.guild.members if not m.bot]
             user = random.choice(humans)
@@ -243,6 +252,9 @@ def main():
 
     @bot.command(aliases=["Fuck"])
     async def fuck(ctx,user:discord.Member=None):
+        if user.id == ctx.author.id:
+            await ctx.send("Bro atleast find someone to do an interaction with ")
+            return
         randomgifs = [
             "https://media.discordapp.net/attachments/1045618240900050954/1045661560326078535/how-did-they-how-did.gif",
             "https://media.discordapp.net/attachments/1045618240900050954/1045661934776754217/8768f928-3eb6-4254-9ffc-a378608a0fa8_text.gif",
@@ -260,6 +272,9 @@ def main():
 
     @bot.command(aliases=["Hug"])
     async def hug(ctx,user:discord.Member=None):
+        if user.id == ctx.author.id:
+            await ctx.send("Bro atleast find someone to do an interaction with ")
+            return
         if user == None:
             humans = [m for m in ctx.guild.members if not m.bot]
             user = random.choice(humans)
@@ -289,6 +304,9 @@ def main():
 
     @bot.command(aliases=["Love"])
     async def love(ctx,user:discord.Member=None):
+        if user.id == ctx.author.id:
+            await ctx.send("Bro atleast find someone to do an interaction with ")
+            return
         if user == None:
             humans = [m for m in ctx.guild.members if not m.bot]
             user = random.choice(humans)
@@ -311,6 +329,9 @@ def main():
 
     @bot.command(aliases=["Missing"])
     async def missing(ctx,user:discord.Member=None):
+        if user.id == ctx.author.id:
+            await ctx.send("Bro atleast find someone to do an interaction with ")
+            return
         if user == None:
             humans = [m for m in ctx.guild.members if not m.bot]
             user = random.choice(humans)
@@ -330,6 +351,9 @@ def main():
         await ctx.send(embed=embed)  
     @bot.command(aliases=["Tickle","Tick"])
     async def tickle(ctx,user:discord.Member=None):
+        if user.id == ctx.author.id:
+            await ctx.send("Bro atleast find someone to do an interaction with ")
+            return
         if user == None:
             humans = [m for m in ctx.guild.members if not m.bot]
             user = random.choice(humans)
@@ -351,6 +375,9 @@ def main():
         
     @bot.command(aliases=["Spit"])
     async def spit(ctx,user:discord.Member=None):
+        if user.id == ctx.author.id:
+            await ctx.send("Bro atleast find someone to do an interaction with ")
+            return
         if user == None:
             humans = [m for m in ctx.guild.members if not m.bot]
             user = random.choice(humans)
@@ -368,6 +395,9 @@ def main():
         
     @bot.command(aliases=["Cry"])
     async def cry(ctx,user:discord.Member=None):
+        if user.id == ctx.author.id:
+            await ctx.send("Bro atleast find someone to do an interaction with ")
+            return
         if user == None:
             humans = [m for m in ctx.guild.members if not m.bot]
             user = random.choice(humans)
@@ -410,6 +440,9 @@ def main():
 
     @bot.command(aliases=["Choke"])
     async def choke(ctx,user:discord.Member=None):
+        if user.id == ctx.author.id:
+            await ctx.send("Bro atleast find someone to do an interaction with ")
+            return
         if user == None:
             humans = [m for m in ctx.guild.members if not m.bot]
             user = random.choice(humans)
@@ -463,6 +496,9 @@ def main():
 
     @bot.command(aliases=["Pinch"])
     async def pinch(ctx,user:discord.Member=None):
+        if user.id == ctx.author.id:
+            await ctx.send("Bro atleast find someone to do an interaction with ")
+            return
         if user == None:
             humans = [m for m in ctx.guild.members if not m.bot]
             user = random.choice(humans)
@@ -482,6 +518,9 @@ def main():
 
     @bot.command(aliases=["Pat"])
     async def pat(ctx,user:discord.Member=None):
+        if user.id == ctx.author.id:
+            await ctx.send("Bro atleast find someone to do an interaction with ")
+            return
         if user == None:
             humans = [m for m in ctx.guild.members if not m.bot]
             user = random.choice(humans)
@@ -502,6 +541,9 @@ def main():
 
     @bot.command(aliases=["Block"])
     async def block(ctx,user:discord.Member=None):
+        if user.id == ctx.author.id:
+            await ctx.send("Bro atleast find someone to do an interaction with ")
+            return
         if user == None:
             humans = [m for m in ctx.guild.members if not m.bot]
             user = random.choice(humans)
@@ -521,6 +563,9 @@ def main():
 
     @bot.command(aliases=["Cope"])
     async def cope(ctx,user:discord.Member=None):
+        if user.id == ctx.author.id:
+            await ctx.send("Bro atleast find someone to do an interaction with ")
+            return
         if user == None:
             humans = [m for m in ctx.guild.members if not m.bot]
             user = random.choice(humans)
@@ -541,6 +586,9 @@ def main():
 
     @bot.command(aliases=["Sit"])
     async def sit(ctx,user:discord.Member=None):
+        if user.id == ctx.author.id:
+            await ctx.send("Bro atleast find someone to do an interaction with ")
+            return
         if user == None:
             humans = [m for m in ctx.guild.members if not m.bot]
             user = random.choice(humans)
@@ -555,7 +603,7 @@ def main():
             "https://media.discordapp.net/attachments/1045618243013984296/1046473491211362344/Dog_Puppy_GIF_-_Find__Share_on_GIPHY.gif",
             "https://media.discordapp.net/attachments/1045618243013984296/1046473493480493066/New_Beginnings_66.gif",
             "https://media.discordapp.net/attachments/1045618243013984296/1046473493786656788/download.jpg?width=651&height=606"
-        ]
+             ]
         embed=discord.Embed(title=f"{ctx.author.name} sits on {user.name} and crushes them!",color = discord.Colour.purple())
         randomgif = random.choice(randomgifs)
         embed.set_image(url = randomgif)
@@ -563,6 +611,9 @@ def main():
 
     @bot.command(aliases=["Punch"])
     async def punch(ctx,user:discord.Member=None):
+        if user.id == ctx.author.id:
+            await ctx.send("Bro atleast find someone to do an interaction with ")
+            return
         if user == None:
             humans = [m for m in ctx.guild.members if not m.bot]
             user = random.choice(humans)
@@ -591,6 +642,9 @@ def main():
 
     @bot.command(aliases=["PillowFight","Pillowfight","pf","PF"])
     async def pillowfight(ctx,user:discord.Member=None):
+        if user.id == ctx.author.id:
+            await ctx.send("Bro atleast find someone to do an interaction with ")
+            return
         if user == None:
             humans = [m for m in ctx.guild.members if not m.bot]
             user = random.choice(humans)
@@ -601,7 +655,7 @@ def main():
             "https://media.discordapp.net/attachments/949680123869814794/1046846745943998564/OptimisticPlaintiveAidi-size_restricted.gif",
             "https://media.discordapp.net/attachments/949680123869814794/1046846752013164584/733898f1a9d33a3db97fcebbf49dbb82.gif",
             "https://media.discordapp.net/attachments/949680123869814794/1046846813648465990/giphy_5.gif"
-        ]
+            ]
         
         embed=discord.Embed(title=f"{ctx.author.name} and {user.name} are pillowfighting !",color = discord.Colour.purple())
         randomgif = random.choice(randomgifs)
@@ -610,6 +664,9 @@ def main():
 
     @bot.command(aliases=["Kill","KILL"])
     async def kill(ctx,user:discord.Member=None):
+        if user.id == ctx.author.id:
+            await ctx.send("Bro atleast find someone to do an interaction with ")
+            return
         if user == None:
             humans = [m for m in ctx.guild.members if not m.bot]
             user = random.choice(humans)
@@ -625,7 +682,7 @@ def main():
             "https://media.discordapp.net/attachments/949680123869814794/1046848114419581008/duck-mad.gif",
             "https://media.discordapp.net/attachments/949680123869814794/1046848121952542781/69649.gif",
             "https://media.discordapp.net/attachments/949680123869814794/1046848137723117618/804e237839129b79dd956eb9c2ec1803.gif"
-        ]
+            ]
         
         embed=discord.Embed(title=f"{ctx.author.name} killed {user.name} ! They definitely won't be able to type again",color = discord.Colour.purple())
         randomgif = random.choice(randomgifs)

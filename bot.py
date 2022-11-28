@@ -6,37 +6,59 @@ from discord.ext import commands
 from discord.ext.commands import Bot
 from discord import app_commands
 import random
+import interactions
 
 
 def main():
     load_dotenv()
 
     token = "MTA0Mzg1ODk0MDk5MzIyODgwMA.Gm_EjW.NqIKfa5fplbIlTHi1PPzOPHL3xWudW6sroqW5s"
+    intents = discord.Intents.all()
+    intents.members = True
 
-    bot = commands.Bot(intents=discord.Intents.all() , command_prefix= ["k!","K!"] , description='Cute Kirby!',activity = discord.Game(name="Super Smash Bros"))
+    bot = commands.Bot(intents= intents, command_prefix= ["k!","K!"] , description='Cute Kirby!',activity = discord.Game(name="Super Smash Bros"))
 
     @bot.event
     async def on_ready():
-        print(f"{bot.user.name} has Connected")         
+        print(f"{bot.user.name} has Connected")  
+        try:
+            synced = await bot.tree.sync()
+            print(f"Synced {len(synced)} commands")
+        except Exception as e:
+            print(e)
 
     @bot.command()
     async def ping(ctx):
         """Checks for a response from the bot"""
         await ctx.send("Pong")   
 
-    @bot.remove_command("help")      
-    
-    @bot.group()
-    async def help(ctx):
-        embed = discord.Embed(title=f"Help",description=f"Use k!help <command> for information on that command",color = discord.Colour.purple())
-        embed.add_field(name = f"Users", value = f"avatar, banner",inline=False)
-        embed.add_field(name=f"Fun",value = f"choose, say, repeat",inline=False)
-        embed.add_field(name=f"Interactions",value= f"Block, Choke, ,Cope, Cry, Crying, Eating, Fuck, Hug, Kiss, Laugh, Love, Missing, ,Pat, Pinch, Realkiss, Sit, Slap, Spit, Tickle",inline=False)
-        await ctx.send(embed=embed) 
-
     @bot.command()
     async def hello(ctx):
         await ctx.send(f"Hi {ctx.message.author.mention}!")    
+
+    @bot.tree.command(name="hello")
+    async def Hello(interaction: discord.Interaction):
+        await interaction.response.send_message(f"Hello {interaction.user.mention} slash command",ephemeral=True)   
+
+    @bot.tree.command(name="say")
+    async def imitate(interaction: discord.Interaction,say:str,member:discord.Member):
+        webhook = await interaction.channel.create_webhook(name=member.name)
+        await webhook.send(str(say), username=member.name, avatar_url=member.avatar.url)
+
+        webhooks = await interaction.channel.webhooks()
+        for webhook in webhooks:
+            await webhook.delete()
+
+    @bot.command()
+    async def serverinfo(ctx):
+        members = len(ctx.guild.members)
+        Roles = len(ctx.guild.roles)
+        embed=discord.Embed(title=f"***{ctx.guild.name} Information***")    
+        embed.add_field(name='Name:', value=ctx.guild.name, inline=False)
+        embed.add_field(name='ID:', value=ctx.guild.id, inline=False)
+        embed.add_field(name='Owner:', value=ctx.guild.owner.name, inline=False)
+        embed.add_field(name='Created At:', value=ctx.guild.created_at.strftime('Day: %d/%m/%Y Hour: %H:%M:%S %p'), inline=False)
+        await ctx.send(embed=embed)         
 
     @bot.command()
     async def choose(ctx, *choices: str):
@@ -427,10 +449,27 @@ def main():
         embed=discord.Embed(title=f"{ctx.author.name} sits on {user.name} and crushes them!",color = discord.Colour.purple())
         randomgif = random.choice(randomgifs)
         embed.set_image(url = randomgif)
-        await ctx.send(embed=embed)            
-        
-                              
+        await ctx.send(embed=embed)           
 
+    @bot.command()
+    async def punch(ctx,user:discord.Member=None):
+        randomgifs = [
+            "https://media.discordapp.net/attachments/1045618243013984296/1046657546347364432/punch-punching.gif"
+        ]
+        if user:
+            embed=discord.Embed(title=f"{ctx.author.name} punches {user.name} hard!",color = discord.Colour.purple())
+            randomgif = random.choice(randomgifs)
+            embed.set_image(url = randomgif)
+            await ctx.send(embed=embed)
+        else:
+            use = random(ctx.guild.members)
+            embed=discord.Embed(title=f"{ctx.author.name} punches {use.name} hard!",color = discord.Colour.purple())
+            randomgif = random.choice(randomgifs)
+            embed.set_image(url = randomgif)
+            await ctx.send(embed=embed)
+                        
+        
+                            
     bot.run(token)
     
     

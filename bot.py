@@ -40,7 +40,7 @@ def main():
             embed = discord.Embed(title="Help", description = "Bot Commands ",color = discord.Colour.purple())
             embed.add_field(name="User Commands", value = "avatar, banner, serverinfo ,userinfo",inline=False)
             embed.add_field(name="Fun Commands",value = "choose, say(also a slash command /say), repeat ", inline=False)
-            embed.add_field(name= "Interaction Command", value = "block, choke, cope, cry, crying, eating, fuck, hug, kiss, laugh, love, missing, pat, pinch, punch, realkiss, sit, slap, spit, tickle",inline=False)
+            embed.add_field(name= "Interaction Command", value = "block, choke, cope, cry, crying, eating, fuck, hug, kill, kiss, laugh, love, missing, pat, ,pillowfight, pinch, punch, realkiss, sit, slap, spit, tickle, vibe",inline=False)
             await self.context.send(embed=embed)
 
         async def block(self, command):
@@ -569,17 +569,71 @@ def main():
         randomgifs = [
             "https://media.discordapp.net/attachments/1045618243013984296/1046657546347364432/punch-punching.gif"
         ]
-        if user:
-            embed=discord.Embed(title=f"{ctx.author.name} punches {user.name} hard!",color = discord.Colour.purple())
-            randomgif = random.choice(randomgifs)
-            embed.set_image(url = randomgif)
-            await ctx.send(embed=embed)
-        else:
-            use = random(ctx.guild.members)
-            embed=discord.Embed(title=f"{ctx.author.name} punches {use.name} hard!",color = discord.Colour.purple())
-            randomgif = random.choice(randomgifs)
-            embed.set_image(url = randomgif)
-            await ctx.send(embed=embed)
+        
+        embed=discord.Embed(title=f"{ctx.author.name} punches {user.name} hard!",color = discord.Colour.purple())
+        randomgif = random.choice(randomgifs)
+        embed.set_image(url = randomgif)
+        await ctx.send(embed=embed)
+        
+
+    @bot.command(aliases=["Vibe"])
+    async def vibe(ctx):
+        randomgifs = [
+            "https://media.discordapp.net/attachments/949680123869814794/1046845051109658684/vibe-rabbit.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046845066347548723/teo-cat.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046845070235664465/tumblr_7d502f156e5b5458e8d05495f5936e44_008adab0_500.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046845075684073492/giphy_4.gif"
+        ]
+        embed=discord.Embed(title=f"{ctx.author.name} is vibing !",color = discord.Colour.purple())
+        randomgif = random.choice(randomgifs)
+        embed.set_image(url = randomgif)
+        await ctx.send(embed=embed) 
+
+    @bot.command(aliases=["PillowFight","Pillowfight","pf","PF"])
+    async def pillowfight(ctx,user:discord.Member=None):
+        if user == None:
+            humans = [m for m in ctx.guild.members if not m.bot]
+            user = random.choice(humans)
+        randomgifs = [
+            "https://media.discordapp.net/attachments/949680123869814794/1046846733818269836/grandparents-day-insomnia.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046846742060081332/pow-pillow-fight.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046846743398072400/edac8fd3339d460f5d609cb738c4d1c5.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046846745943998564/OptimisticPlaintiveAidi-size_restricted.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046846752013164584/733898f1a9d33a3db97fcebbf49dbb82.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046846813648465990/giphy_5.gif"
+        ]
+        
+        embed=discord.Embed(title=f"{ctx.author.name} and {user.name} are pillowfighting !",color = discord.Colour.purple())
+        randomgif = random.choice(randomgifs)
+        embed.set_image(url = randomgif)
+        await ctx.send(embed=embed) 
+
+    @bot.command(aliases=["Kill","KILL"])
+    async def kill(ctx,user:discord.Member=None):
+        if user == None:
+            humans = [m for m in ctx.guild.members if not m.bot]
+            user = random.choice(humans)
+        randomgifs = [
+            "https://media.discordapp.net/attachments/949680123869814794/1046847843597549608/l55gmjfacebook.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046847850849513543/74c150a96ce7654c2131c7095dbfcc52.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046847852615303178/kill-me.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046847859510759494/kill-you-kill.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046847860165066833/giphy_6.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046847872529874944/kill-stab.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046848106035154964/cc87656cf72979fb8ee01c3eebc5cdff.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046848112565694534/among-us-kill-icegif.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046848114419581008/duck-mad.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046848121952542781/69649.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046848137723117618/804e237839129b79dd956eb9c2ec1803.gif"
+        ]
+        
+        embed=discord.Embed(title=f"{ctx.author.name} killed {user.name} ! They definitely won't be able to type again",color = discord.Colour.purple())
+        randomgif = random.choice(randomgifs)
+        embed.set_image(url = randomgif)
+        await ctx.send(embed=embed)        
+
+
+         
                         
         
     bot.help_command = MyHelp()

@@ -6,6 +6,7 @@ from discord.ext import commands
 from discord.ext.commands import Bot
 from discord import app_commands
 import random
+from random import choice
 from discord import interactions
 from discord.ext.commands import has_permissions,CheckFailure
 
@@ -63,7 +64,20 @@ def main():
         for webhook in webhooks:
             await webhook.delete()
 
-    @bot.command()
+    @bot.command(aliases=["Say"])
+    async def say(ctx, member: discord.Member, *, message=None):
+        if message == None:
+            await ctx.send('provide a message with that!')
+            return
+
+        webhook = await ctx.channel.create_webhook(name=member.name)
+        await webhook.send(str(message), username=member.name, avatar_url=member.avatar.url)
+
+        webhooks = await ctx.channel.webhooks()
+        for webhook in webhooks:
+            await webhook.delete()
+        
+    @bot.command(aliases=["SI","si"])
     async def serverinfo(ctx):
         members = len(ctx.guild.members)
         Roles = len(ctx.guild.roles)
@@ -84,7 +98,29 @@ def main():
         embed.add_field(name="Bot Count",value = f"There are a total of {bc} bots in this server",inline=False)
         await ctx.send(embed=embed)         
     
-    @bot.command()
+    @bot.tree.command(name="serverinfo")
+    async def si(interaction: discord.Interaction):
+        members = len(interaction.guild.members)
+        Roles = len(interaction.guild.roles)
+        embed=discord.Embed(title=f"***Server Information***",color = discord.Colour.purple() )    
+        embed.add_field(name='Name:', value=interaction.guild.name, inline=False)
+        embed.add_field(name='ID:', value=interaction.guild.id, inline=False)
+        embed.add_field(name='Owner:', value=interaction.guild.owner.name, inline=False)
+        embed.add_field(name='Created At:', value=interaction.guild.created_at.strftime('Day: %d/%m/%Y Hour: %H:%M:%S %p'), inline=False)
+        gc= 0
+        bc = 0
+        for member in interaction.guild.members:
+            if member.bot == False:
+                gc += 1
+            else:
+                bc+=1    
+        embed.add_field(name="Total Member Count",value = f"The total headcount in this server is {interaction.guild.member_count}", inline=False)
+        embed.add_field(name="Member Count",value = f"There are a total of {gc} members in this server", inline=False)
+        embed.add_field(name="Bot Count",value = f"There are a total of {bc} bots in this server",inline=False)
+        await interaction.response.send_message(embed=embed)   
+
+
+    @bot.command(aliases=["useri","ui"])
     async def userinfo(ctx,member:discord.Member=None):
         if member == None:
             member = ctx.message.author
@@ -100,27 +136,13 @@ def main():
         embed.set_thumbnail(url = member.avatar.url)
         await ctx.send(embed=embed)
 
-
-
     @bot.command()
     async def choose(ctx, *choices: str):
         """Choose between the choices given by the user for example
         k!choose 1 2 3 """
         await ctx.send(random.choice(choices)) 
     
-    @bot.command()
-    async def say(ctx, member: discord.Member, *, message=None):
-        if message == None:
-            await ctx.send('provide a message with that!')
-            return
-
-        webhook = await ctx.channel.create_webhook(name=member.name)
-        await webhook.send(str(message), username=member.name, avatar_url=member.avatar.url)
-
-        webhooks = await ctx.channel.webhooks()
-        for webhook in webhooks:
-            await webhook.delete()
-
+    
     @bot.command()
     async def repeat(ctx, times: int, *content:str):
         """Repeats whatever the user has typed 
@@ -157,6 +179,9 @@ def main():
     
     @bot.command(aliases=["Slap"])
     async def slap(ctx,user:discord.Member=None):
+        if user == None:
+            humans = [m for m in ctx.guild.members if not m.bot]
+            user = random.choice(humans)
         randomgifs = [
             "https://media.discordapp.net/attachments/1045618240900050954/1045655137953263696/kirby-king-dedede.gif",
             "https://media.discordapp.net/attachments/1045618240900050954/1045655292773400596/Punishment_Spanked_Sticker_-_Punishment_Spanked_Booty_Slap_-_Discover__Share_GIFs.gif",
@@ -174,6 +199,9 @@ def main():
 
     @bot.command(aliases=["Kiss"])
     async def kiss(ctx,user:discord.Member=None):
+        if user == None:
+            humans = [m for m in ctx.guild.members if not m.bot]
+            user = random.choice(humans)
         randomgifs = [
             "https://media.discordapp.net/attachments/1045618240900050954/1045658804034994226/0d095e578f2c91ad060fada5cde2fd4ebf6f9d18r1-450-375_hq.gif",
             "https://media.discordapp.net/attachments/1045618240900050954/1045659012743561316/kirby-kiss.gif",
@@ -196,6 +224,9 @@ def main():
 
     @bot.command(aliases=["Realkiss","RealKiss","REALKISS","RK","rk"])
     async def realkiss(ctx,user:discord.Member=None):
+        if user == None:
+            humans = [m for m in ctx.guild.members if not m.bot]
+            user = random.choice(humans)
         randomgifs = [
             "https://media.discordapp.net/attachments/1005851300195487875/1045660381525331978/IMG_9526.gif",
             "https://media.discordapp.net/attachments/1005851300195487875/1045660805510742076/IMG_9529.gif",
@@ -210,7 +241,7 @@ def main():
         embed.set_image(url = randomgif)
         await ctx.send(embed=embed)
 
-    @bot.command()
+    @bot.command(aliases=["Fuck"])
     async def fuck(ctx,user:discord.Member=None):
         randomgifs = [
             "https://media.discordapp.net/attachments/1045618240900050954/1045661560326078535/how-did-they-how-did.gif",
@@ -227,8 +258,11 @@ def main():
         embed.set_image(url = randomgif)
         await ctx.send(embed=embed)   
 
-    @bot.command()
+    @bot.command(aliases=["Hug"])
     async def hug(ctx,user:discord.Member=None):
+        if user == None:
+            humans = [m for m in ctx.guild.members if not m.bot]
+            user = random.choice(humans)
         randomgifs = [
             "https://media.discordapp.net/attachments/1045618240900050954/1045663962882134066/kirby-hug.gif",
             "https://media.discordapp.net/attachments/1045618240900050954/1045663980926029834/super-smash-bros-kirby.gif",
@@ -253,8 +287,11 @@ def main():
         embed.set_image(url = randomgif)
         await ctx.send(embed=embed) 
 
-    @bot.command()
+    @bot.command(aliases=["Love"])
     async def love(ctx,user:discord.Member=None):
+        if user == None:
+            humans = [m for m in ctx.guild.members if not m.bot]
+            user = random.choice(humans)
         randomgifs = [
             "https://media.discordapp.net/attachments/1045618240900050954/1045664205388398643/love-kirby.gif",
             "https://media.discordapp.net/attachments/1045618240900050954/1046156748983124050/love-gif.gif",
@@ -272,8 +309,11 @@ def main():
         embed.set_image(url = randomgif)
         await ctx.send(embed=embed)
 
-    @bot.command()
+    @bot.command(aliases=["Missing"])
     async def missing(ctx,user:discord.Member=None):
+        if user == None:
+            humans = [m for m in ctx.guild.members if not m.bot]
+            user = random.choice(humans)
         randomgifs = [
             "https://media.discordapp.net/attachments/949680123869814794/1045693438982619146/miss-you-shy-bear-wgvvsi8epdvui25t.gif",
             "https://media.discordapp.net/attachments/949680123869814794/1045693439276236810/b5395bd842e048cd00cc021b50c37ba6.gif",
@@ -288,8 +328,11 @@ def main():
         randomgif = random.choice(randomgifs)
         embed.set_image(url = randomgif)
         await ctx.send(embed=embed)  
-    @bot.command()
+    @bot.command(aliases=["Tickle","Tick"])
     async def tickle(ctx,user:discord.Member=None):
+        if user == None:
+            humans = [m for m in ctx.guild.members if not m.bot]
+            user = random.choice(humans)
         randomgifs = [
             "https://media.discordapp.net/attachments/1045618240900050954/1046100540821610516/91a686f18ccc56616078a25bb55bfed9.gif",
             "https://media.discordapp.net/attachments/1045618240900050954/1046100541475930112/tickle-feet.gif",
@@ -306,8 +349,11 @@ def main():
         embed.set_image(url = randomgif)
         await ctx.send(embed=embed)
         
-    @bot.command()
+    @bot.command(aliases=["Spit"])
     async def spit(ctx,user:discord.Member=None):
+        if user == None:
+            humans = [m for m in ctx.guild.members if not m.bot]
+            user = random.choice(humans)
         randomgifs = [
             "https://media.discordapp.net/attachments/1045618240900050954/1046353978193084426/18s1.gif",
             "https://media.discordapp.net/attachments/1045618240900050954/1046353997621108806/OnlyDisloyalHare-size_restricted.gif",
@@ -320,8 +366,11 @@ def main():
         embed.set_image(url = randomgif)
         await ctx.send(embed=embed)  
         
-    @bot.command()
+    @bot.command(aliases=["Cry"])
     async def cry(ctx,user:discord.Member=None):
+        if user == None:
+            humans = [m for m in ctx.guild.members if not m.bot]
+            user = random.choice(humans)
         randomgifs = [
             "https://media.discordapp.net/attachments/1045618240900050954/1046356250385977444/byuntear-baby-cry.gif",
             "https://media.discordapp.net/attachments/1045618240900050954/1046356587108913172/spiderman-crying.gif",
@@ -340,8 +389,9 @@ def main():
         embed.set_image(url = randomgif)
         await ctx.send(embed=embed)   
     
-    @bot.command()
+    @bot.command(aliases=["Crying"])
     async def crying(ctx):
+        
         randomgifs = [
             "https://media.discordapp.net/attachments/1045618240900050954/1046357237255372840/Kuromi_Crying_GIF_-_Kuromi_Crying_Onegai_My_Melody_-_Discover__Share_GIFs.gif",
             "https://media.discordapp.net/attachments/1045618240900050954/1046357237599309824/Anime_Cry_GIF_-_Anime_Cry_Crying_-_Discover__Share_GIFs.gif",
@@ -358,8 +408,11 @@ def main():
         embed.set_image(url = randomgif)
         await ctx.send(embed=embed)   
 
-    @bot.command()
+    @bot.command(aliases=["Choke"])
     async def choke(ctx,user:discord.Member=None):
+        if user == None:
+            humans = [m for m in ctx.guild.members if not m.bot]
+            user = random.choice(humans)
         randomgifs = [
             "https://media.discordapp.net/attachments/1045618240900050954/1046357753582583838/Kylo_Ren_Star_Wars_GIF_-_Kylo_Ren_Star_Wars_Choke_-_Discover__Share_GIFs.gif",
             "https://media.discordapp.net/attachments/1045618240900050954/1046357753905565746/Love_Choked_GIF_-_Love_Choked_Spongebob_-_Discover__Share_GIFs.gif",
@@ -374,7 +427,7 @@ def main():
         embed.set_image(url = randomgif)
         await ctx.send(embed=embed)   
 
-    @bot.command()
+    @bot.command(aliases=["Eating"])
     async def eating(ctx):
         randomgifs = [
             "https://media.discordapp.net/attachments/1045618240900050954/1046361143976935454/b9a29258-8eb8-4ad4-81a1-ab085059d8af.gif",
@@ -391,7 +444,7 @@ def main():
         embed.set_image(url = randomgif)
         await ctx.send(embed=embed)     
 
-    @bot.command()
+    @bot.command(aliases=["Laugh"])
     async def laugh(ctx):
         randomgifs = [
             "https://media.discordapp.net/attachments/1045618243013984296/1046361695561453688/Happy_Cracking_Up_GIF_-_Find__Share_on_GIPHY.gif",
@@ -408,8 +461,11 @@ def main():
         embed.set_image(url = randomgif)
         await ctx.send(embed=embed)   
 
-    @bot.command()
+    @bot.command(aliases=["Pinch"])
     async def pinch(ctx,user:discord.Member=None):
+        if user == None:
+            humans = [m for m in ctx.guild.members if not m.bot]
+            user = random.choice(humans)
         randomgifs = [
             "https://media.discordapp.net/attachments/993633626719780924/1046366440225247252/Milk_And_Mocha_Cheek_GIF_-_Milk_And_Mocha_Cheek_Chubby_-_Discover__Share_GIFs.gif",
             "https://media.discordapp.net/attachments/993633626719780924/1046366440757940234/Little_piece_of_my_life.gif",
@@ -424,8 +480,11 @@ def main():
         embed.set_image(url = randomgif)
         await ctx.send(embed=embed)          
 
-    @bot.command()
+    @bot.command(aliases=["Pat"])
     async def pat(ctx,user:discord.Member=None):
+        if user == None:
+            humans = [m for m in ctx.guild.members if not m.bot]
+            user = random.choice(humans)
         randomgifs = [
             "https://media.discordapp.net/attachments/1045618243013984296/1046400910332530698/mala-mishra-jha-pat-head.gif",
             "https://media.discordapp.net/attachments/1045618243013984296/1046400915663503440/giphy.gif",
@@ -441,8 +500,11 @@ def main():
         embed.set_image(url = randomgif)
         await ctx.send(embed=embed)      
 
-    @bot.command()
+    @bot.command(aliases=["Block"])
     async def block(ctx,user:discord.Member=None):
+        if user == None:
+            humans = [m for m in ctx.guild.members if not m.bot]
+            user = random.choice(humans)
         randomgifs = [
             "https://media.discordapp.net/attachments/1045618243013984296/1046464011241271326/giphy.gif",
             "https://media.discordapp.net/attachments/1045618243013984296/1046464027955564665/364354045cd96a0726981be285a0ab74.gif",
@@ -457,8 +519,11 @@ def main():
         embed.set_image(url = randomgif)
         await ctx.send(embed=embed) 
 
-    @bot.command()
+    @bot.command(aliases=["Cope"])
     async def cope(ctx,user:discord.Member=None):
+        if user == None:
+            humans = [m for m in ctx.guild.members if not m.bot]
+            user = random.choice(humans)
         randomgifs = [
             "https://media.discordapp.net/attachments/1045618243013984296/1046467949839532135/6glhrr.gif",
             "https://media.discordapp.net/attachments/1045618243013984296/1046467960799248424/929.gif?width=581&height=606",
@@ -474,8 +539,11 @@ def main():
         embed.set_image(url = randomgif)
         await ctx.send(embed=embed)  
 
-    @bot.command()
+    @bot.command(aliases=["Sit"])
     async def sit(ctx,user:discord.Member=None):
+        if user == None:
+            humans = [m for m in ctx.guild.members if not m.bot]
+            user = random.choice(humans)
         randomgifs = [
             "https://media.discordapp.net/attachments/1045618243013984296/1046471106657259530/dog-cat.gif",
             "https://media.discordapp.net/attachments/1045618243013984296/1046471124340453437/200.gif",
@@ -493,8 +561,11 @@ def main():
         embed.set_image(url = randomgif)
         await ctx.send(embed=embed)           
 
-    @bot.command()
+    @bot.command(aliases=["Punch"])
     async def punch(ctx,user:discord.Member=None):
+        if user == None:
+            humans = [m for m in ctx.guild.members if not m.bot]
+            user = random.choice(humans)
         randomgifs = [
             "https://media.discordapp.net/attachments/1045618243013984296/1046657546347364432/punch-punching.gif"
         ]

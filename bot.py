@@ -38,22 +38,23 @@ def main():
     class MyHelp(commands.HelpCommand):
         async def send_bot_help(self, mapping):
             embed = discord.Embed(title="Help", description = "Bot Commands ",color = discord.Colour.purple())
-            embed.add_field(name="User Commands", value = "avatar, banner, serverinfo ,userinfo",inline=False)
+            embed.add_field(name="User Commands", value = "avatar, ,guild_avatar, banner, serverinfo ,userinfo",inline=False)
             embed.add_field(name="Fun Commands",value = "choose, say(also a slash command /say), repeat ", inline=False)
-            embed.add_field(name= "Interaction Command", value = "block, choke, cope, cry, crying, eating, fuck, hug, kill, kiss, laugh, love, missing, pat, ,pillowfight, pinch, punch, realkiss, sit, slap, spit, tickle, vibe",inline=False)
+            embed.add_field(name= "Interaction Command", value = "block, bonk, choke, cope, cry, crying, eating, fuck, hug, kill, kiss, laugh, love, marry, missing, nom, pat, ,pillowfight, pinch, punch, realkiss, sit, slap, spit, tickle, vibe, wave",inline=False)
             await self.context.send(embed=embed)
 
         async def block(self, command):
             embed = discord.Embed(title="Block",description= "Pretend to block a user with this interaction",color = discord.Colour.purple())
             await self.context.send(embed=embed)    
 
-    @bot.command()
-    async def hello(ctx):
-        await ctx.send(f"Hi {ctx.message.author.mention}!")    
+    @bot.tree.command(name="dice")
+    async def dice(interaction:discord.Interaction,num:int):
+        if num==6 or num==12:
+            await interaction.response.send_message(f"{random.randint(1,int(num))}")       
+        else:
+            await interaction.response.send_message("Invalid Choice = Choose between 6 or 12")    
 
-    @bot.tree.command(name="hello")
-    async def Hello(interaction: discord.Interaction):
-        await interaction.response.send_message(f"Hello {interaction.user.mention} slash command",ephemeral=True)   
+
 
     @bot.tree.command(name="say")
     async def imitate(interaction: discord.Interaction,say:str,member:discord.Member):
@@ -162,6 +163,21 @@ def main():
         test.set_image(url=avamember.avatar.url)
         await ctx.send(embed=test)
 
+    @bot.tree.command(name="avatar")
+    async def avatar(interaction: discord.Interaction,user:discord.Member=None):
+        test = discord.Embed(title=f"<:kirby_thumbsup:1034765537185632276>  {user.name}'s Avatar",color = discord.Colour.purple())
+        test.set_author(name=user.name, icon_url=user.avatar.url)
+        test.set_image(url=user.avatar.url)
+        await interaction.response.send_message(embed=test)
+
+    @bot.tree.command(name="guild_avatar")
+    async def guild_avatar(interaction: discord.Interaction,user:discord.Member=None):
+        test = discord.Embed(title=f"<:kirby_thumbsup:1034765537185632276>  {user.name}'s Avatar",color = discord.Colour.purple())
+        test.set_author(name=user.name, icon_url=user.avatar.url)
+        test.set_image(url=user.display_avatar.url)
+        await interaction.response.send_message(embed=test)    
+
+
     @bot.command()
     async def banner(ctx, user:discord.Member = None):
         if not user:
@@ -174,6 +190,19 @@ def main():
             await ctx.send(embed=embed)
         else:
             await ctx.send(f'<a:idlekirby:1039819001380995122> this user has no banner')
+
+    @bot.tree.command(name="banner")
+    async def banner(interaction, user:discord.Member = None):
+        if not user:
+            user = interaction.author
+        user = await bot.fetch_user(user.id)  
+        if user.banner:
+            embed = discord.Embed(title = f"<:kirby_thumbsup:1034765537185632276>  {user.name}'s Banner",color = discord.Colour.purple())
+            embed.set_author(name=user.name,icon_url=user.avatar.url)
+            embed.set_image(url = user.banner.url)
+            await interaction.response.send_message(embed=embed)
+        else:
+            await interaction.response.send_message(f'<a:idlekirby:1039819001380995122> this user has no banner')        
     
     
     
@@ -687,11 +716,113 @@ def main():
         embed=discord.Embed(title=f"{ctx.author.name} killed {user.name} ! They definitely won't be able to type again",color = discord.Colour.purple())
         randomgif = random.choice(randomgifs)
         embed.set_image(url = randomgif)
-        await ctx.send(embed=embed)        
+        await ctx.send(embed=embed)       
 
+    @bot.command(aliases=["Nom","NOM"])
+    async def nom(ctx,user:discord.Member=None):
+        if user.id == ctx.author.id:
+            await ctx.send("Bro atleast find someone to do an interaction with ")
+            return
+        if user == None:
+            humans = [m for m in ctx.guild.members if not m.bot]
+            user = random.choice(humans)
+        randomgifs = [
+            "https://media.discordapp.net/attachments/949680123869814794/1046876009003225158/sMP.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046876014762008646/45ba063ad9212afec9fed28e79fbfe09.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046876072601456681/PaltryMadKusimanse-max-1mb.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046876072991543408/fe8f2a77e1f3b100e81ee0f1f454542a.gif"
+            ]
+        
+        embed=discord.Embed(title=f"{ctx.author.name} noms on {user.name} !!",color = discord.Colour.purple())
+        randomgif = random.choice(randomgifs)
+        embed.set_image(url = randomgif)
+        await ctx.send(embed=embed)  
 
-         
-                        
+    @bot.command(aliases=["Marry","MARRY"])
+    async def marry(ctx,user:discord.Member=None):
+        if user.id == ctx.author.id:
+            await ctx.send("Bro atleast find someone to do an interaction with ")
+            return
+        if user == None:
+            humans = [m for m in ctx.guild.members if not m.bot]
+            user = random.choice(humans)
+        randomgifs = [
+            "https://media.discordapp.net/attachments/949680123869814794/1046885786601136138/sportsmanias-just-married.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046885794087960626/anineogray-wedding.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046885802166206564/marriage-marry.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046885806226276432/TerribleRemorsefulCottontail-size_restricted.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046885979367165962/804a7b8872de5db7d3dee11a94a89449.gif?width=606&height=606",
+            "https://media.discordapp.net/attachments/949680123869814794/1046885984442269758/tumblr_mllx0atPDj1r1r3hjo1_500.gif"
+            ]
+        
+        embed=discord.Embed(title=f"{ctx.author.name} married {user.name} !! Congratulations to the newly weds",color = discord.Colour.purple())
+        randomgif = random.choice(randomgifs)
+        embed.set_image(url = randomgif)
+        await ctx.send(embed=embed)   
+
+    @bot.command(aliases=["Sex","SEX"])
+    async def sex(ctx,user:discord.Member=None):
+        if user.id == ctx.author.id:
+            await ctx.send("Bro atleast find someone to do an interaction with ")
+            return
+        if user == None:
+            humans = [m for m in ctx.guild.members if not m.bot]
+            user = random.choice(humans)
+        randomgifs = [
+            "https://media.discordapp.net/attachments/949680123869814794/1046886531866034198/e89cdf5e38c450a2b16399eeb870a7f364587bd1r1-320-232_hq.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046886528661602484/cr1tikal-sex.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046886523611660338/no-sex-sex-meme.gif?width=523&height=606",
+            "https://media.discordapp.net/attachments/949680123869814794/1046886523091570799/sex-meme.gif?width=606&height=606"
+            ]
+        
+        embed=discord.Embed(title=f"{ctx.author.name} trying to e-sex {user.name}, The deed will only be done if {user.name} also does the command",color = discord.Colour.purple())
+        randomgif = random.choice(randomgifs)
+        embed.set_image(url = randomgif)
+        await ctx.send(embed=embed)      
+
+    @bot.command(aliases=["Wave","WAVE","Waving","waving"])
+    async def wave(ctx,user:discord.Member=None):
+        if user.id == ctx.author.id:
+            await ctx.send("Bro atleast find someone to do an interaction with ")
+            return
+        if user == None:
+            humans = [m for m in ctx.guild.members if not m.bot]
+            user = random.choice(humans)
+        randomgifs = [
+            "https://media.discordapp.net/attachments/949680123869814794/1046891679770230835/monkey-waving.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046891680093188298/kung-fu-panda-po-waving-ub3ic92611g1yvxk.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046891680407756821/d7i06j2-209054b9-be1e-46b0-aa61-ffbe4dc1ebda.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046891681255006328/hello-there-waving.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046891681640890398/200w.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046891682018369606/garfield-waving.gif"   
+            ]
+        
+        embed=discord.Embed(title=f"{ctx.author.name} waves at {user.name}",color = discord.Colour.purple())
+        randomgif = random.choice(randomgifs)
+        embed.set_image(url = randomgif)
+        await ctx.send(embed=embed)  
+
+    @bot.command(aliases=["Bonk","BONK"])
+    async def bonk(ctx,user:discord.Member=None):
+        if user.id == ctx.author.id:
+            await ctx.send("Bro atleast find someone to do an interaction with ")
+            return
+        if user == None:
+            humans = [m for m in ctx.guild.members if not m.bot]
+            user = random.choice(humans)
+        randomgifs = [
+            "https://media.discordapp.net/attachments/949680123869814794/1046892437043429416/detcgjg-50c2474a-fbbb-44f1-9766-a89f7f8e8253.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046892437555130440/bonk_2.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046892437953593534/b0d270b7c07757cc6c3fb6efc60229e8.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046892438322688190/bonk-anime.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046892438654030045/bonk.gif",
+            "https://media.discordapp.net/attachments/949680123869814794/1046892439060885646/giphy.gif"
+            ]
+        
+        embed=discord.Embed(title=f"{ctx.author.name} bonks{user.name} for being horny",color = discord.Colour.purple())
+        randomgif = random.choice(randomgifs)
+        embed.set_image(url = randomgif)
+        await ctx.send(embed=embed)                                         
         
     bot.help_command = MyHelp()
     bot.run(token)

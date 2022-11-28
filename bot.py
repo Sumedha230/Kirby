@@ -6,7 +6,7 @@ from discord.ext import commands
 from discord.ext.commands import Bot
 from discord import app_commands
 import random
-import interactions
+
 
 
 def main():
@@ -21,11 +21,7 @@ def main():
     @bot.event
     async def on_ready():
         print(f"{bot.user.name} has Connected")  
-        try:
-            synced = await bot.tree.sync()
-            print(f"Synced {len(synced)} commands")
-        except Exception as e:
-            print(e)
+        
 
     @bot.command()
     async def ping(ctx):
@@ -35,19 +31,6 @@ def main():
     @bot.command()
     async def hello(ctx):
         await ctx.send(f"Hi {ctx.message.author.mention}!")    
-
-    @bot.tree.command(name="hello")
-    async def Hello(interaction: discord.Interaction):
-        await interaction.response.send_message(f"Hello {interaction.user.mention} slash command",ephemeral=True)   
-
-    @bot.tree.command(name="say")
-    async def imitate(interaction: discord.Interaction,say:str,member:discord.Member):
-        webhook = await interaction.channel.create_webhook(name=member.name)
-        await webhook.send(str(say), username=member.name, avatar_url=member.avatar.url)
-
-        webhooks = await interaction.channel.webhooks()
-        for webhook in webhooks:
-            await webhook.delete()
 
     @bot.command()
     async def serverinfo(ctx):

@@ -7,6 +7,7 @@ from discord.ext.commands import Bot
 from discord import app_commands
 import random
 from discord import interactions
+from discord.ext.commands import has_permissions,CheckFailure
 
 
 def main():
@@ -21,27 +22,85 @@ def main():
     @bot.event
     async def on_ready():
         print(f"{bot.user.name} has Connected")  
-        
+        try:
+            synced = await bot.tree.sync()
+            print(f"Synced {len(synced)} commands")
+        except Exception as e:
+            print(e)
 
     @bot.command()
     async def ping(ctx):
         """Checks for a response from the bot"""
         await ctx.send("Pong")   
+    
+
+    class MyHelp(commands.HelpCommand):
+        async def send_bot_help(self, mapping):
+            embed = discord.Embed(title="Help", description = "Bot Commands ",color = discord.Colour.purple())
+            embed.add_field(name="User Commands", value = "avatar, banner, serverinfo ,userinfo",inline=False)
+            embed.add_field(name="Fun Commands",value = "choose, say(also a slash command /say), repeat ", inline=False)
+            embed.add_field(name= "Interaction Command", value = "block, choke, cope, cry, crying, eating, fuck, hug, kiss, laugh, love, missing, pat, pinch, punch, realkiss, sit, slap, spit, tickle",inline=False)
+            await self.context.send(embed=embed)
+
+        async def block(self, command):
+            embed = discord.Embed(title="Block",description= "Pretend to block a user with this interaction",color = discord.Colour.purple())
+            await self.context.send(embed=embed)    
 
     @bot.command()
     async def hello(ctx):
         await ctx.send(f"Hi {ctx.message.author.mention}!")    
 
+    @bot.tree.command(name="hello")
+    async def Hello(interaction: discord.Interaction):
+        await interaction.response.send_message(f"Hello {interaction.user.mention} slash command",ephemeral=True)   
+
+    @bot.tree.command(name="say")
+    async def imitate(interaction: discord.Interaction,say:str,member:discord.Member):
+        webhook = await interaction.channel.create_webhook(name=member.name)
+        await webhook.send(str(say), username=member.display_name, avatar_url=member.display_avatar.url)
+
+        webhooks = await interaction.channel.webhooks()
+        for webhook in webhooks:
+            await webhook.delete()
+
     @bot.command()
     async def serverinfo(ctx):
         members = len(ctx.guild.members)
         Roles = len(ctx.guild.roles)
-        embed=discord.Embed(title=f"***{ctx.guild.name} Information***")    
+        embed=discord.Embed(title=f"***Server Information***",color = discord.Colour.purple() )    
         embed.add_field(name='Name:', value=ctx.guild.name, inline=False)
         embed.add_field(name='ID:', value=ctx.guild.id, inline=False)
         embed.add_field(name='Owner:', value=ctx.guild.owner.name, inline=False)
         embed.add_field(name='Created At:', value=ctx.guild.created_at.strftime('Day: %d/%m/%Y Hour: %H:%M:%S %p'), inline=False)
+        gc= 0
+        bc = 0
+        for member in ctx.guild.members:
+            if member.bot == False:
+                gc += 1
+            else:
+                bc+=1    
+        embed.add_field(name="Total Member Count",value = f"The total headcount in this server is {ctx.guild.member_count}", inline=False)
+        embed.add_field(name="Member Count",value = f"There are a total of {gc} members in this server", inline=False)
+        embed.add_field(name="Bot Count",value = f"There are a total of {bc} bots in this server",inline=False)
         await ctx.send(embed=embed)         
+    
+    @bot.command()
+    async def userinfo(ctx,member:discord.Member=None):
+        if member == None:
+            member = ctx.message.author
+        roles = [role for role in member.roles]
+        embed=discord.Embed(title=f"***User Information***",color = discord.Colour.purple(),timestamp = ctx.message.created_at)   
+        embed.add_field(name = "Name",value = member,inline=False) 
+        embed.add_field(name = "ID",value = member.id,inline=False) 
+        embed.add_field(name = "Nickname",value = member.display_name,inline=False)
+        embed.add_field(name = "Status",value = member.status,inline=False)
+        embed.add_field(name = "Created At",value = member.created_at.strftime("Day: %d/%m/%Y Hour: %H:%M:%S %p"),inline=False)
+        embed.add_field(name = "Joined At",value = member.joined_at.strftime("Day: %d/%m/%Y Hour: %H:%M:%S %p"),inline=False) 
+        embed.add_field(name = f" Total Roles ({len(roles)})",value = " ".join([role.mention for role in roles])) 
+        embed.set_thumbnail(url = member.avatar.url)
+        await ctx.send(embed=embed)
+
+
 
     @bot.command()
     async def choose(ctx, *choices: str):
@@ -452,7 +511,7 @@ def main():
             await ctx.send(embed=embed)
                         
         
-                            
+    bot.help_command = MyHelp()
     bot.run(token)
     
     

@@ -15,7 +15,6 @@ from typing import List
 import googletrans
 from googletrans import Translator
 
-
 def main():
     load_dotenv()
 
@@ -44,8 +43,8 @@ def main():
         async def send_bot_help(self, mapping):
             embed = discord.Embed(title="Help", description = "Bot Commands ",color = discord.Colour.purple())
             embed.add_field(name="User Commands", value = "avatar (also a slash command) \nguild_avatar (also a slash command) \nbanner (also a slash command)\nserverinfo (also a slash command)\nuserinfo (also a slash command)",inline=False)
-            embed.add_field(name="Fun Commands",value = "choose \nsay(also a slash command /say) \nrepeat \ntruthordare (also a slash command) \nwould you rather (also a slash command) \nparanoia questions (also a slash command) \nnever have i ever(also a slash command) \ntranslator(also a slash command)\ntranslating (translates from one language to the given other language)", inline=False)
-            embed.add_field(name= "Interaction Command", value = "block, bonk, ,cheer, choke, cope, cry, crying, eating, fight, fuck, hug, judge, kill, kiss, laugh, love, marry, missing, nom, pat, ,pillowfight, pinch, punch, realkiss, sit, slap, spit, ,threaten, tickle, vibe, wave",inline=False)
+            embed.add_field(name="Fun Commands",value = "choose \nsay(also a slash command /say) \nrepeat \ntruthordare (only a slash command) \nwould you rather (only a slash command) \nparanoia questions (only a slash command) \nnever have i ever(only a slash command) \ntranslator(also a slash command)\ntranslating (translates from one language to the given other language)", inline=False)
+            embed.add_field(name= "Interaction Command", value = "block, bonk, ,cheer, choke, cope, cry, crying, eating, fight, fuck, hug, judge, kill, kiss, laugh, love, marry, missing, nom, pat, ,pillowfight, pinch, punch, realkiss, sit, slap, spank, spit, stfu,threaten, tickle, vibe, wave",inline=False)
             await self.context.send(embed=embed)           
              
             
@@ -276,7 +275,7 @@ def main():
         if choices.value == "dare":
             r = requests.get("https://api.truthordarebot.xyz/v1/dare")
             res = r.json()
-            await interaction.response.send_message(f"{interaction.user.mention} dared {user.mention} {res['question']}")
+            await interaction.response.send_message(f"{interaction.user.mention} dared {user.mention} {res['question']}")      
 
     @bot.tree.command(name="wouldyourather")
     async def wouldyourather(interaction,user:discord.Member = None):
@@ -361,7 +360,23 @@ def main():
             "https://media.discordapp.net/attachments/1045618243013984296/1046363449267068998/Bear_Angry_GIF_-_Bear_Angry_Kiss_-_Discover__Share_GIFs.gif",
             "https://media.discordapp.net/attachments/1045618243013984296/1046363449611005962/Smoochie_Smooches_Sticker_-_Smoochie_Smooches_Kisses_-_Discover__Share_GIFs.gif",
             "https://media.discordapp.net/attachments/1045618243013984296/1046363449908789258/Animated_Kiss_Gif_Images.gif",
-            "https://media.discordapp.net/attachments/1045618243013984296/1046363450244341800/Milk_And_Mocha_Bear_Kiss_GIF_-_Milk_And_Mocha_Bear_Kiss_-_Discover__Share_GIFs.gif"
+            "https://media.discordapp.net/attachments/1045618243013984296/1046363450244341800/Milk_And_Mocha_Bear_Kiss_GIF_-_Milk_And_Mocha_Bear_Kiss_-_Discover__Share_GIFs.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047164877652902001/kissing-you.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047164878449815592/kiss-hugekiss.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047164886813253704/kiss-anime.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047164887966695557/lumity-lumity-kiss.gif?width=545&height=606",
+            "https://media.discordapp.net/attachments/949680123479728146/1047164897470992424/cute-choobs.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047165170251743242/kiss.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047165170964779008/love-cute.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047165564025577512/lovestruck-kiss.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047165569339756554/beijo-cartoon.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047165580215590942/kiss-rabbit.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047165582765735936/koi-to-uso-kiss.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047165586343473233/kiss_1.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047165587215896666/kiss-sephiroth.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047165612880834600/mickey-mouse-minnie-mouse.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047165866124509194/fuuka-naruto.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047165870511755294/kiss-lovers.gif"
         ]
         embed=discord.Embed(title=f"{ctx.author.name} has kissed {user.name}",color = discord.Colour.purple())
         randomgif = random.choice(randomgifs)
@@ -438,7 +453,25 @@ def main():
             "https://media.discordapp.net/attachments/1045618243013984296/1046476789318430801/download_2.gif?width=606&height=606",
             "https://media.discordapp.net/attachments/1045618243013984296/1046476790807412896/download_1.gif",
             "https://media.discordapp.net/attachments/1045618243013984296/1046476790522183690/Animated_Love_GIF_-_Animated_Love_Hug_-_Discover__Share_GIFs.gif",
-            "https://media.discordapp.net/attachments/1045618243013984296/1046476790140514355/Hugging_Cat_GIF_-_Hugging_Cat_Couples_-_Discover__Share_GIFs.gif"
+            "https://media.discordapp.net/attachments/1045618243013984296/1046476790140514355/Hugging_Cat_GIF_-_Hugging_Cat_Couples_-_Discover__Share_GIFs.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047167473687986227/cartoon-hug.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047167475281842276/hug.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047167478041690273/hug-cartoon.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047167478939258971/love-jumping.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047167573298520147/puuung-love.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047167585294237696/sushichaeng-adventure-time.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047167589513707530/tonari-no-kaibutsu-kun-my-little-monster.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047167592625881128/hug_1.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047167594903376004/hug_2.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047167612309749770/hug-cute.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047167673139732540/hug-kiss.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047167993685233715/bluey-bandit.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047168005047590942/miraculous-ladybug-lukanette.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047168012861571163/dnd-cartoon-dnd.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047168013046128692/ninjala-van.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047168015126503505/love-cartoon.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047168071388909638/kiyoi-mizushima_1.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047168075386060820/despicable-me-minions.gif"
         ]
         embed=discord.Embed(title=f"{ctx.author.name} hugs {user.name}",color = discord.Colour.purple())
         randomgif = random.choice(randomgifs)
@@ -463,14 +496,31 @@ def main():
             "https://media.discordapp.net/attachments/1045618240900050954/1046157205617004594/cute-love.gif",
             "https://media.discordapp.net/attachments/1045618240900050954/1046157189548609546/WindingShorttermAfricanharrierhawk-size_restricted.gif",
             "https://media.discordapp.net/attachments/1045618240900050954/1046157176118456441/bunny-rabbit.gif",
-            "https://media.discordapp.net/attachments/1045618243013984296/1046363448302379068/Muddu_Love_Sticker_-_Muddu_Love_Heart_-_Discover__Share_GIFs.gif"
+            "https://media.discordapp.net/attachments/1045618243013984296/1046363448302379068/Muddu_Love_Sticker_-_Muddu_Love_Heart_-_Discover__Share_GIFs.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047171901522456576/love-kiss.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047171906714996836/mocha-mucha.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047171906840830043/milk-and-mocha-bears.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047171912603799653/love-hug.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047171919474069645/good-night-love-you.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047171931113271356/relajamiento-y-amor-love.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047172271678169138/love-you.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047172280960155699/love.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047172283376087150/emote.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047172288031752232/milk-and-mocha-bears_1.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047172307036160000/love-rabbit.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047172384316198943/donald-love.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047172387264811099/animated-cute.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047172392352493609/cartoon-heart.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047172395561140266/feelings-love.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047172402955702423/duck-cute.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047174325544943637/sending-love.gif"
         ]
         embed=discord.Embed(title=f"{ctx.author.name} sends love to {user.name}",color = discord.Colour.purple())
         randomgif = random.choice(randomgifs)
         embed.set_image(url = randomgif)
         await ctx.send(embed=embed)
 
-    @bot.command(aliases=["Missing"])
+    @bot.command(aliases=["Missing","miss","Miss"])
     async def missing(ctx,user:discord.Member=None):
         if user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
@@ -486,12 +536,31 @@ def main():
             "https://media.discordapp.net/attachments/1045618240900050954/1046155628684525698/dog-triste.gif",
             "https://media.discordapp.net/attachments/1045618240900050954/1046155851494326372/i-miss-you-so-much-i-miss-you.gif",
             "https://media.discordapp.net/attachments/1045618240900050954/1046155978267164692/SjOp.gif",
-            "https://media.discordapp.net/attachments/1045618240900050954/1046156399069102090/i-miss-you-bear-crying-d9eflc3t9immbccm.gif"
+            "https://media.discordapp.net/attachments/1045618240900050954/1046156399069102090/i-miss-you-bear-crying-d9eflc3t9immbccm.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047173771200577637/love-you_1.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047173775235489802/sanrio-hello-kitty.gif0",
+            "https://media.discordapp.net/attachments/949680123479728146/1047173778838409226/hello-kitty.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047173782168670279/goodnight-miss.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047173918257053797/miss.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047173924800167986/missing-you.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047173927128027156/miss-you.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047174320750874704/cat-i-love-you.gif?width=424&height=606",
+            "https://media.discordapp.net/attachments/949680123479728146/1047174325393948732/love-cute.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047174335372218388/love-languages-miss-you.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047174609700659321/i-miss-you.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047174611323846766/miss-you-pikachu.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047174612007530546/missing.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047174617703403660/dino-i-miss-you.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047174629762023494/i-miss-you-anya.gif?width=606&height=606",
+            "https://media.discordapp.net/attachments/949680123479728146/1047174904262443098/rascal-miss-you.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047174905260675113/spongebob-patrick-star.gif",
+            "https://media.discordapp.net/attachments/949680123479728146/1047174906309255188/fatcatzcouple-fluffy.gif"
         ]
         embed=discord.Embed(title=f"{ctx.author.name} is missing {user.name}",color = discord.Colour.purple())
         randomgif = random.choice(randomgifs)
         embed.set_image(url = randomgif)
         await ctx.send(embed=embed)  
+
     @bot.command(aliases=["Tickle","Tick"])
     async def tickle(ctx,user:discord.Member=None):
         if user == None:
@@ -509,7 +578,30 @@ def main():
             "https://media.discordapp.net/attachments/1045618240900050954/1046154459635527710/6VniMLU.gif",
             "https://media.discordapp.net/attachments/1045618240900050954/1046154782680813578/aaaaaaaahahahah-tickling-is-awesome.gif",
             "https://media.discordapp.net/attachments/1045618240900050954/1046154913308221540/371fa72fcc90fc98902266fa258718c3.gif",
-            "https://media.discordapp.net/attachments/1045618240900050954/1046155310815002654/butt-tickles.gif"
+            "https://media.discordapp.net/attachments/1045618240900050954/1046155310815002654/butt-tickles.gif",
+            "https://media.discordapp.net/attachments/949680123479728147/1047176779347001374/ticklepickle-tummytickle.gif",
+            "https://media.discordapp.net/attachments/949680123479728147/1047176783394517032/free-ikuya-kirishima.gif",
+            "https://media.discordapp.net/attachments/949680123479728147/1047176793913827349/date-a-live-date-a-live-iv.gif",
+            "https://media.discordapp.net/attachments/949680123479728147/1047176798355603476/elmo-tickle.gif",
+            "https://media.discordapp.net/attachments/949680123479728147/1047176799743922297/tickling-feet-tickle.gif",
+            "https://media.discordapp.net/attachments/949680123479728147/1047176813962600568/tickle-laugh.gif",
+            "https://media.discordapp.net/attachments/949680123479728147/1047176825408864418/emolga-picochilla.gif",
+            "https://media.discordapp.net/attachments/949680123479728147/1047177105420591145/aum-animation-studio-andy-pirki.gif",
+            "https://media.discordapp.net/attachments/949680123479728147/1047177108968964206/tickle-tickling.gif",
+            "https://media.discordapp.net/attachments/949680123479728147/1047177112819355669/minccino-pokemon.gif",
+            "https://media.discordapp.net/attachments/949680123479728147/1047177123628060743/peter-griffin-family-guy.gif",
+            "https://media.discordapp.net/attachments/949680123479728147/1047177128011108372/xiyo-xiyo-kitty.gif?width=426&height=606",
+            "https://media.discordapp.net/attachments/949680123479728147/1047177569381912667/digimon-digimon-adventure02.gif",
+            "https://media.discordapp.net/attachments/949680123479728147/1047177570057191465/little-bear.gif",
+            "https://media.discordapp.net/attachments/949680123479728147/1047177576180887593/otter-tickle.gif",
+            "https://media.discordapp.net/attachments/949680123479728147/1047177577913126953/tickling-tickle.gif",
+            "https://media.discordapp.net/attachments/949680123479728147/1047177580148707429/ijiranaide-nagatoro-nagataro.gif",
+            "https://media.discordapp.net/attachments/949680123479728147/1047177832146665482/cyndaquil-misty.gif",
+            "https://media.discordapp.net/attachments/949680123479728147/1047177837154684968/kiliti-paningning.gif",
+            "https://media.discordapp.net/attachments/949680123479728147/1047177842296893440/caturday-crazy.gif?width=341&height=607",
+            "https://media.discordapp.net/attachments/949680123479728147/1047177854917562508/ojamajo-doremi-ojamajo.gif",
+            "https://media.discordapp.net/attachments/949680123479728147/1047177861422911508/tickle-laugh_1.gif",
+            "https://media.discordapp.net/attachments/949680123479728147/1047177874207162388/stop-stop-that.gif"
         ]
         embed=discord.Embed(title=f"{ctx.author.name} is tickling {user.name} ! hehe",color = discord.Colour.purple())
         randomgif = random.choice(randomgifs)
@@ -529,7 +621,23 @@ def main():
             "https://media.discordapp.net/attachments/1045618240900050954/1046353997621108806/OnlyDisloyalHare-size_restricted.gif",
             "https://media.discordapp.net/attachments/1045618240900050954/1046354474748362762/GrouchyCleverGreatdane-size_restricted.gif",
             "https://media.discordapp.net/attachments/1045618240900050954/1046354573641658418/hasbulla-magomedov-hasbulla.gif",
-            "https://media.discordapp.net/attachments/1045618240900050954/1046354595431067648/giphy.gif"
+            "https://media.discordapp.net/attachments/1045618240900050954/1046354595431067648/giphy.gif",
+            "https://media.discordapp.net/attachments/949680123479728147/1047180140267970621/tom-and-jerry-spit.gif",
+            "https://media.discordapp.net/attachments/949680123479728147/1047180142608404510/hasbulla-magomedov-hasbulla.gif",
+            "https://media.discordapp.net/attachments/949680123479728147/1047180149214433300/spit-anime.gif",
+            "https://media.discordapp.net/attachments/949680123479728147/1047180153681358868/spit-water-mavis.gif",
+            "https://media.discordapp.net/attachments/949680123479728147/1047180157326209094/spit.gif",
+            "https://media.discordapp.net/attachments/949680123479728147/1047180159196864592/magicriddle-themagicriddle.gif",
+            "https://media.discordapp.net/attachments/949680123479728147/1047180513430995014/clayton-osterhues-reegan-layer.gif?width=606&height=606",
+            "https://media.discordapp.net/attachments/949680123479728147/1047180516287332402/the-rock-spit.gif",
+            "https://media.discordapp.net/attachments/949680123479728147/1047180517394632734/blowing-jp.gif",
+            "https://media.discordapp.net/attachments/949680123479728147/1047180524449443910/spit-spitting.gif",
+            "https://media.discordapp.net/attachments/949680123479728147/1047180525158285463/peepo-spit.gif?width=626&height=607",
+            "https://media.discordapp.net/attachments/949680123479728147/1047180525967790151/funny-smile.gif?width=341&height=607",
+            "https://media.discordapp.net/attachments/949680123479728147/1047180882647187557/anime-milk-spit.gif",
+            "https://media.discordapp.net/attachments/949680123479728147/1047180884236849232/ninjala-ninjala-anime.gif",
+            "https://media.discordapp.net/attachments/949680123479728147/1047180888968020118/spit-takes.gif",
+            "https://media.discordapp.net/attachments/949680123479728147/1047180894131191889/anime-spit.gif"
         ]
         embed=discord.Embed(title=f"{ctx.author.name} is spitting on {user.name} !",color = discord.Colour.purple())
         randomgif = random.choice(randomgifs)
@@ -554,7 +662,15 @@ def main():
             "https://media.discordapp.net/attachments/1045618243013984296/1046474541683183616/RigidDimpledAmericanpainthorse-max-1mb.gif"
             "https://media.discordapp.net/attachments/1045618243013984296/1046476115088252928/Capoo_Bugcat_Sticker_-_Capoo_Bugcat_Blue_-_Discover__Share_GIFs.gif",
             "https://media.discordapp.net/attachments/1045618243013984296/1046476116929556520/Anime_Cry_GIF_-_Anime_Cry_Crying_-_Discover__Share_GIFs.gif",
-            "https://media.discordapp.net/attachments/1045618243013984296/1046476117697101926/Cat_Cry_Sticker_-_Cat_Cry_Meme_-_Discover__Share_GIFs.gif"
+            "https://media.discordapp.net/attachments/1045618243013984296/1046476117697101926/Cat_Cry_Sticker_-_Cat_Cry_Meme_-_Discover__Share_GIFs.gif",
+            "https://media.tenor.com/hLgZBJ7RjzYAAAAi/cute-dog.gif",
+            "https://media.tenor.com/ba50GB33iE4AAAAd/baby-crying-crying-baby.gif",
+            "https://media.tenor.com/UIXwsWt9n9cAAAAd/crying-girl-crying.gif",
+            "https://media.tenor.com/Q9MAbF6w__QAAAAC/spy-x-family-anya-cry.gif",
+            "https://media.tenor.com/dpMo4mGQqisAAAAd/sakura-yamauchi-crying-anime-girl.gif",
+            "https://media.tenor.com/Dn5rWga89nQAAAAd/woman-crying-crying.gif",
+            "https://media.tenor.com/AkwsdClClm4AAAAd/james-team-rocket.gif",
+            "https://media.tenor.com/5I5gZD2WPX8AAAAC/crying-cry.gif"
 
         ]
         embed=discord.Embed(title=f"{user.name} made {ctx.author.name} cry! Truly a monster",color = discord.Colour.purple())
@@ -566,6 +682,11 @@ def main():
     async def crying(ctx):
         
         randomgifs = [
+            "https://media.tenor.com/lzDMeUaMEvkAAAAd/jmthjk.gif",
+            "https://media.tenor.com/bMTwfdlrXJMAAAAd/crying-sad.gif",
+            "https://media.tenor.com/zAahgvyStyUAAAAC/angry-baby-baby.gif",
+            "https://media.tenor.com/TYSqB4d-uvoAAAAi/cute-crying.gif",
+            "https://media.tenor.com/oSDgPLREcwQAAAAd/ousama-ranking-bojji.gif",
             "https://media.discordapp.net/attachments/1045618240900050954/1046357237255372840/Kuromi_Crying_GIF_-_Kuromi_Crying_Onegai_My_Melody_-_Discover__Share_GIFs.gif",
             "https://media.discordapp.net/attachments/1045618240900050954/1046357237599309824/Anime_Cry_GIF_-_Anime_Cry_Crying_-_Discover__Share_GIFs.gif",
             "https://media.discordapp.net/attachments/1045618240900050954/1046357237876138014/Emoji_Crying_GIF_-_Emoji_Crying_-_Discover__Share_GIFs.gif",
@@ -596,7 +717,17 @@ def main():
             "https://media.discordapp.net/attachments/1045618240900050954/1046357754522107975/Choke_Love_GIF_-_Choke_Love_-_Discover__Share_GIFs.gif",
             "https://media.discordapp.net/attachments/1045618243013984296/1046475535770976326/Anime_Choke_GIF_-_Anime_Choke_Hug_-_Discover__Share_GIFs.gif",
             "https://media.discordapp.net/attachments/1045618243013984296/1046475536521773147/Margot_Robbie_Choke_GIF_-_Margot_Robbie_Choke_Joker_-_Discover__Share_GIFs.gif",
-            "https://media.discordapp.net/attachments/1045618243013984296/1046475536916025454/gif.gif"
+            "https://media.discordapp.net/attachments/1045618243013984296/1046475536916025454/gif.gif",
+            "https://media.tenor.com/MAyctLUTrwQAAAAi/axie-infinity-axie.gif",
+            "https://media.tenor.com/-Q91GHdD5d8AAAAC/choke-the.gif",
+            "https://media.tenor.com/PiFqVBIspFYAAAAC/anime-choke.gif",
+            "https://media.tenor.com/CzFhk3N8pcEAAAAC/angry-anime-choke.gif",
+            "https://media.tenor.com/YR-Mxu6SE6sAAAAC/mitskidiamandis-homer.gif",
+            "https://media.tenor.com/sg3WsigaMEcAAAAd/choke.gif",
+            "https://media.tenor.com/_o0Y5AXQPYMAAAAd/choke-cekek.gif",
+            "https://media.tenor.com/wFlSXwp_VE4AAAAC/choked-hurt.gif",
+            "https://media.tenor.com/0fr2YNH7HAEAAAAC/sml-junior.gif",
+            "https://media.tenor.com/9jQlNTyZJDkAAAAd/peaches-chokehold.gif"
         ]
         embed=discord.Embed(title=f"{ctx.author.name} is choking {user.name} hard!!",color = discord.Colour.purple())
         randomgif = random.choice(randomgifs)
@@ -1007,7 +1138,109 @@ def main():
         embed.add_field(name= "Aftermath",value=f"{user.name} is very scared now and won't be able to log in again")
         randomgif = random.choice(randomgifs)
         embed.set_image(url = randomgif)
-        await ctx.send(embed=embed)            
+        await ctx.send(embed=embed) 
+
+    @bot.command(aliases=["Spank","SPANK","spanking","Spanking"])
+    async def spank(ctx,user:discord.Member=None):
+        if user == None:
+            humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
+            user = random.choice(humans)
+        if user.id == ctx.author.id:
+            await ctx.send("Bro atleast find someone to do an interaction with ")
+            return
+        randomgifs = [
+            "https://media.tenor.com/xRq5_v71Gc0AAAAC/mochi-cat-spanking.gif",
+            "https://media.tenor.com/B2uwAzBjCVIAAAAC/mad-tom-and-jerry.gif",
+            "https://media.tenor.com/q4gfw2sfTiwAAAAC/bubu-spank.gif"
+            "https://media.tenor.com/qFPN3DN38EQAAAAC/momonofu-hololive.gif",
+            "https://media.tenor.com/ThVjkORaVm4AAAAC/planktoons-plankie.gif",
+            "https://media.tenor.com/IsatImqfv9cAAAAC/looney-tunes-foghorn-leghorn.gif",
+            "https://media.tenor.com/tqULzMukOsoAAAAd/moti-spanks.gif",
+            "https://media.tenor.com/BuNcNGQ22DsAAAAC/batman-beyond-deedee.gif",
+            "https://media.tenor.com/E9Bbq5HfJxEAAAAC/cartoon-spamking-clock.gif",
+            "https://media.tenor.com/7xhgL0ckmH4AAAAd/wake-up.gif"
+
+            ]
+        
+        embed=discord.Embed(title=f"{ctx.author.name} is spanking {user.name} !",color = discord.Colour.purple())
+        randomgif = random.choice(randomgifs)
+        embed.set_image(url = randomgif)
+        await ctx.send(embed=embed)   
+
+    @bot.command(aliases=["STFU","shut","shutup","Shut"])
+    async def stfu(ctx,user:discord.Member=None):
+        if user.id==530824411759116288:
+            randomgifs = [
+            "https://media.tenor.com/mBFdHahC7SwAAAAd/lmao-stfu.gif",
+            "https://media.tenor.com/8HCiYkHSLWgAAAAd/stfu.gif",
+            "https://media.tenor.com/jmEeIVgFhjQAAAAC/stfu-shut-up.gif",
+            "https://media.tenor.com/2pgy64Sh5wYAAAAd/stfu-punching-stfu-gif.gif",
+            "https://media.tenor.com/KKS3hJ33_sUAAAAC/stfu.gif",
+            "https://media.tenor.com/QDuyGHlwjr4AAAAd/stfu.gif",
+            "https://media.tenor.com/P_hk6dBzWUcAAAAC/stfu-can-you-stfu.gif",
+            "https://media.tenor.com/_vBlPe9UqrEAAAAC/plastic-chair-plastic-knife.gif",
+            "https://media.tenor.com/4__-628PgsUAAAAd/snoop-dogg-rapper.gif",
+            "https://media.tenor.com/rqY-hzlUJokAAAAC/shut-up.gif",
+            "https://media.tenor.com/kE818ge-WMcAAAAd/stfulmfao.gif",
+            "https://media.tenor.com/TIvSjriG5k8AAAAC/stfu-discord.gif",
+            "https://media.tenor.com/9XOxc5bL3ikAAAAC/stfu-pls.gif",
+            "https://media.tenor.com/_c-tBlx1g0sAAAAd/nobody-care.gif",
+            "https://media.tenor.com/6GhnldRykacAAAAd/charley3-stfu.gif",
+            "https://media.tenor.com/DNsCIM3ExTkAAAAC/stfu-shut-up.gif",
+            "https://media.tenor.com/br56Ph5l_moAAAAd/idc-stfu.gif",
+            "https://media.tenor.com/wGYP0T-roIoAAAAC/grackles-shut-the-fuck-up.gif",
+            "https://media.tenor.com/b69Hw9iU3IgAAAAC/chemmanna-chemmanna-stfu.gif",
+            "https://media.tenor.com/dzYLz0zrtrgAAAAC/shut-up-just.gif",
+            "https://media.tenor.com/I2x1XSezVDcAAAAC/chandler-bing-shut-up.gif",
+            "https://media.tenor.com/82m9RQSFWboAAAAd/shutupangry.gif",
+            "https://media.tenor.com/pHJlCcfg3LQAAAAC/penny-how-bout-you-stfu.gif",
+            "https://media.tenor.com/JUpxZb-3DiAAAAAC/shut-up.gif",
+            "https://media.tenor.com/edyHKYbvAiAAAAAC/ronald-mcdonald.gif"
+            ]
+            embed=discord.Embed(title=f"{ctx.author.name} How about you STFU instead !",color = discord.Colour.purple())
+            randomgif = random.choice(randomgifs)
+            embed.set_image(url = randomgif)
+            await ctx.send(embed=embed)                    
+
+        if user == None:
+            humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot and m.id != 530824411759116288]
+            user = random.choice(humans)
+        if user.id == ctx.author.id:
+            await ctx.send("Bro atleast find someone to do an interaction with ")
+            return
+        randomgifs = [
+            "https://media.tenor.com/mBFdHahC7SwAAAAd/lmao-stfu.gif",
+            "https://media.tenor.com/8HCiYkHSLWgAAAAd/stfu.gif",
+            "https://media.tenor.com/jmEeIVgFhjQAAAAC/stfu-shut-up.gif",
+            "https://media.tenor.com/2pgy64Sh5wYAAAAd/stfu-punching-stfu-gif.gif",
+            "https://media.tenor.com/KKS3hJ33_sUAAAAC/stfu.gif",
+            "https://media.tenor.com/QDuyGHlwjr4AAAAd/stfu.gif",
+            "https://media.tenor.com/P_hk6dBzWUcAAAAC/stfu-can-you-stfu.gif",
+            "https://media.tenor.com/_vBlPe9UqrEAAAAC/plastic-chair-plastic-knife.gif",
+            "https://media.tenor.com/4__-628PgsUAAAAd/snoop-dogg-rapper.gif",
+            "https://media.tenor.com/rqY-hzlUJokAAAAC/shut-up.gif",
+            "https://media.tenor.com/kE818ge-WMcAAAAd/stfulmfao.gif",
+            "https://media.tenor.com/TIvSjriG5k8AAAAC/stfu-discord.gif",
+            "https://media.tenor.com/9XOxc5bL3ikAAAAC/stfu-pls.gif",
+            "https://media.tenor.com/_c-tBlx1g0sAAAAd/nobody-care.gif",
+            "https://media.tenor.com/6GhnldRykacAAAAd/charley3-stfu.gif",
+            "https://media.tenor.com/DNsCIM3ExTkAAAAC/stfu-shut-up.gif",
+            "https://media.tenor.com/br56Ph5l_moAAAAd/idc-stfu.gif",
+            "https://media.tenor.com/wGYP0T-roIoAAAAC/grackles-shut-the-fuck-up.gif",
+            "https://media.tenor.com/b69Hw9iU3IgAAAAC/chemmanna-chemmanna-stfu.gif",
+            "https://media.tenor.com/dzYLz0zrtrgAAAAC/shut-up-just.gif",
+            "https://media.tenor.com/I2x1XSezVDcAAAAC/chandler-bing-shut-up.gif",
+            "https://media.tenor.com/82m9RQSFWboAAAAd/shutupangry.gif",
+            "https://media.tenor.com/pHJlCcfg3LQAAAAC/penny-how-bout-you-stfu.gif",
+            "https://media.tenor.com/JUpxZb-3DiAAAAAC/shut-up.gif",
+            "https://media.tenor.com/edyHKYbvAiAAAAAC/ronald-mcdonald.gif"
+
+            ]
+        
+        embed=discord.Embed(title=f"{ctx.author.name} is telling {user.name} to STFU !",color = discord.Colour.purple())
+        randomgif = random.choice(randomgifs)
+        embed.set_image(url = randomgif)
+        await ctx.send(embed=embed)                    
 
 
     bot.help_command = MyHelp()

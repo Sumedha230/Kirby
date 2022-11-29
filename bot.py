@@ -12,6 +12,7 @@ from discord.ext.commands import has_permissions,CheckFailure
 import requests
 from discord import app_commands
 from typing import List
+import googletrans
 from googletrans import Translator
 
 

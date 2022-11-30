@@ -276,7 +276,6 @@ def main():
             view.add_item(button)
             view.add_item(button2)
             await interaction.response.send_message(embed=em,view=view)
-        button2 = Button(label="Dare",style=discord.ButtonStyle.primary)
         async def button2_callback(interaction):
             r = requests.get("https://api.truthordarebot.xyz/v1/dare")
             res = r.json()
@@ -284,7 +283,7 @@ def main():
             button2.callback = button2_callback   
             button = Button(label="Truth",style=discord.ButtonStyle.primary)
             button.callback = button_callback
-            em = discord.Embed(title="Truth Question",description = f"{res['question']}",color = discord.Colour.purple())
+            em = discord.Embed(title="Dare",description = f"{res['question']}",color = discord.Colour.purple())
             view = View()
             view.add_item(button)
             view.add_item(button2)
@@ -315,7 +314,7 @@ def main():
             view = View()
             view.add_item(button)
             view.add_item(button2)
-            em = discord.Embed(title="Truth Question",description = f"{res['question']}",color = discord.Colour.purple())
+            em = discord.Embed(title="Dare",description = f"{res['question']}",color = discord.Colour.purple())
             view = View()
             view.add_item(button)
             view.add_item(button2)

@@ -42,6 +42,7 @@ def main():
     class MyHelp(commands.HelpCommand):
         async def send_bot_help(self, mapping):
             embed = discord.Embed(title="Help", description = "Bot Commands ",color = discord.Colour.purple())
+            embed.add_field(name="Moderation Commands",value="kick(also a slash command), warn, ban")
             embed.add_field(name="User Commands", value = "avatar (also a slash command) \nguild_avatar (also a slash command) \nbanner (also a slash command)\nserverinfo (also a slash command)\nuserinfo (also a slash command)",inline=False)
             embed.add_field(name="Fun Commands",value = "choose \nsay(also a slash command /say) \nrepeat \ntruthordare (only a slash command) \nwould you rather (only a slash command) \nparanoia questions (only a slash command) \nnever have i ever(only a slash command) \ntranslator(also a slash command)\ntranslating (translates from one language to the given other language)", inline=False)
             embed.add_field(name= "Interaction Command", value = "block, bonk, ,cheer, choke, cope, cry, crying, eating, fight, fuck, hug, judge, kill, kiss, laugh, love, marry, missing, nom, pat, ,pillowfight, pinch, punch, realkiss, sit, slap, spank, spit, stfu,threaten, tickle, vibe, wave",inline=False)
@@ -302,20 +303,64 @@ def main():
         r = requests.get("https://api.truthordarebot.xyz/api/nhie")
         res = r.json()
         await interaction.response.send_message(f"{interaction.user.mention} - {res['question']}") 
+    
+    @bot.command(aliases=["Warn"])
+    @bot_has_guild_permissions(kick_members=True)
+    @bot_has_guild_permissions(manage_messages=True)
+    async def warn(ctx,user:discord.Member=None,*,reason:str=None):
+        if user.id == ctx.author.id:
+            await ctx.send(f" Don't be an idiot, warn yourself in private")
+        elif user.guild_permissions.administrator:
+            em = discord.Embed(title="Admin can't be warned",description=f"{user.mention} is an admin so don't try again {ctx.author.mention}",color = discord.Colour.purple())
+            await ctx.send(embed=em)
+        elif ctx.author.guild_permissions.kick_members==False or ctx.author.guild_permissions.manage_messages==False:
+            await ctx.send("You dont have the permission to warn anyone")  
+        else:
+            if reason != None:
+                em = discord.Embed(title="Warned",description=f"{user.mention} wass warned by {ctx.author.mention} for {reason}",color = discord.Colour.purple())
+            else:
+                em = discord.Embed(title="Warned",description=f"{user.mention} was warned by {ctx.author.mention} for no reason",color = discord.Colour.purple())     
+            if reason != None:
+                await user.send(f" You were warned in {ctx.guild.name} for {reason} by {ctx.author.name}")
+            else:
+                await user.send(f" You were warned in {ctx.guild.name} by {ctx.author.name}")
+            await ctx.send(embed=em)  
+
+    @bot.tree.command(name="warn")
+    @bot_has_guild_permissions(kick_members=True)
+    @bot_has_guild_permissions(manage_messages=True)
+    async def kick(interaction, user:discord.Member=None,*,reason:str=None):
+        if user.id == interaction.user.id:
+            await interaction.response.send_message(f" Don't be an idiot, warn yourself in private")
+        elif user.guild_permissions.administrator:
+            em = discord.Embed(title="Admin can't be warned",description=f"{user.mention} is an admin so don't try again {interaction.user.mention}",color = discord.Colour.purple())
+            await interaction.response.send_message(embed=em)
+        elif interaction.user.guild_permissions.kick_members==False:
+            await interaction.response.send_message("You dont have the permission to warn")
+        else:
+            if reason != None:
+                em = discord.Embed(title="Warned",description=f"{user.mention} was warned by {interaction.user.mention} for {reason}",color = discord.Colour.purple())
+            else:
+                em = discord.Embed(title="Warned",description=f"{user.mention} was warned by {interaction.user.mention}",color = discord.Colour.purple())     
+            if reason != None:
+                await user.send(f" You were warned in {interaction.guild.name} for {reason} by {interaction.user.name}")
+            else:
+                await user.send(f" You were warned in {interaction.guild.name} by {interaction.user.name}")
+            await interaction.response.send_message(embed=em) 
 
     @bot.command(aliases=["Kick"])
     @bot_has_guild_permissions(kick_members=True)
     async def kick(ctx, user:discord.Member=None,*,reason:str=None):
         if user.guild_permissions.administrator:
-            em = discord.Embed(title="Admin can't be kicked",description=f"{user.mention} is an admin so don't try again {ctx.author.mention}")
+            em = discord.Embed(title="Admin can't be kicked",description=f"{user.mention} is an admin so don't try again {ctx.author.mention}",color = discord.Colour.purple())
             await ctx.send(embed=em)
         elif ctx.author.guild_permissions.kick_members==False:
             await ctx.send("You dont have the permission to kick")
         else:
             if reason != None:
-                em = discord.Embed(title="Kicked",description=f"{user.mention} was kicked by {ctx.author.mention} because {reason}")
+                em = discord.Embed(title="Kicked",description=f"{user.mention} was kicked by {ctx.author.mention} because {reason}",color = discord.Colour.purple())
             else:
-                em = discord.Embed(title="Kicked",description=f"{user.mention} was kicked by {ctx.author.mention}")     
+                em = discord.Embed(title="Kicked",description=f"{user.mention} was kicked by {ctx.author.mention}",color = discord.Colour.purple())     
             await user.kick(reason=reason)
             await ctx.send(embed=em)      
 
@@ -323,15 +368,15 @@ def main():
     @bot_has_guild_permissions(kick_members=True)
     async def kick(interaction, user:discord.Member=None,*,reason:str=None):
         if user.guild_permissions.administrator:
-            em = discord.Embed(title="Admin can't be kicked",description=f"{user.mention} is an admin so don't try again {interaction.user.mention}")
+            em = discord.Embed(title="Admin can't be kicked",description=f"{user.mention} is an admin so don't try again {interaction.user.mention}",color = discord.Colour.purple())
             await interaction.response.send_message(embed=em)
         elif interaction.user.guild_permissions.kick_members==False:
             await interaction.response.send_message("You dont have the permission to kick")
         else:
             if reason != None:
-                em = discord.Embed(title="Kicked",description=f"{user.mention} was kicked by {interaction.user.mention} because {reason}")
+                em = discord.Embed(title="Kicked",description=f"{user.mention} was kicked by {interaction.user.mention} because {reason}",color = discord.Colour.purple())
             else:
-                em = discord.Embed(title="Kicked",description=f"{user.mention} was kicked by {interaction.user.mention}")     
+                em = discord.Embed(title="Kicked",description=f"{user.mention} was kicked by {interaction.user.mention}",color = discord.Colour.purple())     
             await user.kick(reason=reason)
             await interaction.response.send_message(embed=em) 
 

@@ -44,10 +44,10 @@ def main():
     class MyHelp(commands.HelpCommand):
         async def send_bot_help(self, mapping):
             embed = discord.Embed(title="Help", description = "Bot Commands ",color = discord.Colour.purple())
-            embed.add_field(name="Moderation Commands",value="kick(also a slash command), warn, ban")
+            embed.add_field(name="Moderation Commands",value="kick(also a slash command), warn(also a slash command)")
             embed.add_field(name="User Commands", value = "avatar (also a slash command) \nguild_avatar (also a slash command) \nbanner (also a slash command)\nserverinfo (also a slash command)\nuserinfo (also a slash command)",inline=False)
-            embed.add_field(name="Fun Commands",value = "choose \nsay(also a slash command /say) \nrepeat \ntruthordare (only a slash command) \nwould you rather (only a slash command) \nparanoia questions (only a slash command) \nnever have i ever(only a slash command) \ntranslator(also a slash command)\ntranslating (translates from one language to the given other language)", inline=False)
-            embed.add_field(name= "Interaction Command", value = "block, bonk, ,cheer, choke, cope, cry, crying, eating, fight, fuck, hug, judge, kill, kiss, laugh, love, marry, missing, nom, pat, ,pillowfight, pinch, punch, realkiss, sit, slap, spank, spit, stfu,threaten, tickle, vibe, wave",inline=False)
+            embed.add_field(name="Fun Commands",value = "choose \nsay(also a slash command /say) \nrepeat \ntruthordare (also a slash command) \nwould you rather (also a slash command) \nparanoia questions (also a slash command) \nnever have i ever(also a slash command) \ntranslator(also a slash command)\ntranslating (translates from one language to the given other language)", inline=False)
+            embed.add_field(name= "Interaction Command", value = "block, bonk, ,cheer, choke, cope, cry, crying, eating, fight, fuck, hug, judge, kill, kiss, laugh, liar, love, marry, missing, nom, pat, ,pillowfight, pinch, punch, realkiss, sit, slap, spank, spit, stfu,threaten, tickle, vibe, wave",inline=False)
             await self.context.send(embed=embed)           
     
     @bot.tree.command(name="dice")
@@ -505,7 +505,7 @@ def main():
     @bot.tree.command(name="warn")
     @bot_has_guild_permissions(kick_members=True)
     @bot_has_guild_permissions(manage_messages=True)
-    async def kick(interaction, user:discord.Member=None,*,reason:str=None):
+    async def warn(interaction, user:discord.Member=None,*,reason:str=None):
         if user.id == interaction.user.id:
             await interaction.response.send_message(f" Don't be an idiot, warn yourself in private")
         elif user.guild_permissions.administrator:
@@ -1496,7 +1496,63 @@ def main():
         randomgif = random.choice(randomgifs)
         embed.set_image(url = randomgif)
         await ctx.send(embed=embed)                    
-
+    
+    @bot.command(aliases=["lie","Lie","Liar","LIAR"])
+    async def liar(ctx,user:discord.Member=None):
+        if user == None:
+            humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
+            user = random.choice(humans)
+        if user.id == ctx.author.id:
+            await ctx.send("Bro atleast find someone to do an interaction with ")
+            return
+        randomgifs = [
+            "https://media.tenor.com/lEmpYF98RJMAAAAC/joker-liar-liar.gif",
+            "https://media.tenor.com/zPMz7FtaEGoAAAAd/you-know-you-lying.gif",
+            "https://media.tenor.com/mBebRanGR0IAAAAd/zootopia-you-liar.gif",
+            "https://media.tenor.com/nbGzicBmHW0AAAAC/amanchabukswar.gif",
+            "https://media.tenor.com/ZZi-EEsk_X8AAAAC/liar-mad.gif",
+            "https://media.tenor.com/4fNbw8ZolPwAAAAC/stop-lying-why-you-always-lying.gif",
+            "https://media.tenor.com/FxZKX1VySIgAAAAd/lying-why-you-always-lying.gif",
+            "https://media.tenor.com/upA200Y35LEAAAAd/nope-thas-a-lie-thasa-lie.gif",
+            "https://media.tenor.com/7v9jzDMWnz4AAAAC/rickey-smiley-thats-a-fucking-lie.gif",
+            "https://media.tenor.com/oZrRoDQDXZ4AAAAC/anakin-liar.gif",
+            "https://media.tenor.com/RcqfIAjFt5wAAAAC/spongebob-squarepants-patrick-star.gif",
+            "https://media.tenor.com/Ixkt-65LcSAAAAAC/khloe-kardashian-liar.gif",
+            "https://media.tenor.com/yXbIThapEjEAAAAC/the-simpsons-bender.gif",
+            "https://media.tenor.com/RN_ZCtgVAP0AAAAC/we-know-youre-lying-tiffany-wallace.gif",
+            "https://media.tenor.com/OPpHy63ti7sAAAAd/you-think-i-dont-know-what-a-lying-man-looks-like-marianne-jean-baptiste.gif",
+            "https://media.tenor.com/eWBBzvu8uLsAAAAC/now-i-know-what-it-looks-like-when-you-lie-tallinn.gif",
+            "https://media.tenor.com/tDxmO-ZJTRQAAAAC/telling-lies-oh-really.gif",
+            "https://media.tenor.com/aeWIy-mPwMIAAAAd/you-lie-funny-animals.gif",
+            "https://media.tenor.com/KC64tt5FIbsAAAAC/lie-zim.gif",
+            "https://media.tenor.com/_a0jQcBtX8QAAAAC/you-lie-stranger-things.gif",
+            "https://media.tenor.com/TlaGwI1L-TEAAAAC/marriedtomed-married-to-medicine.gif",
+            "https://media.tenor.com/nJYAj-fbk0sAAAAC/disguised-toast-toast-liar.gif",
+            "https://media.tenor.com/K1kMp4W47mAAAAAC/youre-a-liar-priscilla-owens.gif",
+            "https://media.tenor.com/QmtmQsP7UZIAAAAC/youre-a-liar-kevin-hart.gif",
+            "https://media.tenor.com/7cJrVoOHBSQAAAAC/youre-a-liar-nadia-vulvokov.gif",
+            "https://media.tenor.com/rZkbqOMk9zYAAAAd/youre-a-freakin-liar-lies.gif",
+            "https://media.tenor.com/OzAUohohRksAAAAC/youre-a-freaking-liar-freaking-liar.gif",
+            "https://media.tenor.com/UzNVGKAJgcwAAAAC/you-are-a-liar-steven-grant.gif",
+            "https://media.tenor.com/Cs9ySzxxH1UAAAAC/you-are-such-a-liar-thats-not-true.gif",
+            "https://media.tenor.com/47d7uhOyke8AAAAC/youre-such-a-liar-lies.gif",
+            "https://media.tenor.com/kYa8KucQUysAAAAd/liar-freaking-liar.gif",
+            "https://media.tenor.com/fUJOdchNgp0AAAAC/liar-captain-spock.gif",
+            "https://media.tenor.com/P0KAKqaWsPoAAAAC/real-housewives-real.gif",
+            "https://media.tenor.com/lKi031Ys4pgAAAAd/shark-tale-oh-youre-a-liar.gif",
+            "https://media.tenor.com/Y-BxTt_zLRwAAAAC/youre-a-liar-eric-cartman.gif",
+            "https://media.tenor.com/QhMeBH8SuTIAAAAd/lying-liar.gif",
+            "https://media.tenor.com/oU8o8DPW9X8AAAAC/eyes-puss-in-boots.gif",
+            "https://media.tenor.com/U7RGcgYK8SIAAAAC/frank-accuse.gif",
+            "https://media.tenor.com/FnsxpY-ydboAAAAd/lying-liar.gif",
+            "https://media.tenor.com/xd-_VjSWOE0AAAAC/critical-bard-cb.gif",
+            "https://media.tenor.com/nPTwMqBAxDoAAAAC/ellen-shade.gif",          
+        ]
+        
+        embed=discord.Embed(title=f"{ctx.author.name} is calling {user.name} a liar !",color = discord.Colour.purple())
+        randomgif = random.choice(randomgifs)
+        embed.set_image(url = randomgif)
+        await ctx.send(embed=embed)   
 
     bot.help_command = MyHelp()
     bot.run(token)

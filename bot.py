@@ -8,7 +8,7 @@ from discord import app_commands
 import random
 from random import choice
 from discord import interactions
-from discord.ext.commands import has_permissions,CheckFailure
+from discord.ext.commands import has_permissions,bot_has_guild_permissions,CheckFailure,BadArgument
 import requests
 from discord import app_commands
 from typing import List
@@ -302,7 +302,41 @@ def main():
         r = requests.get("https://api.truthordarebot.xyz/api/nhie")
         res = r.json()
         await interaction.response.send_message(f"{interaction.user.mention} - {res['question']}") 
-                      
+
+    @bot.command(aliases=["Kick"])
+    @bot_has_guild_permissions(kick_members=True)
+    async def kick(ctx, user:discord.Member=None,*,reason:str=None):
+        if user.guild_permissions.administrator:
+            em = discord.Embed(title="Admin can't be kicked",description=f"{user.mention} is an admin so don't try again {ctx.author.mention}")
+            await ctx.send(embed=em)
+        elif ctx.author.guild_permissions.kick_members==False:
+            await ctx.send("You dont have the permission to kick")
+        else:
+            if reason != None:
+                em = discord.Embed(title="Kicked",description=f"{user.mention} was kicked by {ctx.author.mention} because {reason}")
+            else:
+                em = discord.Embed(title="Kicked",description=f"{user.mention} was kicked by {ctx.author.mention}")     
+            await user.kick(reason=reason)
+            await ctx.send(embed=em)      
+
+    @bot.tree.command(name="kick")
+    @bot_has_guild_permissions(kick_members=True)
+    async def kick(interaction, user:discord.Member=None,*,reason:str=None):
+        if user.guild_permissions.administrator:
+            em = discord.Embed(title="Admin can't be kicked",description=f"{user.mention} is an admin so don't try again {interaction.user.mention}")
+            await interaction.response.send_message(embed=em)
+        elif interaction.user.guild_permissions.kick_members==False:
+            await interaction.response.send_message("You dont have the permission to kick")
+        else:
+            if reason != None:
+                em = discord.Embed(title="Kicked",description=f"{user.mention} was kicked by {interaction.user.mention} because {reason}")
+            else:
+                em = discord.Embed(title="Kicked",description=f"{user.mention} was kicked by {interaction.user.mention}")     
+            await user.kick(reason=reason)
+            await interaction.response.send_message(embed=em) 
+
+
+
     @bot.command(aliases=["Slap"])
     async def slap(ctx,user:discord.Member=None):
         if user == None:

@@ -14,6 +14,8 @@ from discord import app_commands
 from typing import List
 import googletrans
 from googletrans import Translator
+import discord.ui
+from discord.ui import Button,View
 
 def main():
     load_dotenv()
@@ -47,16 +49,13 @@ def main():
             embed.add_field(name="Fun Commands",value = "choose \nsay(also a slash command /say) \nrepeat \ntruthordare (only a slash command) \nwould you rather (only a slash command) \nparanoia questions (only a slash command) \nnever have i ever(only a slash command) \ntranslator(also a slash command)\ntranslating (translates from one language to the given other language)", inline=False)
             embed.add_field(name= "Interaction Command", value = "block, bonk, ,cheer, choke, cope, cry, crying, eating, fight, fuck, hug, judge, kill, kiss, laugh, love, marry, missing, nom, pat, ,pillowfight, pinch, punch, realkiss, sit, slap, spank, spit, stfu,threaten, tickle, vibe, wave",inline=False)
             await self.context.send(embed=embed)           
-             
-            
-
+    
     @bot.tree.command(name="dice")
     async def dice(interaction:discord.Interaction,num:int):
         if num==6 or num==12:
             await interaction.response.send_message(f"{random.randint(1,int(num))}")       
         else:
             await interaction.response.send_message("Invalid Choice = Choose between 6 or 12")    
-
 
 
     @bot.tree.command(name="say")
@@ -264,20 +263,100 @@ def main():
     app_commands.Choice(name="Truth", value="truth"),
     app_commands.Choice(name="Dare", value="dare"),
     ])
-    async def tord(interaction,choices: app_commands.Choice[str],user:discord.Member = None):
-        if user == None:
-            humans = [m for m in interaction.guild.members if m != interaction.user and not m.bot]
-            user = random.choice(humans)
+    async def tord(interaction,choices: app_commands.Choice[str]):
+        async def button_callback(interaction):
+            r = requests.get("https://api.truthordarebot.xyz/v1/truth")
+            res = r.json()
+            em = discord.Embed(title="Truth Question",description = f"{res['question']}",color = discord.Colour.purple())
+            button = Button(label="Truth",style=discord.ButtonStyle.primary)
+            button.callback = button_callback
+            button2 = Button(label="Dare",style=discord.ButtonStyle.primary)
+            button2.callback = button2_callback  
+            view = View()
+            view.add_item(button)
+            view.add_item(button2)
+            await interaction.response.send_message(embed=em,view=view)
+        button2 = Button(label="Dare",style=discord.ButtonStyle.primary)
+        async def button2_callback(interaction):
+            r = requests.get("https://api.truthordarebot.xyz/v1/dare")
+            res = r.json()
+            button2 = Button(label="Dare",style=discord.ButtonStyle.primary)
+            button2.callback = button2_callback   
+            button = Button(label="Truth",style=discord.ButtonStyle.primary)
+            button.callback = button_callback
+            em = discord.Embed(title="Truth Question",description = f"{res['question']}",color = discord.Colour.purple())
+            view = View()
+            view.add_item(button)
+            view.add_item(button2)
+            await interaction.response.send_message(embed=em,view=view)    
         if choices.value == "truth":
             r = requests.get("https://api.truthordarebot.xyz/v1/truth")
             res = r.json()
-            await interaction.response.send_message(f"{interaction.user.mention} asked {user.mention} {res['question']}")
+            button = Button(label="Truth",style=discord.ButtonStyle.primary)
+            button.callback = button_callback
+            button2 = Button(label="Dare",style=discord.ButtonStyle.primary)
+            button2.callback = button2_callback  
+            view = View()
+            view.add_item(button)
+            view.add_item(button2)
+            em = discord.Embed(title="Truth Question",description = f"{res['question']}",color = discord.Colour.purple())
+            view = View()
+            view.add_item(button)
+            view.add_item(button2)
+            await interaction.response.send_message(embed=em,view=view)
 
         if choices.value == "dare":
             r = requests.get("https://api.truthordarebot.xyz/v1/dare")
             res = r.json()
-            await interaction.response.send_message(f"{interaction.user.mention} dared {user.mention} {res['question']}")      
-
+            button = Button(label="Truth",style=discord.ButtonStyle.primary)
+            button.callback = button_callback
+            button2 = Button(label="Dare",style=discord.ButtonStyle.primary)
+            button2.callback = button2_callback  
+            view = View()
+            view.add_item(button)
+            view.add_item(button2)
+            em = discord.Embed(title="Truth Question",description = f"{res['question']}",color = discord.Colour.purple())
+            view = View()
+            view.add_item(button)
+            view.add_item(button2)
+            await interaction.response.send_message(embed=em,view=view)    
+    
+    @bot.command(aliases=["Truth","truth","Dare","dare"])
+    async def tord(ctx):
+        button = Button(label="Truth",style=discord.ButtonStyle.primary)
+        async def button_callback(interaction):
+            r = requests.get("https://api.truthordarebot.xyz/v1/truth")
+            res = r.json()
+            em = discord.Embed(title="Truth Question",description = f"{res['question']}",color = discord.Colour.purple())
+            button = Button(label="Truth",style=discord.ButtonStyle.primary)
+            button.callback = button_callback
+            button2 = Button(label="Dare",style=discord.ButtonStyle.primary)
+            button2.callback = button2_callback  
+            view = View()
+            view.add_item(button)
+            view.add_item(button2)
+            await interaction.response.send_message(embed=em,view=view)
+        button.callback = button_callback    
+        button2 = Button(label="Dare",style=discord.ButtonStyle.primary)
+        async def button2_callback(interaction):
+            r = requests.get("https://api.truthordarebot.xyz/v1/dare")
+            res = r.json()
+            button2 = Button(label="Dare",style=discord.ButtonStyle.primary)
+            button2.callback = button2_callback   
+            button = Button(label="Truth",style=discord.ButtonStyle.primary)
+            button.callback = button_callback
+            em = discord.Embed(title="Truth Question",description = f"{res['question']}",color = discord.Colour.purple())
+            view = View()
+            view.add_item(button)
+            view.add_item(button2)
+            await interaction.response.send_message(embed=em,view=view)
+        button2.callback = button2_callback      
+        view = View()
+        view.add_item(button)
+        view.add_item(button2)
+        em = discord.Embed(title="Truth or Dare",description = f"Choose either a Truth or a Dare",color = discord.Colour.purple())
+        await ctx.send(embed=em,view=view)    
+    
     @bot.tree.command(name="wouldyourather")
     async def wouldyourather(interaction,user:discord.Member = None):
         if user == None:

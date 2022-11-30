@@ -16,6 +16,7 @@ import googletrans
 from googletrans import Translator
 import discord.ui
 from discord.ui import Button,View
+import afk
 
 def main():
     load_dotenv()
@@ -25,6 +26,10 @@ def main():
     intents.members = True
 
     bot = commands.Bot(intents= intents, command_prefix= ["k!","K!"] , description='Cute Kirby!',activity = discord.Game(name="Super Smash Bros"))
+    
+    cogs = [afk]
+    for i in range(len(cogs)):
+        cogs[i].setup(bot)
 
     @bot.event
     async def on_ready():
@@ -40,7 +45,7 @@ def main():
         """Checks for a response from the bot"""
         await ctx.send("Pong")   
     
-
+    
     class MyHelp(commands.HelpCommand):
         async def send_bot_help(self, mapping):
             embed = discord.Embed(title="Help", description = "Bot Commands ",color = discord.Colour.purple())

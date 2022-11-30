@@ -25,11 +25,7 @@ def main():
     intents = discord.Intents.all()
     intents.members = True
 
-    bot = commands.Bot(intents= intents, command_prefix= ["k!","K!"] , description='Cute Kirby!',activity = discord.Game(name="Super Smash Bros"))
-    
-    cogs = [afk]
-    for i in range(len(cogs)):
-        cogs[i].setup(bot)
+    bot = commands.Bot(intents= intents, command_prefix= ["k!","K!"] , description='Cute Kirby!',activity = discord.Game(name="Super Smash Bros"))         
 
     @bot.event
     async def on_ready():
@@ -45,14 +41,13 @@ def main():
         """Checks for a response from the bot"""
         await ctx.send("Pong")   
     
-    
     class MyHelp(commands.HelpCommand):
         async def send_bot_help(self, mapping):
             embed = discord.Embed(title="Help", description = "Bot Commands ",color = discord.Colour.purple())
             embed.add_field(name="Moderation Commands",value="kick(also a slash command), warn(also a slash command)")
             embed.add_field(name="User Commands", value = "avatar (also a slash command) \nguild_avatar (also a slash command) \nbanner (also a slash command)\nserverinfo (also a slash command)\nuserinfo (also a slash command)",inline=False)
             embed.add_field(name="Fun Commands",value = "choose \nsay(also a slash command /say) \nrepeat \ntruthordare (also a slash command) \nwould you rather (also a slash command) \nparanoia questions (also a slash command) \nnever have i ever(also a slash command) \ntranslator(also a slash command)\ntranslating (translates from one language to the given other language)", inline=False)
-            embed.add_field(name= "Interaction Command", value = "block, bonk, ,cheer, choke, cope, cry, crying, eating, fight, fuck, hug, judge, kill, kiss, laugh, liar, love, marry, missing, nom, pat, ,pillowfight, pinch, punch, realkiss, sit, slap, spank, spit, stfu,threaten, tickle, vibe, wave",inline=False)
+            embed.add_field(name= "Interaction Command", value = "block, bonk, ,cheer, choke, cope, cry, crying, eating, fight, fuck, hug, judge, kill, kiss, laugh, liar, love, marry, missing, nom, pat, pillowfight, pinch, pray, punch, realkiss, salute, sit, slap, spank, spit, stfu,threaten, tickle, vibe, wave",inline=False)
             await self.context.send(embed=embed)           
     
     @bot.tree.command(name="dice")
@@ -1558,6 +1553,82 @@ def main():
         randomgif = random.choice(randomgifs)
         embed.set_image(url = randomgif)
         await ctx.send(embed=embed)   
+    
+    @bot.command(aliases=["Pray","praying","Praying"])
+    async def pray(ctx):
+        randomgifs= [
+            "https://media.tenor.com/KTp9sgkLjzoAAAAC/jerry-the-mouse-tom-and-jerry.gif",
+            "https://media.tenor.com/4IckGuTqWeYAAAAC/spongebob-squarepants-begging.gif",
+            "https://media.tenor.com/TX04b7YAOl8AAAAd/please-please-god.gif",
+            "https://media.tenor.com/DmOiqA-m5nAAAAAC/mushoku-tensei-rudeus.gif",
+            "https://media.tenor.com/Yt5E0AQEPX8AAAAd/shirley-temple-praying.gif",
+            "https://media.tenor.com/rwGUhTSCrL8AAAAd/takagi-san-takagi.gif",
+            "https://media.tenor.com/qz1oO99DcK0AAAAd/wendy-praying-son-seungwan-praying.gif",
+            "https://media.tenor.com/0FRabKRmgjAAAAAd/seungwan-youngstreet-son-seungwan-praying.gif",
+            "https://media.tenor.com/GUV6HplSs7MAAAAC/loeya-pray.gif",
+            "https://media.tenor.com/q--Ww86G0MoAAAAd/genshin-genshin-impact.gif",
+            "https://media.tenor.com/g15Z-NkoKjsAAAAC/praying-prayer.gif",
+            "https://media.tenor.com/K20UM-dZC4oAAAAd/lets-pray-pray.gif",
+            "https://media.tenor.com/iZ6u-jpcKDIAAAAC/marie-mai-mariemai-news.gif",
+            "https://media.tenor.com/tMtfOLuBZDUAAAAC/praying-hands-gucci-mane.gif",
+            "https://media.tenor.com/1JJngkJOI3IAAAAC/hangouts-pray.gif",
+            "https://media.tenor.com/js1RCj9wG1cAAAAC/ic0niclisa-praying.gif",
+            "https://media.tenor.com/XsW48MrsCpwAAAAd/praying-prayers.gif",
+            "https://media.tenor.com/WhgPx2O1I-QAAAAd/pray-praying.gif",
+            "https://media.tenor.com/CyK_xV5Q3lkAAAAC/jiminjimin-jimin.gif",
+            "https://media.tenor.com/YEwRtiurLiwAAAAd/yurina-yurina-meme.gif",
+            "https://media.tenor.com/uI-iiI3Wnh8AAAAC/kejsi-pray.gif",
+            "https://media.tenor.com/14pcWHa4-S4AAAAC/ryujin-cat.gif",
+            "https://media.tenor.com/_E3TnFTI8ZkAAAAC/porfa-porfa-remix.gif",
+            
+        ]    
+        embed=discord.Embed(title=f"{ctx.author.name} is praying",color = discord.Colour.purple())
+        randomgif = random.choice(randomgifs)
+        embed.set_image(url = randomgif)
+        await ctx.send(embed=embed)       
+    
+    @bot.command(aliases=["Salute","saluting","Saluting"])
+    async def salute(ctx,user:discord.Member=None):
+        if user == None:
+            humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
+            user = random.choice(humans)
+        if user.id == ctx.author.id:
+            await ctx.send("Bro atleast find someone to do an interaction with ")
+            return
+        randomgifs=[
+            "https://media.tenor.com/LdAr7ZnMsaMAAAAd/yes-sir-yes-boss.gif",
+            "https://media.tenor.com/RXhoHZGn0NIAAAAC/jack-black-yes.gif",
+            "https://media.tenor.com/0mggmptfog0AAAAC/hai-salute.gif",
+            "https://media.tenor.com/d2X7R2oF2UYAAAAC/glorij-salute.gif",
+            "https://media.tenor.com/I6BxzCDGRnkAAAAd/partybear-salute.gif",
+            "https://media.tenor.com/GgmPs3PcUukAAAAC/okey-dokey-donald-duck.gif",
+            "https://media.tenor.com/lHf6NVXAjqEAAAAC/homelander-salute.gif",
+            "https://media.tenor.com/fj1bulyAUywAAAAd/salute-burt-lancaster.gif",
+            "https://media.tenor.com/T7C4Ty-ETacAAAAC/america-captain-america.gif",
+            "https://media.tenor.com/G7bV2qO98-sAAAAd/salute.gif",
+            "https://media.tenor.com/1zepSl-gLoEAAAAC/officer-doofy-salute.gif",
+            "https://media.tenor.com/WvYDxpcx6aEAAAAC/salute-military.gif",
+            "https://media.tenor.com/VHKnmSrUnNwAAAAC/salute-bet.gif",
+            "https://media.tenor.com/5H3pUTkK7eoAAAAC/johnny-depp-pirate.gif",
+            "https://media.tenor.com/zMu9xwYsx2YAAAAd/vei-veibae.gif",
+            "https://media.tenor.com/CDClB-mqD7sAAAAC/tom-and-jerry-tom-salute.gif",
+            "https://media.tenor.com/k9tz0ltJYEIAAAAC/aimoto-rinku-d4dj-first-mix.gif",
+            "https://media.tenor.com/28rhz0kPBmMAAAAC/youjo-senki-salute.gif",
+            "https://media.tenor.com/R4NwWNfQ-jYAAAAC/hans-solo-salute.gif",
+            "https://media.tenor.com/Fk57yabSTC0AAAAC/captain-america-salute.gif",
+            "https://media.tenor.com/1kyq1SUWxQMAAAAC/salute-military.gif",
+            "https://media.tenor.com/LLuVXeEPbh0AAAAC/super-meat-boy-meat-boy.gif",
+            "https://media.tenor.com/RHlHtJC2STsAAAAC/katharine-hepburn.gif",
+            "https://media.tenor.com/whzCBaPdjkgAAAAC/salute-team.gif",
+            "https://media.tenor.com/xo490p7FtOYAAAAC/salute-good-bye.gif",
+            "https://media.tenor.com/b-rNht0eLhIAAAAC/anime-girl-salute.gif",
+            "https://media.tenor.com/aB4XAyZND3UAAAAC/salute-armin.gif",
+            "https://media.tenor.com/M4KkAflIrnwAAAAC/power-rangers-megaforce-two-finger-salute.gif"
+        ]
+        embed=discord.Embed(title=f"{ctx.author.name} is saluting {user.name} !",color = discord.Colour.purple())
+        randomgif = random.choice(randomgifs)
+        embed.set_image(url = randomgif)
+        await ctx.send(embed=embed)  
 
     bot.help_command = MyHelp()
     bot.run(token)

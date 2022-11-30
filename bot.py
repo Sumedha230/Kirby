@@ -276,6 +276,7 @@ def main():
             view.add_item(button)
             view.add_item(button2)
             await interaction.response.send_message(embed=em,view=view)
+        button2 = Button(label="Dare",style=discord.ButtonStyle.primary)
         async def button2_callback(interaction):
             r = requests.get("https://api.truthordarebot.xyz/v1/dare")
             res = r.json()
@@ -283,7 +284,7 @@ def main():
             button2.callback = button2_callback   
             button = Button(label="Truth",style=discord.ButtonStyle.primary)
             button.callback = button_callback
-            em = discord.Embed(title="Dare",description = f"{res['question']}",color = discord.Colour.purple())
+            em = discord.Embed(title="Truth Question",description = f"{res['question']}",color = discord.Colour.purple())
             view = View()
             view.add_item(button)
             view.add_item(button2)
@@ -314,7 +315,7 @@ def main():
             view = View()
             view.add_item(button)
             view.add_item(button2)
-            em = discord.Embed(title="Dare",description = f"{res['question']}",color = discord.Colour.purple())
+            em = discord.Embed(title="Truth Question",description = f"{res['question']}",color = discord.Colour.purple())
             view = View()
             view.add_item(button)
             view.add_item(button2)
@@ -357,30 +358,127 @@ def main():
         await ctx.send(embed=em,view=view)    
     
     @bot.tree.command(name="wouldyourather")
-    async def wouldyourather(interaction,user:discord.Member = None):
-        if user == None:
-            humans = [m for m in interaction.guild.members if m != interaction.user and not m.bot]
-            user = random.choice(humans)
-        
+    async def wouldyourather(interaction):
+        async def button_callback(interaction):
+            r = requests.get("https://api.truthordarebot.xyz/api/wyr")
+            res = r.json()
+            em = discord.Embed(title="Would You Rather Question",description = f"{res['question']}",color = discord.Colour.purple())
+            button = Button(label="Would You Rather",style=discord.ButtonStyle.primary)
+            button.callback = button_callback     
+            view = View()
+            view.add_item(button)
+            await interaction.response.send_message(embed=em,view=view)
+        button = Button(label="Would You Rather",style=discord.ButtonStyle.primary)
+        button.callback = button_callback      
+        view = View()
+        view.add_item(button)    
         r = requests.get("https://api.truthordarebot.xyz/api/wyr")
         res = r.json()
-        await interaction.response.send_message(f"{interaction.user.mention} asked {user.mention} {res['question']}") 
+        em = discord.Embed(title="Would You Rather Question",description = f"{res['question']}",color = discord.Colour.purple())
+        await interaction.response.send_message(embed=em,view=view) 
+
+    @bot.command(aliases=["Would","wouldyourather"])
+    async def wyr(ctx):
+        async def button_callback(interaction):
+            r = requests.get("https://api.truthordarebot.xyz/api/wyr")
+            res = r.json()
+            em = discord.Embed(title="Would You Rather Question",description = f"{res['question']}",color = discord.Colour.purple())
+            button = Button(label="Would You Rather",style=discord.ButtonStyle.primary)
+            button.callback = button_callback     
+            view = View()
+            view.add_item(button)
+            await interaction.response.send_message(embed=em,view=view)
+        button = Button(label="Would You Rather",style=discord.ButtonStyle.primary)
+        button.callback = button_callback      
+        view = View()
+        view.add_item(button)    
+        r = requests.get("https://api.truthordarebot.xyz/api/wyr")
+        res = r.json()
+        em = discord.Embed(title="Would You Rather Question",description = f"{res['question']}",color = discord.Colour.purple())
+        await ctx.send(embed=em,view=view)    
+
 
     @bot.tree.command(name="paranoia_question")
-    async def paranoia(interaction,user:discord.Member = None):
-        if user == None:
-            humans = [m for m in interaction.guild.members if m != interaction.user and not m.bot]
-            user = random.choice(humans)
-        
+    async def paranoia(interaction):
+        async def button_callback(interaction):
+            r = requests.get("https://api.truthordarebot.xyz/api/paranoia")
+            res = r.json()
+            em = discord.Embed(title="Paranoia Question",description = f"{res['question']}",color = discord.Colour.purple())
+            button = Button(label="Paranoia",style=discord.ButtonStyle.primary)
+            button.callback = button_callback     
+            view = View()
+            view.add_item(button)
+            await interaction.response.send_message(embed=em,view=view)
+        button = Button(label="Paranoia",style=discord.ButtonStyle.primary)
+        button.callback = button_callback      
+        view = View()
+        view.add_item(button)    
         r = requests.get("https://api.truthordarebot.xyz/api/paranoia")
         res = r.json()
-        await interaction.response.send_message(f"{interaction.user.mention} asked {user.mention} {res['question']}")  
+        em = discord.Embed(title="Paranoia Question",description = f"{res['question']}",color = discord.Colour.purple())
+        await interaction.response.send_message(embed=em,view=view)
+    
+    @bot.command(aliases=["paranoia","para"])
+    async def par(ctx):
+        async def button_callback(interaction):
+            r = requests.get("https://api.truthordarebot.xyz/api/paranoia")
+            res = r.json()
+            em = discord.Embed(title="Paranoia Question",description = f"{res['question']}",color = discord.Colour.purple())
+            button = Button(label="Paranoia",style=discord.ButtonStyle.primary)
+            button.callback = button_callback     
+            view = View()
+            view.add_item(button)
+            await interaction.response.send_message(embed=em,view=view)
+        button = Button(label="Paranoia",style=discord.ButtonStyle.primary)
+        button.callback = button_callback      
+        view = View()
+        view.add_item(button)    
+        r = requests.get("https://api.truthordarebot.xyz/api/paranoia")
+        res = r.json()
+        em = discord.Embed(title="Paranoia Question",description = f"{res['question']}",color = discord.Colour.purple())
+        await ctx.send(embed=em,view=view)  
+
 
     @bot.tree.command(name="never_have_i_ever")
     async def nhiv(interaction):
+        async def button_callback(interaction):
+            r = requests.get("https://api.truthordarebot.xyz/api/nhie")
+            res = r.json()
+            em = discord.Embed(title="Never Have I Ever Question",description = f"{res['question']}",color = discord.Colour.purple())
+            button = Button(label="Never Have I Ever",style=discord.ButtonStyle.primary)
+            button.callback = button_callback     
+            view = View()
+            view.add_item(button)
+            await interaction.response.send_message(embed=em,view=view)
+        button = Button(label="Never Have I Ever",style=discord.ButtonStyle.primary)
+        button.callback = button_callback      
+        view = View()
+        view.add_item(button)     
         r = requests.get("https://api.truthordarebot.xyz/api/nhie")
         res = r.json()
-        await interaction.response.send_message(f"{interaction.user.mention} - {res['question']}") 
+        em = discord.Embed(title="Never Have I Ever Question",description = f"{res['question']}",color = discord.Colour.purple())
+        await interaction.response.send_message(embed=em,view=view)
+    
+    @bot.command(aliases=["never","neverhaveiever","nhiv"])
+    async def nhie(ctx):
+        async def button_callback(interaction):
+            r = requests.get("https://api.truthordarebot.xyz/api/nhie")
+            res = r.json()
+            em = discord.Embed(title="Never Have I Ever Question",description = f"{res['question']}",color = discord.Colour.purple())
+            button = Button(label="Never Have I Ever",style=discord.ButtonStyle.primary)
+            button.callback = button_callback     
+            view = View()
+            view.add_item(button)
+            await interaction.response.send_message(embed=em,view=view)
+        button = Button(label="Never Have I Ever",style=discord.ButtonStyle.primary)
+        button.callback = button_callback      
+        view = View()
+        view.add_item(button)    
+        r = requests.get("https://api.truthordarebot.xyz/api/nhie")
+        res = r.json()
+        em = discord.Embed(title="Never Have I Ever Question",description = f"{res['question']}",color = discord.Colour.purple())
+        await ctx.send(embed=em,view=view)  
+
     
     @bot.command(aliases=["Warn"])
     @bot_has_guild_permissions(kick_members=True)

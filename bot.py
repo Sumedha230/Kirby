@@ -1813,25 +1813,6 @@ def main():
             embed.set_image(url = randomgif)
             await ctx.send(embed=embed)
 
-    @bot.command(aliases=["fi","foot","canada"])
-    async def fifa(ctx):
-        randomgifs =[
-            "https://media.tenor.com/1NXu2o4U2UwAAAAd/twitch-canada-day.gif",
-            "https://media.tenor.com/b66NZvQbaDAAAAAd/canada-canadian-flag.gif",
-            "https://media.tenor.com/S3pLpeNrRbYAAAAd/cheering-canada.gif",
-            "https://media.tenor.com/Vn_K_EjUw-0AAAAd/canada-canadian-flag.gif",
-            "https://media.tenor.com/j2DkIT927XQAAAAC/canada.gif",
-            "https://media.tenor.com/s_2dA1RYGNcAAAAd/hurricane-canada.gif",
-            "https://media.tenor.com/xOQHyLK2FjkAAAAC/canada-nghedgehogs-gifs.gif",
-            "https://media.tenor.com/9Lbbn-fqa9oAAAAC/canada.gif",
-            "https://media.tenor.com/Pw3NaKmrGVAAAAAC/rob-balasabas-canada.gif",
-
-        ]
-        embed=discord.Embed(title=f"Canada will win TODAYYYYYYY!!!!!",color = discord.Colour.purple())    
-        randomgif = random.choice(randomgifs)
-        embed.set_image(url = randomgif)
-        await ctx.send(embed=embed)
-
     @bot.command(aliases=["figh"])
     async def fight(ctx,user:discord.Member=None):
         if user == None:

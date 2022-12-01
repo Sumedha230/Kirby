@@ -17,7 +17,6 @@ from googletrans import Translator
 import discord.ui
 from discord.ui import Button,View
 import afk
-import json
 
 def main():
     load_dotenv()
@@ -26,12 +25,9 @@ def main():
     intents = discord.Intents.all()
     intents.members = True
     
-    def get_prefix(bot,message):
-        with open('prefixes.json','r') as f:
-            prefixes = json.load(f)
-        return prefixes[str(message.guild.id)] 
+    
 
-    bot = commands.Bot(intents= intents, command_prefix= get_prefix , description='Cute Kirby!',activity = discord.Game(name="Super Smash Bros"))         
+    bot = commands.Bot(intents= intents, command_prefix= ["k!","K!",">"] , description='Cute Kirby!',activity = discord.Game(name="Super Smash Bros"))         
 
     @bot.event
     async def on_ready():
@@ -42,51 +38,10 @@ def main():
         except Exception as e:
             print(e)
     
-    @bot.event
-    async def on_guild_join(guild):
-        with open('prefixes.json','r') as f:
-            prefixes = json.load(f)
-        prefixes[str(guild.id)] = 'k!'
-
-        with open('prefixes.json','w') as f:
-            json.dump(prefixes,f,indent=4)         
-    @bot.event
-    async def on_guild_remove(guild):
-        with open('prefixes.json','r') as f:
-            prefixes = json.load(f)
-        prefixes.pop(str(guild.id))
-
-        with open('prefixes.json','w') as f:
-            json.dump(prefixes,f,indent=4)     
-
     @bot.command()
     async def ping(ctx):
         """Checks for a response from the bot"""
         await ctx.send("Pong")   
-    
-    @bot.command(aliases=["Prefixes","prefixes","Setprefix","sp"])
-    async def setprefix(ctx,prefixset=None):
-        if not ctx.author.guild_permissions.administrator:
-            await ctx.send("The command requires Administrator permissions")
-            return
-        if prefixset == None:
-            await ctx.send("Please give a prefix")    
-            return
-        with open('prefixes.json','r') as f:
-            prefixes = json.load(f)
-        prefixes[str(ctx.guild.id)] = prefixset
-
-        with open('prefixes.json','w') as f:
-            json.dump(prefixes,f,indent=4)       
-        await ctx.send(f"Prefix has been set to {prefixset}")
-
-    @bot.command()
-    async def prefix(ctx):
-        with open('prefixes.json','r') as f:
-            prefixes = json.load(f)
-        prefixset = prefixes[str(ctx.guild.id)]
-        await ctx.send(f"This bot has the prefix {prefixset}")
-
 
     class MyHelp(commands.HelpCommand):
         async def send_bot_help(self, mapping):

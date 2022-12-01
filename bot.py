@@ -17,6 +17,7 @@ from googletrans import Translator
 import discord.ui
 from discord.ui import Button,View
 import afk
+import json
 
 def main():
     load_dotenv()
@@ -24,8 +25,13 @@ def main():
     token = "MTA0Mzg1ODk0MDk5MzIyODgwMA.Gm_EjW.NqIKfa5fplbIlTHi1PPzOPHL3xWudW6sroqW5s"
     intents = discord.Intents.all()
     intents.members = True
+    
+    def get_prefix(bot,message):
+        with open('prefixes.json','r') as f:
+            prefixes = json.load(f)
+        return prefixes[str(message.guild.id)] 
 
-    bot = commands.Bot(intents= intents, command_prefix= ["k!","K!"] , description='Cute Kirby!',activity = discord.Game(name="Super Smash Bros"))         
+    bot = commands.Bot(intents= intents, command_prefix= get_prefix , description='Cute Kirby!',activity = discord.Game(name="Super Smash Bros"))         
 
     @bot.event
     async def on_ready():
@@ -35,19 +41,60 @@ def main():
             print(f"Synced {len(synced)} commands")
         except Exception as e:
             print(e)
+    
+    @bot.event
+    async def on_guild_join(guild):
+        with open('prefixes.json','r') as f:
+            prefixes = json.load(f)
+        prefixes[str(guild.id)] = 'k!'
+
+        with open('prefixes.json','w') as f:
+            json.dump(prefixes,f,indent=4)         
+    @bot.event
+    async def on_guild_remove(guild):
+        with open('prefixes.json','r') as f:
+            prefixes = json.load(f)
+        prefixes.pop(str(guild.id))
+
+        with open('prefixes.json','w') as f:
+            json.dump(prefixes,f,indent=4)     
 
     @bot.command()
     async def ping(ctx):
         """Checks for a response from the bot"""
         await ctx.send("Pong")   
     
+    @bot.command(aliases=["Prefixes","prefixes","Setprefix","sp"])
+    async def setprefix(ctx,prefixset=None):
+        if not ctx.author.guild_permissions.administrator:
+            await ctx.send("The command requires Administrator permissions")
+            return
+        if prefixset == None:
+            await ctx.send("Please give a prefix")    
+            return
+        with open('prefixes.json','r') as f:
+            prefixes = json.load(f)
+        prefixes[str(ctx.guild.id)] = prefixset
+
+        with open('prefixes.json','w') as f:
+            json.dump(prefixes,f,indent=4)       
+        await ctx.send(f"Prefix has been set to {prefixset}")
+
+    @bot.command()
+    async def prefix(ctx):
+        with open('prefixes.json','r') as f:
+            prefixes = json.load(f)
+        prefixset = prefixes[str(ctx.guild.id)]
+        await ctx.send(f"This bot has the prefix {prefixset}")
+
+
     class MyHelp(commands.HelpCommand):
         async def send_bot_help(self, mapping):
             embed = discord.Embed(title="Help", description = "Bot Commands ",color = discord.Colour.purple())
-            embed.add_field(name="Moderation Commands",value="kick(also a slash command), warn(also a slash command)")
+            embed.add_field(name="Moderation Commands",value="kick(also a slash command), ban, warn(also a slash command), clear/purge")
             embed.add_field(name="User Commands", value = "avatar (also a slash command) \nguild_avatar (also a slash command) \nbanner (also a slash command)\nserverinfo (also a slash command)\nuserinfo (also a slash command)",inline=False)
             embed.add_field(name="Fun Commands",value = "choose \nsay(also a slash command /say) \nrepeat \ntruthordare (also a slash command) \nwould you rather (also a slash command) \nparanoia questions (also a slash command) \nnever have i ever(also a slash command) \ntranslator(also a slash command)\ntranslating (translates from one language to the given other language)", inline=False)
-            embed.add_field(name= "Interaction Command", value = "block, bonk, ,cheer, choke, cope, cry, crying, eating, fight, fuck, hug, judge, kill, kiss, laugh, liar, love, marry, missing, nom, pat, pillowfight, pinch, pray, punch, realkiss, salute, sit, slap, spank, spit, stfu,threaten, tickle, vibe, wave",inline=False)
+            embed.add_field(name= "Interaction Command", value = "block, blush, bonk, ,cheer, choke, cope, cry, crying, eating, fight, fuck, highfive, hug, judge, kill, kiss, laugh, liar, love, marry, missing, nom, pat, pillowfight, pinch, pray, punch, realkiss, salute, sit, slap, spank, spit, stfu,threaten, tickle, vibe, wave",inline=False)
             await self.context.send(embed=embed)           
     
     @bot.tree.command(name="dice")
@@ -478,8 +525,25 @@ def main():
         res = r.json()
         em = discord.Embed(title="Never Have I Ever Question",description = f"{res['question']}",color = discord.Colour.purple())
         await ctx.send(embed=em,view=view)  
-
     
+    @bot.command(aliases=["purge","delete"])
+    @bot_has_guild_permissions(manage_messages=True)
+    async def clear(ctx,amt=1):
+        try:
+            if ctx.author.guild_permissions.manage_messages == False or ctx.author.guild_permissions.manage_messages == False:
+                await ctx.send("You don't have the required permissions")
+                return
+            amt +=1
+            if amt > 50:
+                await ctx.send("Can't delete more than 50")
+                return
+            else:
+                await ctx.channel.purge(limit=amt)
+                await ctx.send("Cleared Messages")
+                await ctx.channel.purge(limit=1)   
+        except:
+            await ctx.send("Bot does not have the permission for this command")         
+
     @bot.command(aliases=["Warn"])
     @bot_has_guild_permissions(kick_members=True)
     @bot_has_guild_permissions(manage_messages=True)
@@ -523,6 +587,24 @@ def main():
             else:
                 await user.send(f" You were warned in {interaction.guild.name} by {interaction.user.name}")
             await interaction.response.send_message(embed=em) 
+    
+    @bot.command(aliases=["Ban"])
+    @bot_has_guild_permissions(ban_members=True)
+    @bot_has_guild_permissions(administrator=True)
+    async def ban(ctx,user:discord.Member=None,*,reason:str=None):
+        if user.guild_permissions.administrator:
+            em = discord.Embed(title="Admin can't be banned",description=f"{user.mention} is an admin so don't try again {ctx.author.mention}",color = discord.Colour.purple())
+            await ctx.send(embed=em)
+        elif ctx.author.guild_permissions.ban_members==False:
+            await ctx.send("You dont have the permission to ban")
+        else:
+            if reason != None:
+                em = discord.Embed(title="Banned",description=f"{user.mention} was banned by {ctx.author.mention} because {reason}",color = discord.Colour.purple())
+            else:
+                em = discord.Embed(title="Banned",description=f"{user.mention} was banned by {ctx.author.mention}",color = discord.Colour.purple())     
+            await user.ban(reason=reason)
+            await ctx.send(embed=em)  
+            return
 
     @bot.command(aliases=["Kick"])
     @bot_has_guild_permissions(kick_members=True)
@@ -1580,7 +1662,7 @@ def main():
             "https://media.tenor.com/uI-iiI3Wnh8AAAAC/kejsi-pray.gif",
             "https://media.tenor.com/14pcWHa4-S4AAAAC/ryujin-cat.gif",
             "https://media.tenor.com/_E3TnFTI8ZkAAAAC/porfa-porfa-remix.gif",
-            
+
         ]    
         embed=discord.Embed(title=f"{ctx.author.name} is praying",color = discord.Colour.purple())
         randomgif = random.choice(randomgifs)
@@ -1629,6 +1711,152 @@ def main():
         randomgif = random.choice(randomgifs)
         embed.set_image(url = randomgif)
         await ctx.send(embed=embed)  
+    
+    @bot.command(aliases=["hf","Hf","highfiving"])
+    async def highfive(ctx,user:discord.Member=None):
+        if user == None:
+            humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
+            user = random.choice(humans)
+        if user.id == ctx.author.id:
+            await ctx.send("Bro atleast find someone to do an interaction with ")
+            return
+        randomgifs=[
+            "https://media.tenor.com/KX6_14fSo0YAAAAi/akirambow-smile-person.gif",
+            "https://media.tenor.com/TRSYCx4GnGoAAAAi/budding-pop-friends.gif",
+            "https://media.tenor.com/D4geDkAW9jgAAAAi/cat-paw.gif",
+            "https://media.tenor.com/zRQPetULV5kAAAAi/rascal-high-five.gif",
+            "https://media.tenor.com/PDom-Pt-DYAAAAAi/high-five-yay.gif",
+            "https://media.tenor.com/r322btJKK7EAAAAC/high-five-amy-santiago.gif",
+            "https://media.tenor.com/qy_WcGdRzfgAAAAC/xluna-high-five.gif",
+            "https://media.tenor.com/OR2z4Pkg45kAAAAC/high-five.gif",
+            "https://media.tenor.com/7skQ3peC1mEAAAAC/high-five.gif",
+            "https://media.tenor.com/5uzrkK8Pps0AAAAC/love-anniversary.gif",
+            "https://media.tenor.com/uHSWiu1Jk2MAAAAC/base-high-five.gif",
+            "https://media.tenor.com/EcTTHD9dnMUAAAAC/evan-and-katelyn-extreme-high-five.gif",
+            "https://media.tenor.com/UtMb32NBztEAAAAC/neil-patrick-harris-high-five.gif",
+            "https://media.tenor.com/gI49p3ZeN2AAAAAi/cool-blue-high-five.gif",
+            "https://media.tenor.com/x_Z1QD8mQecAAAAi/shi-ngao.gif",
+            "https://media.tenor.com/XlAB-tE7tMYAAAAi/hi5-high-five.gif",
+            "https://media.tenor.com/7nDIBPMdjSoAAAAC/gts-good-time-society.gif",
+            "https://media.tenor.com/fmDOIOVxfVoAAAAC/seth-meyers-late-night-seth.gif",
+            "https://media.tenor.com/mpCnVpX0xIYAAAAC/high-five-spongebob.gif",
+            "https://media.tenor.com/_KGWqG2EBdIAAAAC/anime-girls.gif",
+            "https://media.tenor.com/JsCGv-NM-w0AAAAC/cat-high.gif",
+            "https://media.tenor.com/K4dK6z75fQUAAAAC/high-five-slow-motion.gif",
+            "https://media.tenor.com/BD-trsxTZPoAAAAC/barney-stinson-high-five.gif",
+            "https://media.tenor.com/9vnJU85-7GwAAAAC/yeah-high.gif",
+            "https://media.tenor.com/RXYUxZdBaUcAAAAd/stukk-high-five.gif",
+            "https://media.tenor.com/Rs5Gyiw0OysAAAAC/high-five-high-five-cat.gif",
+            "https://media.tenor.com/2NgSVoaOwtMAAAAC/high-five.gif",
+            "https://media.tenor.com/MDTYbqilAxgAAAAC/ogvhs-high-five.gif",
+            "https://media.tenor.com/sQzOqyKfGv4AAAAd/pokemon-scorbunny.gif",
+            "https://media.tenor.com/zuGJiqsnkPIAAAAC/eevee-pikachu.gif",
+            "https://media.tenor.com/RusIdB6WS-IAAAAC/cat-high-five.gif",
+            "https://media.tenor.com/cfBsYK73HLkAAAAC/puppy-dog.gif",
+            "https://media.tenor.com/umyVoo90A_sAAAAd/high-five-dog-high-five-xiteb.gif",
+            "https://media.tenor.com/r0sUDFfn6o0AAAAC/high-five-awesome.gif",
+            "https://media.tenor.com/EFVbyCW4ITEAAAAd/dogs-high-five.gif",
+            "https://media.tenor.com/ZVyre2PZC4EAAAAd/dog-high-five.gif",
+            "https://media.tenor.com/MZuZ9C_3_ZkAAAAC/dog-high-five.gif",
+            "https://media.tenor.com/SUQuOYlPZU4AAAAd/high-five-the-pack.gif",
+            "https://media.tenor.com/8hFGXTck6usAAAAC/pawfive-dogfive.gif",
+            "https://media.tenor.com/JrV7r-u405wAAAAd/hanzo-husky-hanzo-the-husky.gif",
+            "https://media.tenor.com/-Xe4wBdy7f4AAAAC/paws-cat.gif",
+            "https://media.tenor.com/qVun4U93OiYAAAAC/meomoc-high-five.gif",
+            "https://media.tenor.com/nUPVAKITU0YAAAAd/high-five-cat.gif",
+            "https://media.tenor.com/a2GGLtACrqsAAAAC/bakabaka7-adventure-time.gif",
+            "https://media.tenor.com/CQn2tIIADEcAAAAC/monkey-high-five.gif"
+        ]
+        embed=discord.Embed(title=f"{ctx.author.name} is high fiving {user.name} !",color = discord.Colour.purple())
+        randomgif = random.choice(randomgifs)
+        embed.set_image(url = randomgif)
+        await ctx.send(embed=embed)
+    
+    @bot.command(aliases=["blushing","Blush","Blushing"])
+    async def blush(ctx,user:discord.Member=None):
+        if user == None:
+            embed=discord.Embed(title=f"{ctx.author.name} is blushing !",color = discord.Colour.purple())
+            randomgifs = [
+            "https://media.tenor.com/hC6WrRkokJsAAAAd/tom-and-jerry-tom.gif",
+            "https://media.tenor.com/3g-vM1sZ2g4AAAAC/blush.gif",
+            "https://media.tenor.com/4vyIazBzLVoAAAAC/blushes-deeply-blushing-intensifies.gif",
+            "https://media.tenor.com/1IeHa_QMLdwAAAAC/sailor-moon-extremely.gif",
+            "https://media.tenor.com/9ut2GHmvO0cAAAAd/laugh.gif",
+            "https://media.tenor.com/efy3bKjLl3QAAAAC/shy-aww.gif",
+            "https://media.tenor.com/DuFLd7RrrygAAAAC/sonrojado.gif",
+            "https://media.tenor.com/57ykwUGXE08AAAAC/blush-shinji.gif",
+            "https://media.tenor.com/PXWh80tfKXIAAAAC/cute-fingers-fixed-cat.gif",
+            "https://media.tenor.com/lsT6PTKnnF8AAAAC/shy-please.gif",
+            "https://media.tenor.com/tn4LOK2uvroAAAAC/tom-and.gif",
+            "https://media.tenor.com/G2yZJgS0RjIAAAAC/shame-blushing-girl.gif",
+            "https://media.tenor.com/CEkiOjpsylwAAAAd/kitagawa-kitagawa-marin.gif",
+            "https://media.tenor.com/PGXshKPAUh4AAAAC/my-dress-up-darling-anime-love.gif",
+            "https://media.tenor.com/LpIXLQcbY2kAAAAC/marin-kitagawa.gif",
+            "https://media.tenor.com/x_9-mUKTCIQAAAAd/sono-bisque-doll-my-dress-up-darling.gif",
+            "https://media.tenor.com/yKtYfA0mizYAAAAC/my-dress-up-darling-anime-blush.gif",
+            "https://media.tenor.com/gu0EZJfpXP8AAAAC/marin-kitagawa-my-dress-up-darling.gif",
+            "https://media.tenor.com/Y0v7dZFqClkAAAAC/thor-chris-hemsworth.gif",
+            "https://media.tenor.com/VRUQ_YhZZIAAAAAC/anime-blush.gif",
+            "https://media.tenor.com/vjpKNHGxMs0AAAAC/cute-shy.gif",
+            "https://media.tenor.com/TfM5W6MtLPkAAAAC/shinchan.gif",
+            "https://media.tenor.com/9avuvzHbgv4AAAAd/sumi-sakurasawa-rent-a-girlfriend.gif",
+            "https://media.tenor.com/6Omqf_97IbAAAAAC/kanojo-okarishimasu-sumi.gif",
+            "https://media.tenor.com/7KaaBzVxAdAAAAAC/rpg-fudousan-anime-blush.gif",
+            "https://media.tenor.com/qYS0n4QWxd4AAAAC/blush-anime.gif",
+            "https://media.tenor.com/BgBq7npMTusAAAAi/stitch-blush.gif",
+            "https://media.tenor.com/1Aaso_pJcsIAAAAi/qoobee-blushing.gif",
+            "https://media.tenor.com/9f3piKJ75w4AAAAi/shy-blush.gif",
+            "https://media.tenor.com/GKQNAbb_F84AAAAi/uwu-but.gif",
+            "https://media.tenor.com/dS8xjfhJUr4AAAAi/blush-blissful.gif",
+            "https://media.tenor.com/48lXDrWmY94AAAAC/blush.gif",
+            "https://media.tenor.com/Y6KoYUuYKWAAAAAd/yor-forger-yor.gif"
+            ]
+            randomgif = random.choice(randomgifs)
+            embed.set_image(url = randomgif)
+            await ctx.send(embed=embed)
+        elif user.id == ctx.author.id:
+            await ctx.send("Bro atleast find someone to do an interaction with ")
+            return
+        else:
+            randomgifs = [
+            "https://media.tenor.com/hC6WrRkokJsAAAAd/tom-and-jerry-tom.gif",
+            "https://media.tenor.com/3g-vM1sZ2g4AAAAC/blush.gif",
+            "https://media.tenor.com/4vyIazBzLVoAAAAC/blushes-deeply-blushing-intensifies.gif",
+            "https://media.tenor.com/1IeHa_QMLdwAAAAC/sailor-moon-extremely.gif",
+            "https://media.tenor.com/9ut2GHmvO0cAAAAd/laugh.gif",
+            "https://media.tenor.com/efy3bKjLl3QAAAAC/shy-aww.gif",
+            "https://media.tenor.com/DuFLd7RrrygAAAAC/sonrojado.gif",
+            "https://media.tenor.com/57ykwUGXE08AAAAC/blush-shinji.gif",
+            "https://media.tenor.com/PXWh80tfKXIAAAAC/cute-fingers-fixed-cat.gif",
+            "https://media.tenor.com/lsT6PTKnnF8AAAAC/shy-please.gif",
+            "https://media.tenor.com/tn4LOK2uvroAAAAC/tom-and.gif",
+            "https://media.tenor.com/G2yZJgS0RjIAAAAC/shame-blushing-girl.gif",
+            "https://media.tenor.com/CEkiOjpsylwAAAAd/kitagawa-kitagawa-marin.gif",
+            "https://media.tenor.com/PGXshKPAUh4AAAAC/my-dress-up-darling-anime-love.gif",
+            "https://media.tenor.com/LpIXLQcbY2kAAAAC/marin-kitagawa.gif",
+            "https://media.tenor.com/x_9-mUKTCIQAAAAd/sono-bisque-doll-my-dress-up-darling.gif",
+            "https://media.tenor.com/yKtYfA0mizYAAAAC/my-dress-up-darling-anime-blush.gif",
+            "https://media.tenor.com/gu0EZJfpXP8AAAAC/marin-kitagawa-my-dress-up-darling.gif",
+            "https://media.tenor.com/Y0v7dZFqClkAAAAC/thor-chris-hemsworth.gif",
+            "https://media.tenor.com/VRUQ_YhZZIAAAAAC/anime-blush.gif",
+            "https://media.tenor.com/vjpKNHGxMs0AAAAC/cute-shy.gif",
+            "https://media.tenor.com/TfM5W6MtLPkAAAAC/shinchan.gif",
+            "https://media.tenor.com/9avuvzHbgv4AAAAd/sumi-sakurasawa-rent-a-girlfriend.gif",
+            "https://media.tenor.com/6Omqf_97IbAAAAAC/kanojo-okarishimasu-sumi.gif",
+            "https://media.tenor.com/7KaaBzVxAdAAAAAC/rpg-fudousan-anime-blush.gif",
+            "https://media.tenor.com/qYS0n4QWxd4AAAAC/blush-anime.gif",
+            "https://media.tenor.com/BgBq7npMTusAAAAi/stitch-blush.gif",
+            "https://media.tenor.com/1Aaso_pJcsIAAAAi/qoobee-blushing.gif",
+            "https://media.tenor.com/9f3piKJ75w4AAAAi/shy-blush.gif",
+            "https://media.tenor.com/GKQNAbb_F84AAAAi/uwu-but.gif",
+            "https://media.tenor.com/dS8xjfhJUr4AAAAi/blush-blissful.gif",
+            "https://media.tenor.com/48lXDrWmY94AAAAC/blush.gif",
+            "https://media.tenor.com/Y6KoYUuYKWAAAAAd/yor-forger-yor.gif"
+            ]
+            embed=discord.Embed(title=f"{user.name} made {ctx.author.name} blush!",color = discord.Colour.purple())    
+            randomgif = random.choice(randomgifs)
+            embed.set_image(url = randomgif)
+            await ctx.send(embed=embed)
 
     bot.help_command = MyHelp()
     bot.run(token)

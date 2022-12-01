@@ -1825,12 +1825,55 @@ def main():
             "https://media.tenor.com/xOQHyLK2FjkAAAAC/canada-nghedgehogs-gifs.gif",
             "https://media.tenor.com/9Lbbn-fqa9oAAAAC/canada.gif",
             "https://media.tenor.com/Pw3NaKmrGVAAAAAC/rob-balasabas-canada.gif",
-            
+
         ]
         embed=discord.Embed(title=f"Canada will win TODAYYYYYYY!!!!!",color = discord.Colour.purple())    
         randomgif = random.choice(randomgifs)
         embed.set_image(url = randomgif)
         await ctx.send(embed=embed)
+
+    @bot.command(aliases=["figh"])
+    async def fight(ctx,user:discord.Member=None):
+        if user == None:
+            humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
+            user = random.choice(humans)
+        if user.id == ctx.author.id:
+            await ctx.send("Bro atleast find someone to do an interaction with ")
+            return    
+        randomgifs =[
+            "https://media.tenor.com/l5sIE_3H3EEAAAAd/cats-fighting-fighting-cats.gif",
+            "https://media.tenor.com/CZJGXrvl9LoAAAAd/cats-fighting-mma-takedown.gif",
+            "https://media.tenor.com/Y2JNQLkzz8sAAAAd/cats-funny.gif",
+            "https://media.tenor.com/saVFWCC23KoAAAAd/cat-fight-cats-fighting.gif",
+            "https://media.tenor.com/UW6vxndZpfMAAAAd/cat-meme.gif",
+            "https://media.tenor.com/szPtb6lqakIAAAAC/beating-up-beating-up-lilo.gif",
+            "https://media.tenor.com/iWKGJATqdTEAAAAd/martin-lawrence-beat-up.gif",
+            "https://media.tenor.com/HsnuQ0vN1s8AAAAC/naruto-sasuke.gif",
+            "https://media.tenor.com/N_ZmqyzFKXUAAAAd/stan-twitter.gif",
+            "https://media.tenor.com/a0F-sE53rgcAAAAC/cats-fight.gif",
+            "https://media.tenor.com/6QwxgzQLGKUAAAAC/battle.gif",
+            "https://media.tenor.com/8BUHGz3NKKUAAAAC/angry-frustrated.gif",
+            "https://media.tenor.com/u37OUTuQ-sQAAAAC/baby.gif",
+            "https://media.tenor.com/Ls2Xy-p7vcwAAAAd/cat-kitty.gif",
+            "https://media.tenor.com/oziRBzETrrYAAAAC/jin-mori-fight.gif",
+            "https://media.tenor.com/L0U84S9YTrYAAAAC/pikachu-slap.gif",
+            "https://media.tenor.com/0WJHZ449SSQAAAAC/hasbulla-hasbullah.gif",
+            "https://media.tenor.com/ZF9T7-Ily9EAAAAC/fighting-cat-cat-vs-human.gif",
+            "https://media.tenor.com/1Ovi0yAhAFsAAAAC/tom-and-jerry-cartoon.gif",
+            "https://media.tenor.com/AeFZ_gUU0YsAAAAC/gif.gif",
+            "https://media.tenor.com/WB0owmgShUcAAAAC/the-god-of-highschool-goh.gif",
+            "https://media.tenor.com/GMQE_GsGQGkAAAAd/the-god-of-high-school.gif",
+            "https://media.tenor.com/E8LBekhMVy8AAAAd/itadori-yuji.gif",
+            "https://media.tenor.com/mxYFOG9-ylkAAAAd/jujutsu-kaisen-anime.gif",
+            "https://media.tenor.com/s1P3uAdLrrQAAAAC/fight-anime.gif",
+            "https://media.tenor.com/JbdTmeTpEZEAAAAC/hoseokmaraj-stan-twitter.gif",
+            "https://media.tenor.com/AiDJRKi1SwsAAAAd/99percent-of-kik-fight-cute.gif",
+            "https://media.tenor.com/YuR7uAqxHPkAAAAd/fighting-anime.gif"
+        ]
+        embed=discord.Embed(title=f"{user.name} and {ctx.author.name} are fighting !",color = discord.Colour.purple())    
+        randomgif = random.choice(randomgifs)
+        embed.set_image(url = randomgif)
+        await ctx.send(embed=embed)    
 
     bot.help_command = MyHelp()
     bot.run(token)

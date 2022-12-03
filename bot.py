@@ -25,8 +25,6 @@ def main():
     intents = discord.Intents.all()
     intents.members = True
     
-    
-
     bot = commands.Bot(intents= intents, command_prefix= ["k!","K!",">"] , description='Cute Kirby!',activity = discord.Game(name="Super Smash Bros"))         
 
     @bot.event
@@ -35,6 +33,8 @@ def main():
         try:
             synced = await bot.tree.sync()
             print(f"Synced {len(synced)} commands")
+            count = len(bot.guilds)
+            print(f'Logged on as {count}, your bot {bot.user} !')
         except Exception as e:
             print(e)
     
@@ -49,7 +49,7 @@ def main():
             embed.add_field(name="Moderation Commands",value="kick(also a slash command), ban, warn(also a slash command), clear/purge")
             embed.add_field(name="User Commands", value = "avatar (also a slash command) \nguild_avatar (also a slash command) \nbanner (also a slash command)\nserverinfo (also a slash command)\nuserinfo (also a slash command)",inline=False)
             embed.add_field(name="Fun Commands",value = "choose \nsay(also a slash command /say) \nrepeat \ntruthordare (also a slash command) \nwould you rather (also a slash command) \nparanoia questions (also a slash command) \nnever have i ever(also a slash command) \ntranslator(also a slash command)\ntranslating (translates from one language to the given other language)", inline=False)
-            embed.add_field(name= "Interaction Command", value = "block, blush, bonk, ,cheer, choke, cope, cry, crying, eating, fight, fuck, highfive, hug, judge, kill, kiss, laugh, liar, love, marry, missing, nom, pat, pillowfight, pinch, pray, punch, realkiss, salute, sit, slap, spank, spit, stfu,threaten, tickle, vibe, wave",inline=False)
+            embed.add_field(name= "Interaction Command", value = "block, blush, bonk, boop,cheer, choke, cope, cry, crying, eating, fight, fuck, highfive, hug, judge, kill, kiss, laugh, liar, love, marry, missing, nom, pat, pillowfight, pinch, pray, punch, realkiss, salute, sit, slap, spank, spit, stfu,threaten, tickle, touch grass, vibe, wave",inline=False)
             await self.context.send(embed=embed)           
     
     @bot.tree.command(name="dice")
@@ -1813,7 +1813,7 @@ def main():
             embed.set_image(url = randomgif)
             await ctx.send(embed=embed)
 
-    @bot.command(aliases=["figh"])
+    @bot.command(aliases=["Fight"])
     async def fight(ctx,user:discord.Member=None):
         if user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
@@ -1856,6 +1856,85 @@ def main():
         embed.set_image(url = randomgif)
         await ctx.send(embed=embed)    
 
+    @bot.command(aliases=["dl","lick"])
+    async def dirtylick(ctx,user:discord.Member=None):
+        if ctx.channel.is_nsfw():
+            if user == None:
+                humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
+                user = random.choice(humans)
+            if user.id == ctx.author.id:
+                await ctx.send("Bro atleast find someone to do an interaction with ")
+                return
+            randomgifs = [
+                "https://media.tenor.com/CpyaloXKvuMAAAAC/deep-kiss-passionate-kiss.gif",
+                "https://media.tenor.com/S5pfE5MxqOgAAAAd/indirect-kiss-relationship-goals.gif",
+                "https://media.tenor.com/dGv9AneldUgAAAAd/lick-neck-hot.gif"
+              ]    
+            embed=discord.Embed(title=f"{user.name} is get licked by {ctx.author.name} Yum!",color = discord.Colour.purple())    
+            randomgif = random.choice(randomgifs)
+            embed.set_image(url = randomgif)
+            await ctx.send(embed=embed) 
+        else:
+            await ctx.send("Do this in a NSFW channel")   
+    @bot.command(aliases=["tg","touch"])
+    async def touchgrass(ctx,user:discord.Member=None):
+        if user == None:
+            humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
+            user = random.choice(humans)
+        if user.id == ctx.author.id:
+            await ctx.send("Bro atleast find someone to do an interaction with ")
+            return
+        randomgifs = [
+            "https://media.tenor.com/4yx6wK51ezsAAAAd/nathan-touch-some-grass.gif",
+            "https://media.tenor.com/XI3gjYioePAAAAAd/h3-h3h3.gif",
+            "https://media.tenor.com/qDDKH8ac3ykAAAAd/sushichaeng-grass.gif",
+            "https://media.tenor.com/-69FTXitQkkAAAAd/touch-grass.gif",
+            "https://media.tenor.com/a9zY_N-GPMkAAAAd/touch-some-grass-grass.gif",
+            "https://media.tenor.com/CW-0A0q-6ksAAAAd/touching-grass.gif",
+            "https://media.tenor.com/eY1oQbTdtRkAAAAC/touch-grass-klee.gif",
+            "https://media.tenor.com/R1Q7Q2cThtIAAAAd/beefboys-andrew-miller.gif",
+            "https://media.tenor.com/Pxqxstf2boQAAAAi/touch-grass.gif",
+            "https://media.tenor.com/vsSV0xcqvSAAAAAC/mcdonnells-curry.gif"
+              ]    
+        embed=discord.Embed(title=f"{ctx.author.name} is telling {user.name} to touch grass",color = discord.Colour.purple())    
+        randomgif = random.choice(randomgifs)
+        embed.set_image(url = randomgif)
+        await ctx.send(embed=embed) 
+    @bot.command(aliases=["boops","bp"])
+    async def boop(ctx,user:discord.Member=None):
+        if user == None:
+            humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
+            user = random.choice(humans)
+        if user.id == ctx.author.id:
+            await ctx.send("Bro atleast find someone to do an interaction with ")
+            return
+        randomgifs = [
+            "https://media.tenor.com/t2cbTFyvWVYAAAAC/consistent-boops-ollie-boop.gif",
+            "https://media.tenor.com/ncx61LPfp2UAAAAd/chub-chubs.gif",
+            "https://media.tenor.com/JjZtInaG4pEAAAAd/boop-cat-boop.gif",
+            "https://media.tenor.com/HZWeNnmcbBYAAAAC/cat-boop.gif",
+            "https://media.tenor.com/88HZjGgr3k0AAAAd/doggo-boop.gif",
+            "https://media.tenor.com/AeCsQHEk-hwAAAAd/luna-nose.gif",
+            "https://media.tenor.com/_dEtNdPuQjoAAAAd/gentle-boops-i-boop-you.gif",
+            "https://media.tenor.com/le048t71RHwAAAAC/boop.gif",
+            "https://media.tenor.com/1vUzPbEZ6fYAAAAd/gentle-boop-gentle-bup.gif",
+            "https://media.tenor.com/RdxHFlPvKFUAAAAd/boop.gif",
+            "https://media.tenor.com/3ZR8ctqIr6kAAAAd/dog-i-boop-you.gif",
+            "https://media.tenor.com/oTBal8OUccQAAAAd/i-bestow-upon-you-a-boop-ollie-boop.gif",
+            "https://media.tenor.com/j-C2_RyIDPcAAAAC/i-boop-you-ollie-boop.gif",
+            "https://media.tenor.com/_dEtNdPuQjoAAAAd/gentle-boops-i-boop-you.gif",
+            "https://media.tenor.com/J5PLqHYcyIcAAAAC/you-have-been-booped-booped.gif",
+            "https://media.tenor.com/hW3o39B0zUcAAAAC/boop-cat.gif",
+            "https://media.tenor.com/wdus8iPe9yAAAAAd/leothelab-boop.gif",
+            "https://media.tenor.com/hwqX6sd39xMAAAAC/boop-shnoop.gif",
+            "https://media.tenor.com/AOyF2C6ok0cAAAAd/fox-animation.gif"
+              ]    
+        embed=discord.Embed(title=f"{ctx.author.name} booped {user.name} ",color = discord.Colour.purple())    
+        randomgif = random.choice(randomgifs)
+        embed.set_image(url = randomgif)
+        await ctx.send(embed=embed)     
+                   
+      
     bot.help_command = MyHelp()
     bot.run(token)
     

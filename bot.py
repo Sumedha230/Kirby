@@ -89,7 +89,7 @@ def main():
         embed=discord.Embed(title=f"***Server Information***",color = discord.Colour.purple() )    
         embed.add_field(name='Name:', value=ctx.guild.name, inline=False)
         embed.add_field(name='ID:', value=ctx.guild.id, inline=False)
-        embed.add_field(name='Owner:', value=ctx.guild.owner.name, inline=False)
+        embed.add_field(name='Owner:', value=ctx.guild.owner.mention, inline=False)
         embed.add_field(name='Created At:', value=ctx.guild.created_at.strftime('Day: %d/%m/%Y Hour: %H:%M:%S %p'), inline=False)
         gc= 0
         bc = 0
@@ -101,6 +101,7 @@ def main():
         embed.add_field(name="Total Member Count",value = f"The total headcount in this server is {ctx.guild.member_count}", inline=False)
         embed.add_field(name="Member Count",value = f"There are a total of {gc} members in this server", inline=False)
         embed.add_field(name="Bot Count",value = f"There are a total of {bc} bots in this server",inline=False)
+        embed.set_thumbnail(url=ctx.guild.icon)
         await ctx.send(embed=embed)         
     
     @bot.tree.command(name="serverinfo")
@@ -110,7 +111,7 @@ def main():
         embed=discord.Embed(title=f"***Server Information***",color = discord.Colour.purple() )    
         embed.add_field(name='Name:', value=interaction.guild.name, inline=False)
         embed.add_field(name='ID:', value=interaction.guild.id, inline=False)
-        embed.add_field(name='Owner:', value=interaction.guild.owner.name, inline=False)
+        embed.add_field(name='Owner:', value=interaction.guild.owner.mention, inline=False)
         embed.add_field(name='Created At:', value=interaction.guild.created_at.strftime('Day: %d/%m/%Y Hour: %H:%M:%S %p'), inline=False)
         gc= 0
         bc = 0
@@ -122,9 +123,19 @@ def main():
         embed.add_field(name="Total Member Count",value = f"The total headcount in this server is {interaction.guild.member_count}", inline=False)
         embed.add_field(name="Member Count",value = f"There are a total of {gc} members in this server", inline=False)
         embed.add_field(name="Bot Count",value = f"There are a total of {bc} bots in this server",inline=False)
+        embed.set_thumbnail(url=interaction.guild.icon)
         await interaction.response.send_message(embed=embed)   
-
-
+    
+    @bot.command(aliases=["sb","booster"])
+    async def serverboost(ctx):
+        embed = discord.Embed(title = f'{ctx.guild.name}\'s Server Boost Info', description = f' There are a total of {str(ctx.guild.premium_subscription_count)} boosts in this server, the boosters are')
+        t = ctx.guild.premium_subscribers
+        j=1
+        for i in t:
+            embed.add_field(name= f"Booster {j}",value=f"{i.mention}",inline=False)
+            j+=1
+        embed.set_thumbnail(url=ctx.guild.icon)
+        await ctx.send(embed = embed)
     @bot.command(aliases=["useri","ui"])
     async def userinfo(ctx,member:discord.Member=None):
         if member == None:

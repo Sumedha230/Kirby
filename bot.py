@@ -17,6 +17,8 @@ from googletrans import Translator
 import discord.ui
 from discord.ui import Button,View
 import afk
+import aiohttp
+from io import BytesIO
 
 def main():
     load_dotenv()
@@ -46,10 +48,10 @@ def main():
     class MyHelp(commands.HelpCommand):
         async def send_bot_help(self, mapping):
             embed = discord.Embed(title="Help", description = "Bot Commands ",color = discord.Colour.purple())
-            embed.add_field(name="Moderation Commands",value="kick(also a slash command), ban, warn(also a slash command), clear/purge")
+            embed.add_field(name="Moderation Commands",value="kick(also a slash command), ban, warn(also a slash command), clear/purge, create roles, addroles , remove roles, add emoji")
             embed.add_field(name="User Commands", value = "avatar (also a slash command) \nguild_avatar (also a slash command) \nbanner (also a slash command)\nserverinfo (also a slash command)\nuserinfo (also a slash command)",inline=False)
             embed.add_field(name="Fun Commands",value = "choose \nsay(also a slash command /say) \nrepeat \ntruthordare (also a slash command) \nwould you rather (also a slash command) \nparanoia questions (also a slash command) \nnever have i ever(also a slash command) \ntranslator(also a slash command)\ntranslating (translates from one language to the given other language)", inline=False)
-            embed.add_field(name= "Interaction Command", value = "block, blush, bonk, boop,cheer, choke, cope, cry, crying, eating, fight, fuck, highfive, hug, judge, kill, kiss, laugh, liar, love, marry, missing, nom, pat, pillowfight, pinch, pray, punch, realkiss, salute, sit, slap, spank, spit, stfu,threaten, tickle, touch grass, vibe, wave",inline=False)
+            embed.add_field(name= "Interaction Command", value = "block, blush, bonk, boop,cheer, choke, cope, cry, crying, cuddle, eating, fight, fuck, highfive, hug, judge, kill, kiss, laugh, liar, love, marry, missing, nom, pat, pillowfight, pinch, pray, punch, realkiss, salute, sit, slap, spank, spit, stfu,threaten, tickle, touch grass, vibe, wave",inline=False)
             await self.context.send(embed=embed)           
     
     @bot.tree.command(name="dice")
@@ -510,6 +512,8 @@ def main():
         except:
             await ctx.send("Bot does not have the permission for this command")         
 
+
+    
     @bot.command(aliases=["Warn"])
     @bot_has_guild_permissions(kick_members=True)
     @bot_has_guild_permissions(manage_messages=True)
@@ -1677,6 +1681,61 @@ def main():
         randomgif = random.choice(randomgifs)
         embed.set_image(url = randomgif)
         await ctx.send(embed=embed)  
+
+    @bot.command(aliases=["Calute","cud"])
+    async def cuddle(ctx,user:discord.Member=None):
+        if user == None:
+            humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
+            user = random.choice(humans)
+        if user.id == ctx.author.id:
+            await ctx.send("Bro atleast find someone to do an interaction with ")
+            return
+        randomgifs=[
+            "https://media.tenor.com/5PpFO7VcU0MAAAAC/cuddle.gif",
+            "https://media.tenor.com/xMAxRg5iwqcAAAAC/snuggle-cute.gif",
+            "https://media.tenor.com/lgjnVcfWdpEAAAAC/love-snuggle.gif",
+            "https://media.tenor.com/ZhwUZCqJCNMAAAAC/love-you.gif",
+            "https://media.tenor.com/8F2KbUiJv30AAAAC/emdj-hug.gif",
+            "https://media.tenor.com/bLttPccI_I4AAAAC/cuddle-anime.gif",
+            "https://media.tenor.com/TsL3G4aPH2wAAAAC/milk-and-mocha-milk.gif",
+            "https://media.tenor.com/lOX9rc2f36EAAAAC/milk-and-mocha-milkbear.gif",
+            "https://media.tenor.com/pPMLO1IzPWIAAAAC/miss-may-tommy.gif",
+            "https://media.tenor.com/FgfGLXI3mIQAAAAC/chibi-cute.gif",
+            "https://media.tenor.com/H7i6GIP-YBwAAAAd/a-whisker-away-hug.gif",
+            "https://media.tenor.com/q95BTrmPJqkAAAAd/cats-cat.gif",
+            "https://media.tenor.com/HUE1PtW9UcYAAAAd/whiskey-sleep-cuddles.gif",
+            "https://media.tenor.com/1BV_mELNCEkAAAAd/love-cuddle.gif",
+            "https://media.tenor.com/qTb7G2FPsIYAAAAC/stiles-stilinski-malia-tate.gif",
+            "https://media.tenor.com/FoFMuwi0kfoAAAAd/cat-cuddle.gif",
+            "https://media.tenor.com/UheHuhz9o5IAAAAC/station19-maya-and-carina.gif",
+            "https://media.tenor.com/gHAkopm2abMAAAAd/couple-sleeping-love.gif",
+            "https://media.tenor.com/iOG9_cXxJzsAAAAC/sleepy-head-morning.gif",
+            "https://media.tenor.com/VEPWJS4bxRIAAAAd/cuddle-game.gif",
+            "https://media.tenor.com/rONLuXsZr2kAAAAd/cuddle-couple.gif",
+            "https://media.tenor.com/wFxMAqCsQDoAAAAd/cats.gif",
+            "https://media.tenor.com/pB-4ZWsqcQoAAAAd/cat-hug.gif",
+            "https://media.tenor.com/9SG9pGSs1eIAAAAd/anime-cuddle-cuddle.gif",
+            "https://media.tenor.com/-NFrGNy9UAUAAAAC/hugs-kiss.gif",
+            "https://media.tenor.com/BmbTYhCZ5UsAAAAC/yuri-sleeping-yuri-sleep.gif",
+            "https://media.tenor.com/d6IdGdhC80MAAAAC/kiss-love.gif",
+            "https://media.tenor.com/mUB511Ai_K0AAAAC/mood-cuddles.gif",
+            "https://media.tenor.com/GTlDCm4P4EsAAAAd/kitty-kitten.gif",
+            "https://media.tenor.com/APJb4HKo9SsAAAAd/cuddle-love.gif",
+            "https://media.tenor.com/fy2qB_-pAA8AAAAM/otter-cuddles-cuddles.gif",
+            "https://media.tenor.com/EKlPRdcuoccAAAAC/otter-cute.gif",
+            "https://media.tenor.com/y-04JHW1D5oAAAAd/otter-otters.gif",
+            "https://media.tenor.com/YQEOx4ngGnAAAAAC/cat-cuddling.gif",
+            "https://media.tenor.com/hP-wj0PBmR0AAAAd/love-snuggle.gif",
+            "https://media.tenor.com/SrpgTEtutQYAAAAC/cuddles-mongooltje.gif",
+            "https://media.tenor.com/xRLWMxHzNq8AAAAd/pug-cuddles.gif",
+            "https://media.tenor.com/AIOnRY9EW9YAAAAd/bunny-cuddle.gif",
+            "https://media.tenor.com/9W4-irrCChgAAAAd/otter-otters.gif",
+            "https://media.tenor.com/ftIWvZpAqsIAAAAC/cuddle-otter.gif"
+        ]
+        embed=discord.Embed(title=f"{ctx.author.name} is cuddling {user.name} !",color = discord.Colour.purple())
+        randomgif = random.choice(randomgifs)
+        embed.set_image(url = randomgif)
+        await ctx.send(embed=embed)      
     
     @bot.command(aliases=["hf","Hf","highfiving"])
     async def highfive(ctx,user:discord.Member=None):
@@ -1943,9 +2002,68 @@ def main():
         embed=discord.Embed(title=f"{ctx.author.name} booped {user.name} ",color = discord.Colour.purple())    
         randomgif = random.choice(randomgifs)
         embed.set_image(url = randomgif)
-        await ctx.send(embed=embed)     
-                   
-      
+        await ctx.send(embed=embed)    
+    # @bot.command()
+    # async def steal(ctx, emoji: discord.PartialEmoji):
+    #     t = f"{emoji.url}"            
+    #     b = BytesIO(emoji.url)
+    #     b_value=b.getvalue()
+    #     emote = await ctx.guild.create_custom_emoji(image=b_value,name="emote")
+    #     await ctx.send("Created")
+    @bot.command(aliases=["steal"])
+    async def eadd(ctx,emoji: discord.PartialEmoji,name):
+        guild = ctx.guild
+        async with aiohttp.ClientSession() as ses:
+            async with ses.get(emoji.url) as r:
+                try:
+                    img = BytesIO(await r.read())
+                    bValue = img.getvalue()
+                    if r.status in range(200,320):
+                        emoji = await guild.create_custom_emoji(image=bValue,name=name)
+                        await ctx.send("emoji added")
+                        await ses.close()
+                except:
+                    await ctx.send("Not possible")      
+    @bot.command(aliases=["cr","create"])
+    @bot_has_guild_permissions(manage_roles=True)
+    @bot_has_guild_permissions(administrator=True)
+    async def createrole(ctx,name):
+        if ctx.author.guild_permissions.manage_roles == False or ctx.author.guild_permissions.administrator == False:
+            await ctx.send("You don't have the required permissions")
+        else:
+            await ctx.guild.create_role(name=name)
+            await ctx.send(f"Role {name} has been created")
+    @bot.command(aliases=["ar","add"])
+    @bot_has_guild_permissions(manage_roles=True)
+    @bot_has_guild_permissions(administrator=True)
+    async def addrole(ctx,user:discord.Member,role:discord.Role):
+        if not role:
+            await ctx.send("Role does not exist")
+        if ctx.author.guild_permissions.manage_roles == False or ctx.author.guild_permissions.administrator == False:
+            await ctx.send("You don't have the required permissions")
+        else:
+            if role in user.roles:
+                await ctx.send(f"{user.mention} already has the role")
+                return
+            await user.add_roles(role)  
+            await ctx.send(f"Added {role} to {user.mention}")
+
+    @bot.command(aliases=["rr","remove"])
+    @bot_has_guild_permissions(manage_roles=True)
+    @bot_has_guild_permissions(administrator=True)
+    async def removerole(ctx,user:discord.Member,role:discord.Role):
+        if not role:
+            await ctx.send("Role does not exist")
+        if ctx.author.guild_permissions.manage_roles == False or ctx.author.guild_permissions.administrator == False:
+            await ctx.send("You don't have the required permissions")
+        else:
+            if role in user.roles:
+                await user.remove_roles(role)
+                await ctx.send(f"Successfully removed {role} from {user.mention}")
+            else:
+                await ctx.send(f"{user.mention} does not have the role")       
+                       
+
     bot.help_command = MyHelp()
     bot.run(token)
     

@@ -7,7 +7,6 @@ from discord.ext.commands import Bot
 from discord import app_commands
 import random
 from random import choice
-from discord import interactions
 from discord.ext.commands import has_permissions,bot_has_guild_permissions,CheckFailure,BadArgument
 import requests
 from discord import app_commands
@@ -51,7 +50,7 @@ def main():
             embed.add_field(name="Moderation Commands",value="kick(also a slash command), ban, warn(also a slash command), clear/purge, create roles, addroles , remove roles, add emoji")
             embed.add_field(name="User Commands", value = "avatar (also a slash command) \nguild_avatar (also a slash command) \nbanner (also a slash command)\nserverinfo (also a slash command)\nuserinfo (also a slash command)",inline=False)
             embed.add_field(name="Fun Commands",value = "choose \nsay(also a slash command /say) \nrepeat \ntruthordare (also a slash command) \nwould you rather (also a slash command) \nparanoia questions (also a slash command) \nnever have i ever(also a slash command) \ntranslator(also a slash command)\ntranslating (translates from one language to the given other language)", inline=False)
-            embed.add_field(name= "Interaction Command", value = "block, blush, bonk, boop,cheer, choke, cope, cry, crying, cuddle, eating, fight, fuck, highfive, hug, judge, kill, kiss, laugh, liar, love, marry, missing, nom, pat, pillowfight, pinch, pray, punch, realkiss, salute, sit, slap, spank, spit, stfu,threaten, tickle, touch grass, vibe, wave",inline=False)
+            embed.add_field(name= "Interaction Command", value = "block, blush, bonk, boop,cheer, choke, cope, cry, cuddle, eating, fight, fuck, highfive, hug, judge, kill, kiss, laugh, liar, love, marry, missing, nom, pat, pillowfight, pinch, pray, punch, realkiss, salute, sit, slap, smirk, spank, spit, stfu,threaten, tickle, touch grass, vibe, wave, yawn",inline=False)
             await self.context.send(embed=embed)           
     
     @bot.tree.command(name="dice")

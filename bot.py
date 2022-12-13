@@ -1637,7 +1637,49 @@ def main():
         randomgif = random.choice(randomgifs)
         embed.set_image(url = randomgif)
         await ctx.send(embed=embed)       
-    
+        
+    @bot.command(aliases=["Yawn","YAWN","yawning"])
+    async def yawn(ctx):
+        randomgifs= [
+            "https://media.tenor.com/S96iCeYOWCcAAAAd/yawngirl-yawnkid.gif",
+            "https://media.tenor.com/XVRTqgVzAQQAAAAC/yawn-yawning.gif",
+            "https://media.tenor.com/HMhYjZY3Oa0AAAAd/bugs-bunny-yawn.gif",
+            "https://media.tenor.com/oNaCRbvHu3oAAAAd/johnny-english-rowan-atkinson.gif",
+            "https://media.tenor.com/zYw6FpUqW7MAAAAd/monkey-yawn.gif",
+            "https://media.tenor.com/hclnFXnLhQ0AAAAC/pikachu-yawn.gif",
+            "https://media.tenor.com/LoOKUaCO-04AAAAC/yawn-tom-and-jerry.gif",
+            "https://media.tenor.com/GUGZujRyUXYAAAAC/boring-yawn.gif",
+            "https://media.tenor.com/6L5o7Ov-__sAAAAC/kitaro-yawn.gif",
+            "https://media.tenor.com/4hZZgLvA7W0AAAAd/cat-yawn.gif",
+            "https://media.tenor.com/40263d2eyREAAAAd/cat-waking-up.gif",
+            "https://media.tenor.com/2Dzbry2XP_sAAAAd/cat-meow.gif",
+            "https://media.tenor.com/TEWbYOiUSiEAAAAd/time-for-bed-bedtime.gif",
+            "https://media.tenor.com/TV6ckPX9EcAAAAAd/cute-cat-yawning.gif",
+            "https://media.tenor.com/OgdDRulZx-UAAAAd/wembley-yawn.gif",
+            "https://media.tenor.com/iRAIQjbzYOAAAAAd/otter-yawn.gif",
+            "https://media.tenor.com/32f48oSEHMgAAAAC/sleepy-anime.gif",
+            "https://media.tenor.com/8KkpLp3zkQwAAAAd/yawn-yawning.gif",
+            "https://media.tenor.com/OgdDRulZx-UAAAAd/wembley-yawn.gif"
+        ]    
+        embed=discord.Embed(title=f"{ctx.author.name} is yawning",color = discord.Colour.purple())
+        randomgif = random.choice(randomgifs)
+        embed.set_image(url = randomgif)
+        await ctx.send(embed=embed)   
+
+    @bot.command(aliases=["Smirk","smirking","Smirking"])
+    async def smirk(ctx,user:discord.Member=None):
+        if user == None:
+            embed=discord.Embed(title=f"{ctx.author.name} is smirking!",color = discord.Colour.purple()) 
+        if user.id == ctx.author.id:
+            await ctx.send("Bro atleast find someone to do an interaction with ")
+            return   
+        randomgifs=[
+            "https://media.tenor.com/OgdDRulZx-UAAAAd/wembley-yawn.gif"
+        ]                 
+        embed=discord.Embed(title=f"{ctx.author.name} is smirking at {user.name} !",color = discord.Colour.purple())
+        randomgif = random.choice(randomgifs)
+        embed.set_image(url = randomgif)
+        await ctx.send(embed=embed)
     @bot.command(aliases=["Salute","saluting","Saluting"])
     async def salute(ctx,user:discord.Member=None):
         if user == None:
@@ -2023,19 +2065,34 @@ def main():
                         await ses.close()
                 except:
                     await ctx.send("Not possible")      
+
     @bot.command(aliases=["cr","create"])
     @bot_has_guild_permissions(manage_roles=True)
     @bot_has_guild_permissions(administrator=True)
-    async def createrole(ctx,name):
+    async def createrole(ctx,*,name:str,emoji:discord.PartialEmoji=None):
         if ctx.author.guild_permissions.manage_roles == False or ctx.author.guild_permissions.administrator == False:
             await ctx.send("You don't have the required permissions")
         else:
-            await ctx.guild.create_role(name=name)
-            await ctx.send(f"Role {name} has been created")
+            if emoji==None:
+                await ctx.guild.create_role(name=name)
+                await ctx.send(f"Role {name} has been created")
+            else:
+                guild = ctx.guild
+                async with aiohttp.ClientSession() as ses:
+                    async with ses.get(emoji.url) as r:
+                        try:
+                            img = BytesIO(await r.read())
+                            bValue = img.getvalue()
+                        except:
+                            await ctx.send("Not possible") 
+                await ctx.guild.create_role(name=name,display_icon=bValue)
+                await ctx.send(f"Role {name} has been created")
+
     @bot.command(aliases=["ar","add"])
     @bot_has_guild_permissions(manage_roles=True)
     @bot_has_guild_permissions(administrator=True)
-    async def addrole(ctx,user:discord.Member,role:discord.Role):
+    async def addrole(ctx,user:discord.Member,*,roles:str):
+        role = get(ctx.guild.roles,name=roles)
         if not role:
             await ctx.send("Role does not exist")
         if ctx.author.guild_permissions.manage_roles == False or ctx.author.guild_permissions.administrator == False:
@@ -2050,7 +2107,8 @@ def main():
     @bot.command(aliases=["rr","remove"])
     @bot_has_guild_permissions(manage_roles=True)
     @bot_has_guild_permissions(administrator=True)
-    async def removerole(ctx,user:discord.Member,role:discord.Role):
+    async def removerole(ctx,user:discord.Member,*,roles:str):
+        role = get(ctx.guild.roles,name=roles)
         if not role:
             await ctx.send("Role does not exist")
         if ctx.author.guild_permissions.manage_roles == False or ctx.author.guild_permissions.administrator == False:
@@ -2061,8 +2119,7 @@ def main():
                 await ctx.send(f"Successfully removed {role} from {user.mention}")
             else:
                 await ctx.send(f"{user.mention} does not have the role")       
-                       
-
+                              
     bot.help_command = MyHelp()
     bot.run(token)
     

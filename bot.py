@@ -15,7 +15,6 @@ import googletrans
 from googletrans import Translator
 import discord.ui
 from discord.ui import Button,View
-import afk
 import aiohttp
 from io import BytesIO
 

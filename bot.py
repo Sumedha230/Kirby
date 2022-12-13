@@ -2068,7 +2068,7 @@ def main():
     @bot.command(aliases=["cr","create"])
     @bot_has_guild_permissions(manage_roles=True)
     @bot_has_guild_permissions(administrator=True)
-    async def createrole(ctx,*,name:str,emoji:discord.PartialEmoji=None):
+    async def createrole(ctx,emoji:discord.PartialEmoji=None,*,name:str):
         if ctx.author.guild_permissions.manage_roles == False or ctx.author.guild_permissions.administrator == False:
             await ctx.send("You don't have the required permissions")
         else:

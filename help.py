@@ -332,7 +332,14 @@ class help(commands.Cog):
         embed = discord.Embed(title="Cheer Command",description="This command is an interaction you can do with a user or without a user",color = discord.Colour.purple())
         embed.add_field(name="**Syntax**",value="k!cheer @user or k!cheer",inline=False)
         embed.add_field(name="Aliases",value="The aliases for this command are cheering",inline=False)
-        await ctx.send(embed=embed)    
+        await ctx.send(embed=embed)
+
+    @help.command(aliases=['winking','winks'])
+    async def wink(self,ctx):
+        embed = discord.Embed(title="Wink Command",description="This command is an interaction you can do with a user or without a user",color = discord.Colour.purple())
+        embed.add_field(name="**Syntax**",value="k!wink @user or k!wink",inline=False)
+        embed.add_field(name="Aliases",value="The aliases for this command are winking / winks",inline=False)
+        await ctx.send(embed=embed)        
 
     @help.command(aliases=["Threaten","THREATEN",'threat'])
     async def threaten(self,ctx):
@@ -478,7 +485,8 @@ class help(commands.Cog):
         embed = discord.Embed(title="UnMute Command",description="This command is a mod command that unmutes a user",color = discord.Colour.purple())
         embed.add_field(name="**Syntax**",value="k!unmute @user",inline=False)
         embed.add_field(name="Aliases",value="The aliases for this command are um",inline=False)
-        await ctx.send(embed=embed)                                                                              
+        await ctx.send(embed=embed)  
+
 
 async def setup(bot:commands.Bot) -> None:
     await bot.add_cog(help(bot))       

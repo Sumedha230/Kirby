@@ -41,7 +41,7 @@ class MyBot(commands.Bot):
             'interactions.block_bonk_cheer_choke_cope_cry',
             'interactions.smirk_cuddle_sit_slap_spank_spit',         
             'interactions.threaten_fight_judge_wink_tickle_touch_twerk',
-            'interactions.wave_highfive_yawn_vibe_stare_dance_shock'
+            'interactions.wave_highfive_yawn_vibe_stare_dance_shock',
             'help'
         ]
 

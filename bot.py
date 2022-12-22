@@ -30,7 +30,7 @@ class MyBot(commands.Bot):
         intents.members = True
         super().__init__(intents= intents, command_prefix= ["k!","K!",">"] , description='Cute Kirby!',activity = discord.Game(name="Super Smash Bros"))
         self.initial_extensions = [
-            'cogs.dice_say_translator',
+           'cogs.dice_say_translator',
             'user.av_bann_ga_si_sb_ui',
             'games.nhie_par_trd_rep_wyr',
             'mod.ban_role_kick_mute_purge_steal_warn',
@@ -38,12 +38,10 @@ class MyBot(commands.Bot):
             'interactions.hug_boop_pat_pf_pinch_pray_salute',
             'nsfw.realkiss_lick',
             'interactions.marry_love_nom_punch_shut_sip',
-            'interactions.tickle_touch',
             'interactions.block_bonk_cheer_choke_cope_cry',
             'interactions.smirk_cuddle_sit_slap_spank_spit',         
-            'interactions.wave_highfive',
-            'interactions.threaten_fight_judge_wink',
-            'interactions.yawn_vibe',
+            'interactions.threaten_fight_judge_wink_tickle_touch_twerk',
+            'interactions.wave_highfive_yawn_vibe_stare_dance_shock'
             'help'
         ]
 

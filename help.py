@@ -13,7 +13,7 @@ class help(commands.Cog):
         embed.add_field(name="Moderation Commands",value="clear/purge, warn, ban, kick, emoji_add, mute, unmute",inline=False)
         embed.add_field(name="User Commands", value = "avatar, guildavatar, banner, serverinfo, userinfo",inline=False)
         embed.add_field(name="Fun Commands",value = "dice, say, repeat, truthordare(tord), wouldyourather(wyr), paranoia, neverhaveiever(nhie), translate, translation", inline=False)
-        embed.add_field(name= "Interaction Command", value = "block, blush, bonk, boop,cheer, choke, cope, cry, cuddle, eating, fight, fuck, highfive, hug, judge, kill, kiss, laugh, liar, love, marry, missing, nom, pat, pillowfight, pinch, pray, punch, realkiss, salute, sip, sit, slap, smirk, spank, spit, stfu,threaten, tickle, touchgrass, vibe, wave, yawn",inline=False)
+        embed.add_field(name= "Interaction Command", value = "block, blush, bonk, boop, cheer, choke, cope, cry, cuddle, dance, eating, fight, fuck, highfive, hug, judge, kill, kiss, laugh, liar, love, marry, missing, nom, pat, pillowfight, pinch, pray, punch, realkiss, salute, sip, sit, shock, slap, smirk, spank, stare, spit, stfu,threaten, tickle, touchgrass, twerk, vibe, wave, ,wink yawn",inline=False)
         await ctx.send(embed=embed)  
     @help.command()
     async def purge(self,ctx):
@@ -312,7 +312,35 @@ class help(commands.Cog):
         embed = discord.Embed(title="Wave Command",description="This command is an interaction you can do with a user or without a user",color = discord.Colour.purple())
         embed.add_field(name="**Syntax**",value="k!wave @user or k!wave",inline=False)
         embed.add_field(name="Aliases",value="The aliases for this command are waving",inline=False)
-        await ctx.send(embed=embed) 
+        await ctx.send(embed=embed)
+
+    @help.command(aliases=['dancing','dances'])
+    async def dance(self,ctx):
+        embed = discord.Embed(title="Dance Command",description="This command is an interaction you can do with a user or without a user",color = discord.Colour.purple())
+        embed.add_field(name="**Syntax**",value="k!dance @user or k!dance",inline=False)
+        embed.add_field(name="Aliases",value="The aliases for this command are dances / dancing",inline=False)
+        await ctx.send(embed=embed)    
+
+    @help.command(aliases=['stares','staring'])
+    async def stare(self,ctx):
+        embed = discord.Embed(title="Stare Command",description="This command is an interaction you can do with a user or without a user",color = discord.Colour.purple())
+        embed.add_field(name="**Syntax**",value="k!stare @user or k!stare",inline=False)
+        embed.add_field(name="Aliases",value="The aliases for this command are stares / staring",inline=False)
+        await ctx.send(embed=embed)     
+    
+    @help.command(aliases=['shocked','shocking'])
+    async def shock(self,ctx):
+        embed = discord.Embed(title="Shock Command",description="This command is an interaction you can do with a user or without a user",color = discord.Colour.purple())
+        embed.add_field(name="**Syntax**",value="k!shock @user or k!shock",inline=False)
+        embed.add_field(name="Aliases",value="The aliases for this command are shocked / shocking",inline=False)
+        await ctx.send(embed=embed)  
+
+    @help.command(aliases=['twerking','twerks'])
+    async def twerk(self,ctx):
+        embed = discord.Embed(title="Twerk Command",description="This command is an interaction you can do with a user or without a user",color = discord.Colour.purple())
+        embed.add_field(name="**Syntax**",value="k!twerk @user or k!twerk",inline=False)
+        embed.add_field(name="Aliases",value="The aliases for this command are twerking / twerks",inline=False)
+        await ctx.send(embed=embed)         
 
     @help.command(aliases=['Bonk'])
     async def bonk(self,ctx):

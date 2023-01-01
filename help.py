@@ -2,18 +2,19 @@ import discord
 from discord.ext import commands
 from discord import app_commands
 from discord.app_commands import CommandTree
+from discord.ui import Select,View
 
-
-class help(commands.Cog):
+class help(commands.Cog,View):
     def __init__(self, bot):
         self.bot = bot
     @commands.group(invoke_without_command=True,aliases=["Help","HELP"])
+    
     async def help(self,ctx):
         embed = discord.Embed(title="Help", description="Use k!help <command> for extended information on that command. The prefixes for the bot are : k!, K!, >",color = discord.Colour.purple())
         embed.add_field(name="Moderation Commands",value="clear/purge, warn, ban, kick, emoji_add, mute, unmute",inline=False)
         embed.add_field(name="User Commands", value = "avatar, guildavatar, banner, serverinfo, userinfo",inline=False)
         embed.add_field(name="Fun Commands",value = "dice, say, repeat, truthordare(tord), wouldyourather(wyr), paranoia, neverhaveiever(nhie), translate, translation", inline=False)
-        embed.add_field(name= "Interaction Command", value = "block, blush, bonk, boop, cheer, choke, cope, cry, cuddle, dance, eating, fight, fuck, highfive, hug, judge, kill, kiss, laugh, liar, love, marry, missing, nom, pat, pillowfight, pinch, pray, punch, realkiss, salute, sip, sit, shock, slap, smirk, spank, stare, spit, stfu,threaten, tickle, touchgrass, twerk, vibe, wave, ,wink yawn",inline=False)
+        embed.add_field(name= "Interaction Command", value = "block, bite, blush, bonk, boop, bored, cheer, choke, cope, cry, cuddle, dance, eating, fight, fuck, highfive, hug, judge, kill, kiss, laugh, liar, lick, love, marry, missing, nom, pat, pillowfight, pinch, poke, pray, punch, realkiss, salute, sip, sit, shock, slap, smirk, spank, stare, spit, stfu,threaten, tickle, touchgrass, twerk, vibe, wave, ,wink yawn",inline=False)
         await ctx.send(embed=embed)  
     @help.command()
     async def purge(self,ctx):
@@ -174,11 +175,18 @@ class help(commands.Cog):
         embed.add_field(name="**Syntax**",value="k!hug @user",inline=False)
         await ctx.send(embed=embed) 
 
+    @help.command(aliases=['licks','licking'])
+    async def lick(self,ctx):
+        embed = discord.Embed(title="Lick Command",description="This command is an interaction you can do with a user",color = discord.Colour.purple())
+        embed.add_field(name="**Syntax**",value="k!lick @user",inline=False)
+        embed.add_field(name="Aliases",value="The aliases for this command are licks / licking",inline=False)
+        await ctx.send(embed=embed)  
+
     @help.command(aliases=['Fuck'])
     async def fuck(self,ctx):
         embed = discord.Embed(title="Fuck Command",description="This command is an interaction you can do with a user",color = discord.Colour.purple())
         embed.add_field(name="**Syntax**",value="k!fuck @user",inline=False)
-        await ctx.send(embed=embed)  
+        await ctx.send(embed=embed)      
 
     @help.command(aliases=['Love'])
     async def love(self,ctx):
@@ -404,6 +412,13 @@ class help(commands.Cog):
         embed.add_field(name="Aliases",value="The aliases for this command are sipping / slurp / sips / Sip",inline=False)
         await ctx.send(embed=embed)
 
+    @help.command(aliases=["boring","bore"])
+    async def bored(self,ctx):
+        embed = discord.Embed(title="Bored Command",description="This command is an interaction you can do with or without a user",color = discord.Colour.purple())
+        embed.add_field(name="**Syntax**",value="k!bored or k!bored @user",inline=False)
+        embed.add_field(name="Aliases",value="The aliases for this command are bore / boring",inline=False)
+        await ctx.send(embed=embed)    
+
     @help.command(aliases=["prays","praying"])
     async def pray(self,ctx):
         embed = discord.Embed(title="Pray Command",description="This command is an interaction you can do with or without a user",color = discord.Colour.purple())
@@ -458,12 +473,19 @@ class help(commands.Cog):
         embed = discord.Embed(title="Fight Command",description="This command is an interaction you can do with a user",color = discord.Colour.purple())
         embed.add_field(name="**Syntax**",value="k!fight @user",inline=False)
         embed.add_field(name="Aliases",value="The aliases for this command are fights / fighting",inline=False)
-        await ctx.send(embed=embed)   
+        await ctx.send(embed=embed) 
+
+    @help.command(aliases=["bites","biting"])
+    async def bite(self,ctx):
+        embed = discord.Embed(title="Fight Command",description="This command is an interaction you can do with a user",color = discord.Colour.purple())
+        embed.add_field(name="**Syntax**",value="k!bite @user",inline=False)
+        embed.add_field(name="Aliases",value="The aliases for this command are bites / biting",inline=False)
+        await ctx.send(embed=embed)       
 
     @help.command(aliases=["tg","touchg",'tgrass','touch'])
     async def touchgrass(self,ctx):
-        embed = discord.Embed(title="Tough Grass Command",description="This command is an interaction you can do with a user",color = discord.Colour.purple())
-        embed.add_field(name="**Syntax**",value="k!touchgrass @user",inline=False)
+        embed = discord.Embed(title="Tough Grass Command",description="This command is an interaction you can do with or without a user",color = discord.Colour.purple())
+        embed.add_field(name="**Syntax**",value="k!touchgrass @user or k!touchgrass",inline=False)
         embed.add_field(name="Aliases",value="The aliases for this command are tg / touchg / tgrass / touch",inline=False)
         await ctx.send(embed=embed)     
 
@@ -472,7 +494,14 @@ class help(commands.Cog):
         embed = discord.Embed(title="Boop Command",description="This command is an interaction you can do with a user",color = discord.Colour.purple())
         embed.add_field(name="**Syntax**",value="k!boop @user",inline=False)
         embed.add_field(name="Aliases",value="The aliases for this command are boops / bp",inline=False)
-        await ctx.send(embed=embed)        
+        await ctx.send(embed=embed)   
+
+    @help.command(aliases=["pokes","poking"])
+    async def poke(self,ctx):
+        embed = discord.Embed(title="Poke Command",description="This command is an interaction you can do with a user",color = discord.Colour.purple())
+        embed.add_field(name="**Syntax**",value="k!poke @user",inline=False)
+        embed.add_field(name="Aliases",value="The aliases for this command are pokes / poking",inline=False)
+        await ctx.send(embed=embed)            
 
     @help.command(aliases=["steal",'eadd'])
     async def emoji_add(self,ctx):

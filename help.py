@@ -501,7 +501,14 @@ class help(commands.Cog,View):
         embed = discord.Embed(title="Poke Command",description="This command is an interaction you can do with a user",color = discord.Colour.purple())
         embed.add_field(name="**Syntax**",value="k!poke @user",inline=False)
         embed.add_field(name="Aliases",value="The aliases for this command are pokes / poking",inline=False)
-        await ctx.send(embed=embed)            
+        await ctx.send(embed=embed)
+
+    @help.command(aliases=["deals"])
+    async def deal(self,ctx):
+        embed = discord.Embed(title="Deal Command",description="This command is an interaction you can do with a user",color = discord.Colour.purple())
+        embed.add_field(name="**Syntax**",value="k!deal @user",inline=False)
+        embed.add_field(name="Aliases",value="The aliases for this command are deals",inline=False)
+        await ctx.send(embed=embed)                
 
     @help.command(aliases=["steal",'eadd'])
     async def emoji_add(self,ctx):

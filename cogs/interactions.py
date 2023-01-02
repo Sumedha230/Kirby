@@ -1151,11 +1151,31 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
-        await ctx.send(embed=embed)                                     
+        await ctx.send(embed=embed)        
+
+    @commands.command()
+    async def hurt(self,ctx,user:discord.Member=None):
+        if user == None:
+            embed=discord.Embed(title=f"{ctx.author.name} is hurt ",color = discord.Colour.purple())
+        else:
+            embed=discord.Embed(title=f"{user.name} deeply hurt {ctx.author.name}",color = discord.Colour.purple())    
+        if user!=None and user.id == ctx.author.id:
+            await ctx.send("Bro atleast find someone to do an interaction with ")
+            return 
+        KEY = "AIzaSyBWKLC74AeG_xh_QPN37y9aJoIznvQ2KBk"  # click to set to your apikey
+        lmt = 50
+        ckey = "test" 
+        searchTerm = "hurt"  
+        r = requests.get(f"https://tenor.googleapis.com/v2/search?q=%s&key=%s&client_key=%s&limit=%s" %(searchTerm, KEY, ckey,  lmt))
+        data = r.json()
+        randomgif = random.randint(0,49)
+        url = data['results'][randomgif]["media_formats"]['gif']['url']
+        embed.set_image(url = url)
+        await ctx.send(embed=embed)                                  
 
 async def setup(bot:commands.Bot) -> None:
     await bot.add_cog(interaction(bot))       
-    print("block, bonk, cheer, choke, cope, cry ,eat, blush, fuck, kiss, beetle, kill, laugh, lie, miss ,hug, boop, pat, pf, pinch, pray, salute , marry, love, nom, punch, shut, sip, bored ,smirk, cuddle, sit, slap, spank, spit ,threaten, fight, judge, wink, tickle, touch ,twerk ,wave, highfive, yawn, vibe, stare, dance ,shock ,lick, poke, deal, facepalm, fake, fart is loaded")    
+    print("block, bonk, cheer, choke, cope, cry ,eat, blush, fuck, kiss, beetle, kill, laugh, lie, miss ,hug, boop, pat, pf, pinch, pray, salute , marry, love, nom, punch, shut, sip, bored ,smirk, cuddle, sit, slap, spank, spit ,threaten, fight, judge, wink, tickle, touch ,twerk ,wave, highfive, yawn, vibe, stare, dance ,shock ,lick, poke, deal, facepalm, fake, fart, hurt is loaded")    
        
         
    

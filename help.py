@@ -14,7 +14,7 @@ class help(commands.Cog,View):
         embed.add_field(name="Moderation Commands",value="clear/purge, warn, ban, kick, emoji_add, mute, unmute",inline=False)
         embed.add_field(name="User Commands", value = "avatar, guildavatar, banner, serverinfo, userinfo",inline=False)
         embed.add_field(name="Fun Commands",value = "dice, say, repeat, truthordare(tord), wouldyourather(wyr), paranoia, neverhaveiever(nhie), translate, translation", inline=False)
-        embed.add_field(name= "Interaction Command", value = "block, bite, blush, bonk, boop, bored, cheer, choke, cope, cry, cuddle, dance, deal, eating, fight, facepalm, fake, fart, fuck, highfive, hug, judge, kill, kiss, laugh, liar, lick, love, marry, missing, nom, pat, pillowfight, pinch, poke, pray, punch, realkiss, salute, sip, sit, shock, slap, smirk, spank, stare, spit, stfu,threaten, tickle, touchgrass, twerk, vibe, wave, ,wink yawn",inline=False)
+        embed.add_field(name= "Interaction Command", value = "block, bite, blush, bonk, boop, bored, cheer, choke, cope, cry, cuddle, dance, deal, eating, fight, facepalm, fake, fart, fuck, highfive, hug, hurt, judge, kill, kiss, laugh, liar, lick, love, marry, missing, nom, pat, pillowfight, pinch, poke, pray, punch, realkiss, salute, sip, sit, shock, slap, smirk, spank, stare, spit, stfu,threaten, tickle, touchgrass, twerk, vibe, wave, ,wink yawn",inline=False)
         await ctx.send(embed=embed)  
     @help.command()
     async def purge(self,ctx):
@@ -529,6 +529,12 @@ class help(commands.Cog,View):
         embed.add_field(name="**Syntax**",value="k!fart @user or k!fart",inline=False)
         embed.add_field(name="Aliases",value="The aliases for this command are farts / farting",inline=False)
         await ctx.send(embed=embed) 
+
+    @help.command()
+    async def hurt(self,ctx):
+        embed = discord.Embed(title="Hurt Command",description="This command is an interaction you can do with or without a user",color = discord.Colour.purple())
+        embed.add_field(name="**Syntax**",value="k!hurt @user or k!hurt",inline=False)
+        await ctx.send(embed=embed)     
 
     @help.command(aliases=["steal",'eadd'])
     async def emoji_add(self,ctx):

@@ -11,7 +11,7 @@ class help(commands.Cog,View):
     
     async def help(self,ctx):
         embed = discord.Embed(title="Help", description="Use k!help <command> for extended information on that command. The prefixes for the bot are : k!, K!, >",color = discord.Colour.purple())
-        embed.add_field(name="Moderation Commands",value="clear/purge, warn, ban, kick, emoji_add, mute, unmute",inline=False)
+        embed.add_field(name="Moderation Commands",value="clear/purge, warn, ban, kick, emoji_add, mute, unmute, lock, unlock, createrole, addrole, removerole",inline=False)
         embed.add_field(name="User Commands", value = "avatar, guildavatar, banner, serverinfo, userinfo",inline=False)
         embed.add_field(name="Fun Commands",value = "dice, say, repeat, truthordare(tord), wouldyourather(wyr), paranoia, neverhaveiever(nhie), translate, translation", inline=False)
         embed.add_field(name= "Interaction Command", value = "block, bitch, bite, blush, bonk, boop, bored, cheer, choke, cope, cry, cuddle, dance, deal, eating, fight, facepalm, fake, fart, fuck, highfive, hug, hurt, judge, kill, kiss, laugh, liar, lick, love, marry, missing, nom, pat, pillowfight, pinch, poke, pray, punch, realkiss, salute, sip, sit, shock, slap, smirk, spank, stare, spit, stfu,threaten, tickle, touchgrass, twerk, vibe, wave, ,wink yawn",inline=False)
@@ -582,6 +582,18 @@ class help(commands.Cog,View):
         embed.add_field(name="**Syntax**",value="k!unmute @user",inline=False)
         embed.add_field(name="Aliases",value="The aliases for this command are um",inline=False)
         await ctx.send(embed=embed)  
+
+    @help.command()
+    async def lock(self,ctx):
+        embed = discord.Embed(title="Lock Command",description="This command is a mod command that locks a channel",color = discord.Colour.purple())
+        embed.add_field(name="**Syntax**",value="k!lock or k!lock #channel",inline=False)
+        await ctx.send(embed=embed)   
+
+    @help.command()
+    async def unlock(self,ctx):
+        embed = discord.Embed(title="UnLock Command",description="This command is a mod command that unlocks a channel",color = discord.Colour.purple())
+        embed.add_field(name="**Syntax**",value="k!unlock or k!unlock #channel",inline=False)
+        await ctx.send(embed=embed)          
 
 
 async def setup(bot:commands.Bot) -> None:

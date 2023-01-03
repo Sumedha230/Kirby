@@ -31,6 +31,24 @@ class mod(commands.Cog):
                 em = discord.Embed(title="Banned",description=f"{user.mention} was banned by {ctx.author.mention}",color = discord.Colour.purple())     
             await user.ban(reason=reason)
             await ctx.send(embed=em)  
+    @ban.error
+    async def ban_error(self,ctx, error):
+        if isinstance(error,commands.CheckFailure):
+            await ctx.send(f'{error}')  
+
+    @commands.hybrid_command()
+    @commands.has_guild_permissions(ban_members=True)
+    @commands.has_guild_permissions(administrator=True)
+    async def unban(self,ctx,member:discord.User): 
+        if ctx.guild.ban(member):
+            await ctx.guild.unban(member)
+            await ctx.send(f"{member.mention} has been **unbanned**")
+        else:
+            await ctx.send(f"{member.mention} is not banned")    
+    @unban.error
+    async def unban_error(self,ctx, error):
+        if isinstance(error,commands.CheckFailure):
+            await ctx.send(f'{error}')          
 
     @commands.hybrid_command(aliases=["cr","create"])
     @commands.has_guild_permissions(manage_roles=True)
@@ -214,18 +232,57 @@ class mod(commands.Cog):
             await ctx.send("You dont have the permission to warn anyone")  
         else:
             if reason != None:
-                em = discord.Embed(title="Warned",description=f"{user.mention} wass warned by {ctx.author.mention} {reason}",color = discord.Colour.purple())
+                em = discord.Embed(title="Warned",description=f"{user.mention} was warned by {ctx.author.mention} {reason}",color = discord.Colour.purple())
             else:
                 em = discord.Embed(title="Warned",description=f"{user.mention} was warned by {ctx.author.mention} for no reason",color = discord.Colour.purple())     
             if reason != None:
                 await user.send(f" You were warned in {ctx.guild.name} for {reason} by {ctx.author.name}")
             else:
                 await user.send(f" You were warned in {ctx.guild.name} by {ctx.author.name}")
-            await ctx.send(embed=em)                                   
+            await ctx.send(embed=em)    
+    
+    @commands.hybrid_command()
+    @commands.has_guild_permissions(manage_channels=True)
+    async def lock(self,ctx,channel:discord.TextChannel=None):
+        if ctx.author.guild_permissions.administrator==False or ctx.author.guild_permissions.manage_channels == False:
+            await ctx.send("You don't have the required permissions to lock a channel")
+        else:
+            channel = channel or ctx.channel
+            overwrite = channel.overwrites_for(ctx.guild.default_role)
+            overwrite.send_messages = False
+            await channel.set_permissions(ctx.guild.default_role, overwrite=overwrite)
+            if channel:
+                await ctx.send(f'Channel {channel} locked.')
+            else:
+                await ctx.send(f"Channel {ctx.channel} locked.")    
+    @lock.error
+    async def lock_error(self,ctx, error):
+        if isinstance(error,commands.CheckFailure):
+            await ctx.send(f'{error}')        
+
+    @commands.hybrid_command()
+    @commands.has_guild_permissions(manage_channels=True)
+    async def unlock(self,ctx,channel:discord.TextChannel=None):
+        if ctx.author.guild_permissions.manage_channels == False or ctx.author.guild_permissions.administrator==False:
+            await ctx.send("You don't have the required permissions to unlock a channel")
+        else:
+            channel = channel or ctx.channel
+            overwrite = channel.overwrites_for(ctx.guild.default_role)
+            
+            overwrite.send_messages = True
+            await channel.set_permissions(ctx.guild.default_role, overwrite=overwrite)
+            await ctx.send(f'Channel {channel} unlocked.')
+                  
+    @unlock.error
+    async def unlock_error(self,ctx, error):
+        if isinstance(error,commands.CheckFailure):
+            await ctx.send(f'{error}')  
+
+                                       
     
 
 async def setup(bot:commands.Bot) -> None:
     await bot.add_cog(mod(bot))       
-    print("ban , role , kick, mute, purge, steal, warn is loaded")    
+    print("ban , role , kick, mute, purge, steal, warn, lock, unlock is loaded")    
        
     

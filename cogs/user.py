@@ -90,34 +90,33 @@ class user(commands.Cog):
         embed.add_field(name = "Joined At",value = member.joined_at.strftime("Date: %d/%m/%Y Time: %H:%M:%S %p")) 
         embed.add_field(name = f" Total Roles ({len(roles)})",value = " ".join([role.mention for role in roles]),inline=False) 
         perms = []
-        for p in ctx.channel.permissions_for(member):
-            if p[0]== 'administrator':
-                perms.append('Administrator')
-            if p[0] == 'kick_members':
-                perms.append('Kick Members')
-            if p[0]=='ban_members':
-                perms.append('Ban Members')
-            if p[0]=='manage_channels':
-                perms.append('Manage Channels')
-            if p[0]=='view_audit_log':
-                perms.append('View Audit Log') 
-            if p[0]=='manage_guild':
-                perms.append('Manage Guild')   
-            if p[0]=='mention_everyone':
-                perms.append('Mention Everyone')   
-            if p[0]=='mute_members':
-                perms.append('Mute Members')  
-            if p[0]=='manage_nicknames':
-                perms.append('Manage Nicknames')  
-            if p[0]=='manage_roles':
-                perms.append('Manage Roles')  
-            if p[0]=='manage_emojis':
-                perms.append('Manage Emojis') 
-            if p[0]=='moderate_members':
-                perms.append('Moderate Members')                                          
-
-        embed.add_field(name = f"User Key Permissions",value = ", ".join([perm for perm in perms]),inline=False)    
-
+        
+        if member.guild_permissions.administrator == True:
+            perms.append('Administrator')
+        if member.guild_permissions.kick_members == True:
+            perms.append('Kick Members')
+        if member.guild_permissions.ban_members == True:
+            perms.append('Ban Members')
+        if member.guild_permissions.manage_channels == True:
+            perms.append('Manage Channels')
+        if member.guild_permissions.view_audit_log == True:
+            perms.append('View Audit Log')
+        if member.guild_permissions.manage_guild == True:
+            perms.append('Manage Guild')
+        if member.guild_permissions.mention_everyone == True:
+            perms.append('Mention Everyone')   
+        if member.guild_permissions.mute_members == True:
+            perms.append('Mute Members')
+        if member.guild_permissions.manage_nicknames == True:
+            perms.append('Manage Nicknames')  
+        if member.guild_permissions.manage_roles == True:
+            perms.append('Manage Roles')  
+        if member.guild_permissions.manage_emojis == True:
+            perms.append('Manage Emojis')      
+        if member.guild_permissions.moderate_members == True:
+            perms.append('Moderate Members')                                                    
+        if len(perms)!=0:
+            embed.add_field(name = f"User Key Permissions",value = ", ".join([perm for perm in perms]),inline=False)    
         embed.set_thumbnail(url = member.avatar.url)
         await ctx.send(embed=embed)      
    

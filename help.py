@@ -13,8 +13,8 @@ class help(commands.Cog,View):
         embed = discord.Embed(title="Help", description="Use k!help <command> for extended information on that command. The prefixes for the bot are : k!, K!, >",color = discord.Colour.purple())
         embed.add_field(name="Moderation Commands",value="clear/purge, warn, ban, kick, emoji_add, mute, unmute, lock, unlock, createrole, addrole, removerole",inline=False)
         embed.add_field(name="User Commands", value = "avatar, guildavatar, banner, serverinfo, userinfo",inline=False)
-        embed.add_field(name="Fun Commands",value = "dice, say, repeat, truthordare(tord), wouldyourather(wyr), paranoia, neverhaveiever(nhie), translate, translation", inline=False)
-        embed.add_field(name= "Interaction Command", value = "block, bitch, bite, blush, bonk, boop, bored, cheer, choke, cope, cry, cuddle, dance, deal, eating, fight, facepalm, fake, fart, fuck, highfive, hug, hurt, judge, kill, kiss, laugh, liar, lick, love, marry, missing, nom, pat, pillowfight, pinch, poke, pray, punch, realkiss, salute, sip, sit, shock, slap, smirk, spank, stare, spit, stfu,threaten, tickle, touchgrass, twerk, vibe, wave, ,wink yawn",inline=False)
+        embed.add_field(name="Fun Commands",value = "dice, say, repeat, truthordare(tord), wouldyourather(wyr), paranoia, neverhaveiever(nhie), translate, translation, joke, dadjoke, darkjoke, weather", inline=False)
+        embed.add_field(name= "Interaction Command", value = "block, bitch, bite, blush, bonk, boop, bored, cheer, choke, cope, cry, cuddle, dance, deal, eating, eyeroll, fight, facepalm, fake, fart, fuck, highfive, hug, hurt, judge, kill, kiss, laugh, liar, lick, love, marry, missing, nom, pat, pillowfight, pinch, poke, pray, punch, realkiss, salute, sip, sit, shock, slap, smack, smirk, spank, stare, spit, stfu, threaten, tickle, touchgrass, twerk, vibe, wave, wink, yawn",inline=False)
         await ctx.send(embed=embed)  
     @help.command()
     async def purge(self,ctx):
@@ -540,7 +540,20 @@ class help(commands.Cog,View):
     async def bitch(self,ctx):
         embed = discord.Embed(title="Bitch Command",description="This command is an interaction you can do with a user",color = discord.Colour.purple())
         embed.add_field(name="**Syntax**",value="k!bitch @user",inline=False)
-        await ctx.send(embed=embed)         
+        await ctx.send(embed=embed) 
+
+    @help.command(aliases=['eroll','eyer'])
+    async def eyeroll(self,ctx):
+        embed = discord.Embed(title="Eyeroll Command",description="This command is an interaction you can do with or without a user",color = discord.Colour.purple())
+        embed.add_field(name="**Syntax**",value="k!eyeroll @user or k!eyeroll",inline=False)
+        embed.add_field(name="Aliases",value="The aliases for this command are eroll / eyer",inline=False)
+        await ctx.send(embed=embed)   
+
+    @help.command()
+    async def smack(self,ctx):
+        embed = discord.Embed(title="Smack Command",description="This command is an interaction you can do with a user",color = discord.Colour.purple())
+        embed.add_field(name="**Syntax**",value="k!smack @user",inline=False)
+        await ctx.send(embed=embed)               
 
     @help.command(aliases=["steal",'eadd'])
     async def emoji_add(self,ctx):
@@ -575,6 +588,11 @@ class help(commands.Cog,View):
         embed = discord.Embed(title="Mute Command",description="This command is a mod command that mutes a user",color = discord.Colour.purple())
         embed.add_field(name="**Syntax**",value="k!mute @user 7 d reason or k!mute @user that mutes the member for 1 min by default",inline=False)
         await ctx.send(embed=embed)
+    @help.command()
+    async def weather(self,ctx):
+        embed = discord.Embed(title="Weather Command",description="This command gives the weather of a city or country",color = discord.Colour.purple())
+        embed.add_field(name="**Syntax**",value="k!weather <city_name>",inline=False)
+        await ctx.send(embed=embed)    
 
     @help.command(alises=['um'])
     async def unmute(self,ctx):
@@ -593,7 +611,27 @@ class help(commands.Cog,View):
     async def unlock(self,ctx):
         embed = discord.Embed(title="UnLock Command",description="This command is a mod command that unlocks a channel",color = discord.Colour.purple())
         embed.add_field(name="**Syntax**",value="k!unlock or k!unlock #channel",inline=False)
-        await ctx.send(embed=embed)          
+        await ctx.send(embed=embed) 
+
+    @help.command()
+    async def joke(self,ctx):
+        embed = discord.Embed(title="Joke Command",description="This command gives a random joke",color = discord.Colour.purple())
+        embed.add_field(name="**Syntax**",value="k!joke",inline=False)
+        await ctx.send(embed=embed) 
+
+    @help.command(aliases=['dk','darkj','dark'])
+    async def darkjoke(self,ctx):
+        embed = discord.Embed(title="Dark Joke Command",description="This command gives a random dark joke (Only in NSFW Channels)",color = discord.Colour.purple())
+        embed.add_field(name="**Syntax**",value="k!darkjoke",inline=False)
+        embed.add_field(name="**Aliases**",value="'The aliases for this command are dk / darkj / dark",inline=False)
+        await ctx.send(embed=embed) 
+
+    @help.command(aliases=['dadj','dj'])
+    async def dadjoke(self,ctx):
+        embed = discord.Embed(title="Dad Joke Command",description="This command gives a random dad joke",color = discord.Colour.purple())
+        embed.add_field(name="**Syntax**",value="k!dadjoke",inline=False)
+        embed.add_field(name="**Aliases**",value="'The aliases for this command are dadj / dj",inline=False)
+        await ctx.send(embed=embed)                      
 
 
 async def setup(bot:commands.Bot) -> None:

@@ -47,7 +47,7 @@ class user(commands.Cog):
         embed.add_field(name='Name:', value=ctx.guild.name, inline=False)
         embed.add_field(name='ID:', value=ctx.guild.id, inline=False)
         embed.add_field(name='Owner:', value=ctx.guild.owner.mention, inline=False)
-        embed.add_field(name='Created At:', value=ctx.guild.created_at.strftime('Day: %d/%m/%Y Hour: %H:%M:%S %p'), inline=False)
+        embed.add_field(name='Created At:', value=ctx.guild.created_at.strftime('Date: %d/%m/%Y Time: %H:%M:%S %p'), inline=False)
         embed.add_field(name='Boost Level:', value=ctx.guild.premium_tier, inline=False)
         gc= 0
         bc = 0
@@ -56,6 +56,7 @@ class user(commands.Cog):
                 gc += 1
             else:
                 bc+=1    
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url) 
         embed.add_field(name="Total Member Count",value = f"The total headcount in this server is {ctx.guild.member_count}", inline=False)
         embed.add_field(name="Member Count",value = f"There are a total of {gc} members in this server", inline=False)
         embed.add_field(name="Bot Count",value = f"There are a total of {bc} bots in this server",inline=False)
@@ -77,15 +78,46 @@ class user(commands.Cog):
     async def userinfo(self,ctx,member:discord.Member=None):
         if member == None:
             member = ctx.message.author
+            
         roles = [role for role in member.roles]
         embed=discord.Embed(title=f"***User Information***",color = discord.Colour.purple(),timestamp = ctx.message.created_at)   
-        embed.add_field(name = "Name",value = member,inline=False) 
-        embed.add_field(name = "ID",value = member.id,inline=False) 
-        embed.add_field(name = "Nickname",value = member.display_name,inline=False)
-        embed.add_field(name = "Status",value = member.status,inline=False)
-        embed.add_field(name = "Created At",value = member.created_at.strftime("Day: %d/%m/%Y Hour: %H:%M:%S %p"),inline=False)
-        embed.add_field(name = "Joined At",value = member.joined_at.strftime("Day: %d/%m/%Y Hour: %H:%M:%S %p"),inline=False) 
-        embed.add_field(name = f" Total Roles ({len(roles)})",value = " ".join([role.mention for role in roles])) 
+        embed.add_field(name = "Name",value = member) 
+        embed.add_field(name = "ID",value = member.id) 
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
+        embed.add_field(name = "Nickname",value = member.display_name)
+        embed.add_field(name = "Status",value = member.status)
+        embed.add_field(name = "Created At",value = member.created_at.strftime("Date: %d/%m/%Y Time: %H:%M:%S %p"))
+        embed.add_field(name = "Joined At",value = member.joined_at.strftime("Date: %d/%m/%Y Time: %H:%M:%S %p")) 
+        embed.add_field(name = f" Total Roles ({len(roles)})",value = " ".join([role.mention for role in roles]),inline=False) 
+        perms = []
+        for p in ctx.channel.permissions_for(member):
+            if p[0]== 'administrator':
+                perms.append('Administrator')
+            if p[0] == 'kick_members':
+                perms.append('Kick Members')
+            if p[0]=='ban_members':
+                perms.append('Ban Members')
+            if p[0]=='manage_channels':
+                perms.append('Manage Channels')
+            if p[0]=='view_audit_log':
+                perms.append('View Audit Log') 
+            if p[0]=='manage_guild':
+                perms.append('Manage Guild')   
+            if p[0]=='mention_everyone':
+                perms.append('Mention Everyone')   
+            if p[0]=='mute_members':
+                perms.append('Mute Members')  
+            if p[0]=='manage_nicknames':
+                perms.append('Manage Nicknames')  
+            if p[0]=='manage_roles':
+                perms.append('Manage Roles')  
+            if p[0]=='manage_emojis':
+                perms.append('Manage Emojis') 
+            if p[0]=='moderate_members':
+                perms.append('Moderate Members')                                          
+
+        embed.add_field(name = f"User Key Permissions",value = ", ".join([perm for perm in perms]),inline=False)    
+
         embed.set_thumbnail(url = member.avatar.url)
         await ctx.send(embed=embed)      
    

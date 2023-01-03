@@ -5,6 +5,8 @@ from discord.app_commands import CommandTree
 import requests
 import discord.ui
 from discord.ui import Button,View
+from pprint import pprint
+import random
 
 class games(commands.Cog):
     def __init__(self, bot):
@@ -117,8 +119,99 @@ class games(commands.Cog):
         r = requests.get("https://api.truthordarebot.xyz/api/wyr")
         res = r.json()
         em = discord.Embed(title="Would You Rather Question",description = f"{res['question']}",color = discord.Colour.purple())
-        await ctx.send(embed=em,view=view)           
+        await ctx.send(embed=em,view=view) 
+
+    @commands.hybrid_command(aliases=['dk','darkj','dark'])
+    async def darkjoke(self,ctx):
+        if ctx.channel.is_nsfw():
+            r = requests.get("https://v2.jokeapi.dev/joke/Dark")
+            res = r.json()
+            if res['type']=='single':
+                jokes = "".join(res['joke'])
+                em = discord.Embed(title="Dark Joke",description = f"{jokes}",color = discord.Colour.purple())
+            else:
+                jokes = "".join(res['setup'])
+                em = discord.Embed(title="Dark Joke",description = f"{jokes}",color = discord.Colour.purple())
+                jokes = "".join(res['delivery'])
+                em.add_field(name='---',value=f"{jokes}")
+            await ctx.send(embed=em)        
+        else:
+            await ctx.send("Dark Jokes are not for everyone so do in an NSFW Channel")  
+
+    @commands.hybrid_command()
+    async def joke(self,ctx):
+        r = requests.get("https://v2.jokeapi.dev/joke/Any?blacklistFlags=nsfw,explicit")
+        res = r.json()
+        if res['type']=='single':
+            jokes = "".join(res['joke'])
+            em = discord.Embed(title="Bad Joke",description = f"{jokes}",color = discord.Colour.purple())
+        else:
+            jokes = "".join(res['setup'])
+            em = discord.Embed(title="Bad Joke",description = f"{jokes}",color = discord.Colour.purple())
+            jokes = "".join(res['delivery'])
+            em.add_field(name='---',value=f"{jokes}")
+        await ctx.send(embed=em)   
+
+    @commands.hybrid_command(aliases=['dadj','dj'])
+    async def dadjoke(self,ctx):
+        url = "https://dad-jokes.p.rapidapi.com/random/joke"
+
+        headers = {
+	     "X-RapidAPI-Key": "eb205e7f48mshbe28519f8133dcap1aea11jsnaed55c3ce6bf",
+	       "X-RapidAPI-Host": "dad-jokes.p.rapidapi.com"
+         }
+
+        response = requests.request("GET", url, headers=headers)
+        res = response.json()
+    
+        t = res['body']
+        t = t[0]
+        
+        ret = "".join(t['setup'])
+        em = discord.Embed(title="Dad Joke",description = f"{ret}",color = discord.Colour.purple())
+        jokes = "".join(t['punchline'])
+        em.add_field(name='---',value=f"{jokes}")
+        await ctx.send(embed=em)
+
+    @commands.hybrid_command()
+    async def weather(self,ctx,*,city:str):
+        url = "https://weatherapi-com.p.rapidapi.com/current.json"
+        querystring = {"q":f"{city}"}
+        headers = {
+	"X-RapidAPI-Key": "eb205e7f48mshbe28519f8133dcap1aea11jsnaed55c3ce6bf",
+	"X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com"
+}
+        response = requests.request("GET", url, headers=headers, params=querystring)
+        res = response.json()
+        em = discord.Embed(title="Weather Condition",description = f"The Weather in {res['location']['name']} is",color = discord.Colour.purple())
+        em.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
+        t = res['current']
+        em.add_field(name="Current Conditions",value=f"Temperature in Celsius : {t['temp_c']} °C\nTemperature in Farhenheit : {t['temp_f']} F",inline="False")
+        t = res['location']
+        em.add_field(name="Country Details",value=f"Country : {t['country']}\nTime in {t['country']} : {t['localtime']}\nCity : {t['name']}\nRegion : {t['region']}")
+        em.set_thumbnail(url="https://media.tenor.com/Xh858Z_KDZcAAAAC/hurricane-storm.gif")
+        
+        await ctx.send(embed=em)
+
+        
+        pprint(res)
+    
+
+#     @commands.hybrid_command()
+#     async def meme(self,ctx):
+#         url = "https://humor-jokes-and-memes.p.rapidapi.com/memes/random"
+#         querystring = {"keywords":"rocket","number":"3","media-type":"image","keywords-in-image":"false","min-rating":"4"}
+#         headers = {
+# 	"X-RapidAPI-Key": "eb205e7f48mshbe28519f8133dcap1aea11jsnaed55c3ce6bf",
+# 	"X-RapidAPI-Host": "humor-jokes-and-memes.p.rapidapi.com"
+# }
+#         response = requests.request("GET", url, headers=headers)
+#         res = response.json()
+#         await ctx.send(res['url'])
+#         pprint(res)
+        
+        
 
 async def setup(bot:commands.Bot) -> None:
     await bot.add_cog(games(bot))       
-    print("Nhie , para , tord , repeat , wyr is loaded")    
+    print("Nhie , para , tord , repeat , wyr, darkjoke, joke, dadjoke, weather is loaded")    

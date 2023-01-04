@@ -13,12 +13,16 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["Block",'blocking'])
     async def block(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
             user = random.choice(humans)
         if user.id == ctx.author.id:
             await ctx.send("Bro atleast find someone to do an interaction with ")
             return
+
             
         KEY = "AIzaSyBWKLC74AeG_xh_QPN37y9aJoIznvQ2KBk"  # click to set to your apikey
         lmt = 50
@@ -35,7 +39,10 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["Bonk","BONK"])
     async def bonk(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
             user = random.choice(humans)
         if user.id == ctx.author.id:
@@ -51,13 +58,17 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         
-        embed=discord.Embed(title=f"{ctx.author.name} bonks{user.name} for being horny",color = discord.Colour.purple())
+        embed=discord.Embed(title=f"{ctx.author.name} bonks {user.name} for being horny",color = discord.Colour.purple())
         embed.set_image(url = url)
         await ctx.send(embed=embed)      
 
     @commands.command(aliases=["cheering","Cheer","Cheering"])
     async def cheer(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+            embed=discord.Embed(title=f"{ctx.author.name} is cheering for {user.name}",color = discord.Colour.purple()) 
+        elif user == None:
             embed=discord.Embed(title=f"{ctx.author.name} is cheering",color = discord.Colour.purple())
         else:
             embed=discord.Embed(title=f"{ctx.author.name} is cheering for {user.name}",color = discord.Colour.purple())    
@@ -77,7 +88,10 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["Choke",'choking'])
     async def choke(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
             user = random.choice(humans)
         if user.id == ctx.author.id:
@@ -97,7 +111,10 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["Cope"])
     async def cope(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
             user = random.choice(humans)
         if user.id == ctx.author.id:
@@ -117,7 +134,11 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["Crying","cry","Cry"])
     async def crying(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+            embed=discord.Embed(title=f"{user.name} made {ctx.author.name} cry! Truly a monster",color = discord.Colour.purple())
+        elif user == None:
             embed=discord.Embed(title=f"{ctx.author.name} is crying",color = discord.Colour.purple())
         else:
             embed=discord.Embed(title=f"{user.name} made {ctx.author.name} cry! Truly a monster",color = discord.Colour.purple())    
@@ -151,7 +172,11 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["blushes","blushing","Blush"])
     async def blush(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+            embed=discord.Embed(title=f"{user.name} made {ctx.author.name} blush",color = discord.Colour.purple())        
+        elif user == None:
             embed=discord.Embed(title=f"{ctx.author.name} is blushing",color = discord.Colour.purple())
         else:
             embed=discord.Embed(title=f"{user.name} made {ctx.author.name} blush",color = discord.Colour.purple())    
@@ -172,7 +197,10 @@ class interaction(commands.Cog):
     
     @commands.command(aliases=["Kiss"])
     async def kiss(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
             user = random.choice(humans)
         if user.id == ctx.author.id:
@@ -192,7 +220,10 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["Kill","KILL",'killing'])
     async def kill(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
             user = random.choice(humans)
         if user.id == ctx.author.id:
@@ -212,7 +243,10 @@ class interaction(commands.Cog):
 
     @commands.command()
     async def fuck(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
             user = random.choice(humans)
         if user.id == ctx.author.id:
@@ -232,7 +266,11 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["laughing","Laugh","Laughing"])
     async def laugh(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+            embed=discord.Embed(title=f"{ctx.author.name} is laughing at {user.name}",color = discord.Colour.purple())
+        elif user == None:
             embed=discord.Embed(title=f"{ctx.author.name} is laughing",color = discord.Colour.purple())
         else:
             embed=discord.Embed(title=f"{ctx.author.name} is laughing at {user.name}",color = discord.Colour.purple())    
@@ -253,7 +291,10 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["lie","Lie","Liar","LIAR",'lying'])
     async def liar(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
             user = random.choice(humans)
         if user.id == ctx.author.id:
@@ -274,7 +315,10 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["Missing","miss","Miss"])
     async def missing(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
             user = random.choice(humans)
         if user.id == ctx.author.id:
@@ -295,7 +339,10 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["Hug"])
     async def hug(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
             user = random.choice(humans)
         if user.id == ctx.author.id:
@@ -315,7 +362,10 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["boops","bp"])
     async def boop(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
             user = random.choice(humans)
         if user.id == ctx.author.id:
@@ -335,7 +385,10 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["Pat,'patting"])
     async def pat(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
             user = random.choice(humans)
         if user.id == ctx.author.id:
@@ -356,7 +409,10 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["PillowFight","Pillowfight","pf","PF",'pillowf','pfight'])
     async def pillowfight(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
             user = random.choice(humans)
         if user.id == ctx.author.id:
@@ -377,7 +433,10 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["pinching",'Pinch'])
     async def pinch(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
             user = random.choice(humans)
         if user.id == ctx.author.id:
@@ -398,7 +457,11 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["praying","prays"])
     async def pray(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+            embed=discord.Embed(title=f"{ctx.author.name} is praying for {user.name}",color = discord.Colour.purple())
+        elif user == None:
             embed=discord.Embed(title=f"{ctx.author.name} is praying",color = discord.Colour.purple())
         else:
             embed=discord.Embed(title=f"{ctx.author.name} is praying for {user.name}",color = discord.Colour.purple())    
@@ -418,7 +481,10 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["salutes",'saluting'])
     async def salute(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
             user = random.choice(humans)
         if user.id == ctx.author.id:
@@ -439,7 +505,10 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["Marry","MARRY"])
     async def marry(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
             user = random.choice(humans)
         if user.id == ctx.author.id:
@@ -461,7 +530,10 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["Love"])
     async def love(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
             user = random.choice(humans)
         if user.id == ctx.author.id:
@@ -489,7 +561,10 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["Nom","NOM"])
     async def nom(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
             user = random.choice(humans)
         if user.id == ctx.author.id:
@@ -510,7 +585,10 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["bites","biting"])
     async def bite(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
             user = random.choice(humans)
         if user.id == ctx.author.id:
@@ -531,7 +609,10 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["Punch",'punching'])
     async def punch(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
             user = random.choice(humans)
         if user.id == ctx.author.id:
@@ -552,7 +633,10 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["STFU","shut","shutup","Shut"])
     async def stfu(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot and m.id != 530824411759116288]
             user = random.choice(humans)
         if user.id == ctx.author.id:
@@ -588,7 +672,11 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["bore","boring"])
     async def bored(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+            embed=discord.Embed(title=f"{ctx.author.name} is bored of {user.name}",color = discord.Colour.purple())
+        elif user == None:
             embed=discord.Embed(title=f"{ctx.author.name} is bored",color = discord.Colour.purple())
         else:
             embed=discord.Embed(title=f"{ctx.author.name} is bored of {user.name}",color = discord.Colour.purple())    
@@ -608,7 +696,11 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["smirking","smirks"])
     async def smirk(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+            embed=discord.Embed(title=f"{ctx.author.name} is smirking at {user.name}",color = discord.Colour.purple())
+        elif user == None:
             embed=discord.Embed(title=f"{ctx.author.name} is smirking ",color = discord.Colour.purple())
         else:
             embed=discord.Embed(title=f"{ctx.author.name} is smirking at {user.name}",color = discord.Colour.purple())    
@@ -644,7 +736,10 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["Cuddle","cuddles",'cuddling'])
     async def cuddle(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
             user = random.choice(humans)
         if user.id == ctx.author.id:
@@ -665,7 +760,10 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["Sit",'sitting'])
     async def sit(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
             user = random.choice(humans)
         if user.id == ctx.author.id:
@@ -685,7 +783,10 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["Slap"])
     async def slap(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
             user = random.choice(humans)
         if user.id == ctx.author.id:
@@ -706,7 +807,10 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["Spank","SPANK","spanking","Spanking"])
     async def spank(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
             user = random.choice(humans)
         if user.id == ctx.author.id:
@@ -727,7 +831,10 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["Spit"])
     async def spit(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
             user = random.choice(humans)
         if user.id == ctx.author.id:
@@ -748,7 +855,10 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["Threaten","THREATEN",'threat'])
     async def threaten(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
             user = random.choice(humans)
         if user.id == ctx.author.id:
@@ -770,7 +880,10 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["Fight",'fighting','fights'])
     async def fight(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
             user = random.choice(humans)
         if user.id == ctx.author.id:
@@ -790,7 +903,10 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["Judge","JUDGE",'judging','Judging'])
     async def judge(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
             user = random.choice(humans)
         if user.id == ctx.author.id:
@@ -810,7 +926,11 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["winking","winks"])
     async def wink(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+            embed=discord.Embed(title=f"{ctx.author.name} is winking at {user.name}",color = discord.Colour.purple())
+        elif user == None:
             embed=discord.Embed(title=f"{ctx.author.name} is winking",color = discord.Colour.purple())
         else:
             embed=discord.Embed(title=f"{ctx.author.name} is winking at {user.name}",color = discord.Colour.purple())    
@@ -830,7 +950,10 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["Tickle","Tick"])
     async def tickle(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
             user = random.choice(humans)
         if user.id == ctx.author.id:
@@ -850,7 +973,10 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["tg","touchg",'tgrass','touch'])
     async def touchgrass(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             embed=discord.Embed(title=f"{ctx.author.name} is touching grass!",color = discord.Colour.purple())
         else:
             embed=discord.Embed(title=f"{ctx.author.name} is telling {user.name} to touch grass",color = discord.Colour.purple())    
@@ -870,7 +996,11 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["twerking","twerks"])
     async def twerk(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+            embed=discord.Embed(title=f"{ctx.author.name} is twerking for{user.name}",color = discord.Colour.purple()) 
+        elif user == None:
             embed=discord.Embed(title=f"{ctx.author.name} is twerking!",color = discord.Colour.purple())
         else:
             embed=discord.Embed(title=f"{ctx.author.name} is twerking for{user.name}",color = discord.Colour.purple())    
@@ -890,7 +1020,11 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["waving","Wave","Waving"])
     async def wave(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+            embed=discord.Embed(title=f"{ctx.author.name} waves at {user.name}",color = discord.Colour.purple()) 
+        elif user == None:
             embed=discord.Embed(title=f"{ctx.author.name} is waving",color = discord.Colour.purple())
         else:
             embed=discord.Embed(title=f"{ctx.author.name} waves at {user.name}",color = discord.Colour.purple())    
@@ -910,7 +1044,10 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["hf","Hf","highfiving",'highf','hfive'])
     async def highfive(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
             user = random.choice(humans)
         if user.id == ctx.author.id:
@@ -931,7 +1068,11 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["yawning","yawns"])
     async def yawn(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+            embed=discord.Embed(title=f"{ctx.author.name} is yawning because of {user.name}",color = discord.Colour.purple()) 
+        elif user == None:
             embed=discord.Embed(title=f"{ctx.author.name} is yawning ",color = discord.Colour.purple())
         else:
             embed=discord.Embed(title=f"{ctx.author.name} is yawning because of {user.name}",color = discord.Colour.purple())    
@@ -951,7 +1092,11 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["vibing","Vibe","Vibing"])
     async def vibe(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+            embed=discord.Embed(title=f"{user.name} and {ctx.author.name} are vibing",color = discord.Colour.purple())
+        elif user == None:
             embed=discord.Embed(title=f"{ctx.author.name} is vibing",color = discord.Colour.purple())
         else:
             embed=discord.Embed(title=f"{user.name} and {ctx.author.name} are vibing",color = discord.Colour.purple())    
@@ -971,7 +1116,11 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["staring","stares"])
     async def stare(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+            embed=discord.Embed(title=f"{ctx.author.name} is staring at {user.name}",color = discord.Colour.purple())
+        elif user == None:
             embed=discord.Embed(title=f"{ctx.author.name} is staring",color = discord.Colour.purple())
         else:
             embed=discord.Embed(title=f"{ctx.author.name} is staring at {user.name}",color = discord.Colour.purple())    
@@ -991,7 +1140,11 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["dancing","dances"])
     async def dance(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+            embed=discord.Embed(title=f"{user.name} and {ctx.author.name} are dancing",color = discord.Colour.purple())   
+        elif user == None:
             embed=discord.Embed(title=f"{ctx.author.name} is dancing",color = discord.Colour.purple())
         else:
             embed=discord.Embed(title=f"{user.name} and {ctx.author.name} are dancing",color = discord.Colour.purple())    
@@ -1011,7 +1164,11 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["shocking","shocked"])
     async def shock(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+            embed=discord.Embed(title=f"{ctx.author.name} is shocked at {user.name}'s actions",color = discord.Colour.purple())
+        elif user == None:
             embed=discord.Embed(title=f"{ctx.author.name} is shocked!",color = discord.Colour.purple())
         else:
             embed=discord.Embed(title=f"{ctx.author.name} is shocked at {user.name}'s actions",color = discord.Colour.purple())    
@@ -1031,7 +1188,10 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["licks",'licking'])
     async def lick(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
             user = random.choice(humans)
         if user.id == ctx.author.id:
@@ -1052,7 +1212,10 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["pokes",'poking'])
     async def poke(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
             user = random.choice(humans)
         if user.id == ctx.author.id:
@@ -1073,7 +1236,10 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["deals"])
     async def deal(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
             user = random.choice(humans)
         if user.id == ctx.author.id:
@@ -1094,7 +1260,11 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["farting","farts"])
     async def fart(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+            embed=discord.Embed(title=f"{ctx.author.name} is farting in {user.name}'s face ",color = discord.Colour.purple())
+        elif user == None:
             embed=discord.Embed(title=f"{ctx.author.name} is farting ",color = discord.Colour.purple())
         else:
             embed=discord.Embed(title=f"{ctx.author.name} is farting in {user.name}'s face ",color = discord.Colour.purple())    
@@ -1114,7 +1284,11 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["fp","facep"])
     async def facepalm(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+            embed=discord.Embed(title=f"{ctx.author.name} facepalmed because of {user.name}",color = discord.Colour.purple())
+        elif user == None:
             embed=discord.Embed(title=f"{ctx.author.name} is facepalming ",color = discord.Colour.purple())
         else:
             embed=discord.Embed(title=f"{ctx.author.name} facepalmed because of {user.name}",color = discord.Colour.purple())    
@@ -1134,7 +1308,10 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=["Fake"])
     async def fake(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
             user = random.choice(humans)
         if user.id == ctx.author.id:
@@ -1155,7 +1332,11 @@ class interaction(commands.Cog):
 
     @commands.command()
     async def hurt(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+            embed=discord.Embed(title=f"{user.name} deeply hurt {ctx.author.name}",color = discord.Colour.purple())    
+        elif user == None:
             embed=discord.Embed(title=f"{ctx.author.name} is hurt ",color = discord.Colour.purple())
         else:
             embed=discord.Embed(title=f"{user.name} deeply hurt {ctx.author.name}",color = discord.Colour.purple())    
@@ -1175,7 +1356,10 @@ class interaction(commands.Cog):
 
     @commands.command()
     async def bitch(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
             user = random.choice(humans)
         if user.id == ctx.author.id:
@@ -1196,7 +1380,11 @@ class interaction(commands.Cog):
 
     @commands.command(aliases=['eyer','eroll'])
     async def eyeroll(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+            embed=discord.Embed(title=f"{ctx.author.name} is rolling their eyes at {user.name}",color = discord.Colour.purple()) 
+        elif user == None:
             embed=discord.Embed(title=f"{ctx.author.name} is rolling their eyes ",color = discord.Colour.purple())
         else:
             embed=discord.Embed(title=f"{ctx.author.name} is rolling their eyes at {user.name}",color = discord.Colour.purple())    
@@ -1216,7 +1404,10 @@ class interaction(commands.Cog):
 
     @commands.command()
     async def smack(self,ctx,user:discord.Member=None):
-        if user == None:
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            user = original.author
+        elif user == None:
             humans = [m for m in ctx.guild.members if m != ctx.author and not m.bot]
             user = random.choice(humans)
         if user.id == ctx.author.id:

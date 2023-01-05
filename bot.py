@@ -28,7 +28,7 @@ class MyBot(commands.Bot):
     def __init__(self):
         intents = discord.Intents.all()
         intents.members = True
-        super().__init__(intents= intents, command_prefix= ["k!","K!",">"] , description='Cute Kirby!',activity = discord.Game(name="Super Smash Bros"))
+        super().__init__(intents= intents, command_prefix= ["k!","K!",">","k ","K "] , description='Cute Kirby!',activity = discord.Game(name="Super Smash Bros"))
         self.initial_extensions = [
            'cogs.dice_say_translator',
             'cogs.user',

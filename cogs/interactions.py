@@ -329,7 +329,7 @@ class interaction(commands.Cog):
         KEY = "AIzaSyBWKLC74AeG_xh_QPN37y9aJoIznvQ2KBk"  # click to set to your apikey
         lmt = 50
         ckey = "test" 
-        searchTerm = "anime missing"  
+        searchTerm = "anime miss"  
         r = requests.get(f"https://tenor.googleapis.com/v2/search?q=%s&key=%s&client_key=%s&limit=%s" %(searchTerm, KEY, ckey,  lmt))
         data = r.json()
         randomgif = random.randint(0,49)
@@ -1448,7 +1448,35 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
-        await ctx.send(embed=embed)                                                 
+        await ctx.send(embed=embed) 
+    
+    @commands.command()
+    async def sleep(self,ctx):
+        embed=discord.Embed(title=f"{ctx.author.name} is sleepy",color = discord.Colour.purple())
+        KEY = "AIzaSyBWKLC74AeG_xh_QPN37y9aJoIznvQ2KBk"  # click to set to your apikey
+        lmt = 50
+        ckey = "test" 
+        searchTerm = "sleep"  
+        r = requests.get(f"https://tenor.googleapis.com/v2/search?q=%s&key=%s&client_key=%s&limit=%s" %(searchTerm, KEY, ckey,  lmt))
+        data = r.json()
+        randomgif = random.randint(0,49)
+        url = data['results'][randomgif]["media_formats"]['gif']['url']
+        embed.set_image(url = url)
+        await ctx.send(embed=embed) 
+    
+    @commands.command()
+    async def tired(self,ctx):
+        embed=discord.Embed(title=f"{ctx.author.name} is tired af",color = discord.Colour.purple())
+        KEY = "AIzaSyBWKLC74AeG_xh_QPN37y9aJoIznvQ2KBk"  # click to set to your apikey
+        lmt = 50
+        ckey = "test" 
+        searchTerm = "tired"  
+        r = requests.get(f"https://tenor.googleapis.com/v2/search?q=%s&key=%s&client_key=%s&limit=%s" %(searchTerm, KEY, ckey,  lmt))
+        data = r.json()
+        randomgif = random.randint(0,49)
+        url = data['results'][randomgif]["media_formats"]['gif']['url']
+        embed.set_image(url = url)
+        await ctx.send(embed=embed)                                                         
 
 async def setup(bot:commands.Bot) -> None:
     await bot.add_cog(interaction(bot))       

@@ -25,7 +25,7 @@ class dice(commands.Cog):
             await ctx.send('provide a message with that!')
             return
         webhook = await ctx.channel.create_webhook(name=member.name)
-        await webhook.send(str(message), username=member.name, avatar_url=member.avatar.url)
+        await webhook.send(str(message), username=member.display_name, avatar_url=member.display_avatar.url)
         webhooks = await ctx.channel.webhooks()
         for webhook in webhooks:
             await webhook.delete()          

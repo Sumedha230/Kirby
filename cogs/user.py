@@ -2,13 +2,19 @@ import discord
 from discord.ext import commands
 from discord import app_commands
 from discord.app_commands import CommandTree
+import aiohttp
+from io import BytesIO
+from discord import Spotify
+import re
+
+
 
 class user(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
     @commands.hybrid_command(name="avatars",aliases=['ava','av'])
-    async def avatars(self,ctx, *,  avamember : discord.Member=None):
+    async def avatar(self,ctx, *,  avamember : discord.Member=None):
         if avamember == None:
             avamember = ctx.author
         test = discord.Embed(title=f"{avamember.name}'s Avatar",color = discord.Colour.purple())
@@ -44,11 +50,11 @@ class user(commands.Cog):
         members = len(ctx.guild.members)
         Roles = len(ctx.guild.roles)
         embed=discord.Embed(title=f"***Server Information***",color = discord.Colour.purple() )    
-        embed.add_field(name='Name:', value=ctx.guild.name, inline=False)
-        embed.add_field(name='ID:', value=ctx.guild.id, inline=False)
-        embed.add_field(name='Owner:', value=ctx.guild.owner.mention, inline=False)
-        embed.add_field(name='Created At:', value=ctx.guild.created_at.strftime('Date: %d/%m/%Y Time: %H:%M:%S %p'), inline=False)
-        embed.add_field(name='Boost Level:', value=ctx.guild.premium_tier, inline=False)
+        embed.add_field(name='Name:', value=ctx.guild.name)
+        embed.add_field(name='ID:', value=ctx.guild.id)
+        embed.add_field(name='Owner:', value=ctx.guild.owner.mention)
+        embed.add_field(name='Created At:', value=ctx.guild.created_at.strftime('%a, %B %#d, %Y, %I:%M %p '),inline=False)
+        embed.add_field(name='Boost Level:', value=ctx.guild.premium_tier)
         gc= 0
         bc = 0
         for member in ctx.guild.members:
@@ -60,7 +66,14 @@ class user(commands.Cog):
         embed.add_field(name="Total Member Count",value = f"The total headcount in this server is {ctx.guild.member_count}", inline=False)
         embed.add_field(name="Member Count",value = f"There are a total of {gc} members in this server", inline=False)
         embed.add_field(name="Bot Count",value = f"There are a total of {bc} bots in this server",inline=False)
+        embed.add_field(name="Role Count",value = f"{Roles}/250")
+        embed.add_field(name="Server Booster Role",value = f"{ctx.guild.premium_subscriber_role}")
+        embed.add_field(name="Default Role",value = f"{ctx.guild.default_role}")
+        embed.add_field(name="Text Channels",value=f"{len(ctx.guild.text_channels)}")
+        embed.add_field(name="Voice Channels",value=f"{len(ctx.guild.voice_channels)}")
         embed.set_thumbnail(url=ctx.guild.icon)
+        if ctx.guild.banner:
+            embed.set_image(url=ctx.guild.banner)
         await ctx.send(embed=embed)
 
     @commands.hybrid_command(name="server_boosters",aliases=['sb','serverb','sboost'])
@@ -86,9 +99,10 @@ class user(commands.Cog):
         embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         embed.add_field(name = "Nickname",value = member.display_name)
         embed.add_field(name = "Status",value = member.status)
-        embed.add_field(name = "Created At",value = member.created_at.strftime("Date: %d/%m/%Y Time: %H:%M:%S %p"))
-        embed.add_field(name = "Joined At",value = member.joined_at.strftime("Date: %d/%m/%Y Time: %H:%M:%S %p")) 
+        embed.add_field(name = "Created At",value = member.created_at.strftime("%a, %B %#d, %Y, %I:%M %p "))
+        embed.add_field(name = "Joined At",value = member.joined_at.strftime("%a, %B %#d, %Y, %I:%M %p ")) 
         embed.add_field(name = f" Total Roles ({len(roles)})",value = " ".join([role.mention for role in roles]),inline=False) 
+        embed.add_field(name="Top Role",value=member.top_role.mention)
         perms = []
         
         if member.guild_permissions.administrator == True:
@@ -118,8 +132,10 @@ class user(commands.Cog):
         if len(perms)!=0:
             embed.add_field(name = f"User Key Permissions",value = ", ".join([perm for perm in perms]),inline=False)    
         embed.set_thumbnail(url = member.avatar.url)
-        await ctx.send(embed=embed)      
-   
+        await ctx.send(embed=embed)   
+           
+
+                          
 async def setup(bot):
     await bot.add_cog(user(bot))       
     print("avatar , banner , guild avatar , serverinfo , serverbooster , userinfo is loaded")         

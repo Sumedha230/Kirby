@@ -196,6 +196,7 @@ class mod(commands.Cog):
             await ctx.send("Bot does not have the permission for this command")  
 
     @commands.hybrid_command(aliases=["steal",'eadd'])
+    @commands.has_guild_permissions(manage_emojis=True)
     async def emoji_add(self,ctx,emoji: discord.PartialEmoji,name:str=None):
         if ctx.author.guild_permissions.administrator==True:
             guild = ctx.guild
@@ -276,13 +277,50 @@ class mod(commands.Cog):
     @unlock.error
     async def unlock_error(self,ctx, error):
         if isinstance(error,commands.CheckFailure):
-            await ctx.send(f'{error}')  
+            await ctx.send(f'{error}') 
 
-                                       
+    @commands.hybrid_command(aliases=["edelete","de"])
+    @commands.has_guild_permissions(manage_emojis=True)
+    async def deleteemote(self,ctx,emoji:discord.Emoji):
+        if ctx.author.guild_permissions.manage_emojis == False or ctx.author.guild_permissions.administrator==False:
+            ctx.send("You don't have the required permissions to use this")
+        else:
+            await ctx.send(f"Successfully deleted {emoji}") 
+            await emoji.delete()
+               
+
+    @deleteemote.error
+    async def deleteemote_error(self,ctx, error):
+        if isinstance(error,commands.CheckFailure):
+            await ctx.send(f'{error}')         
+
     
+    @commands.hybrid_command(aliases=['ce'])
+    @commands.has_guild_permissions(manage_emojis=True)
+    async def createemote(self,ctx,url:str,*,name):
+        if ctx.author.guild_permissions.manage_emojis == False or ctx.author.guild_permissions.administrator==False:
+            ctx.send("You don't have the required permissions to use this")
+            return
+        async with aiohttp.ClientSession() as ses:
+            async with ses.get(url) as r:
+                try:
+                    if r.status in range(200,299):
+                        img = BytesIO(await r.read())
+                        bytes = img.getvalue()
+                        emoji = await ctx.guild.create_custom_emoji(image=bytes,name=name)
+                        await ctx.send(f"Successfully created emoji <:{emoji.name}:{emoji.id}> ")
+                    else:
+                        await ctx.send("Error")
+                except discord.HTTPException:
+                    await ctx.send("File may be too big") 
+
+    @createemote.error
+    async def createemote_error(self,ctx, error):
+        if isinstance(error,commands.CheckFailure):
+            await ctx.send(f'{error}') 
 
 async def setup(bot:commands.Bot) -> None:
     await bot.add_cog(mod(bot))       
-    print("ban , role , kick, mute, purge, steal, warn, lock, unlock is loaded")    
+    print("ban , role , kick, mute, purge, steal, warn, lock, unlock, deleteemote, createemote  is loaded")    
        
     

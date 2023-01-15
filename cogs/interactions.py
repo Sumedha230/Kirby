@@ -23,7 +23,6 @@ class interaction(commands.Cog):
             await ctx.send("Bro atleast find someone to do an interaction with ")
             return
 
-            
         KEY = "AIzaSyBWKLC74AeG_xh_QPN37y9aJoIznvQ2KBk"  # click to set to your apikey
         lmt = 50
         ckey = "test" 
@@ -35,6 +34,7 @@ class interaction(commands.Cog):
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed=discord.Embed(title=f"{ctx.author.name} has blocked {user.name}, They probably deserved it ",color = discord.Colour.purple())
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed) 
 
     @commands.command(aliases=["Bonk","BONK"])
@@ -60,6 +60,7 @@ class interaction(commands.Cog):
         
         embed=discord.Embed(title=f"{ctx.author.name} bonks {user.name} for being horny",color = discord.Colour.purple())
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)      
 
     @commands.command(aliases=["cheering","Cheer","Cheering"])
@@ -84,6 +85,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)   
 
     @commands.command(aliases=["Choke",'choking'])
@@ -107,6 +109,7 @@ class interaction(commands.Cog):
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed=discord.Embed(title=f"{ctx.author.name} is choking {user.name} hard!!",color = discord.Colour.purple())
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)   
 
     @commands.command(aliases=["Cope"])
@@ -130,6 +133,7 @@ class interaction(commands.Cog):
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed=discord.Embed(title=f"{ctx.author.name} is telling {user.name} to cope harder",color = discord.Colour.purple())
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)   
 
     @commands.command(aliases=["Crying","cry","Cry"])
@@ -154,6 +158,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)            
 
     @commands.command(aliases=["Eating","eat","Eat"])
@@ -168,6 +173,7 @@ class interaction(commands.Cog):
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed=discord.Embed(title=f"{ctx.author.name} is eating! Yummy food",color = discord.Colour.purple())
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed) 
 
     @commands.command(aliases=["blushes","blushing","Blush"])
@@ -192,6 +198,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)  
 
     
@@ -216,6 +223,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed) 
 
     @commands.command(aliases=["Kill","KILL",'killing'])
@@ -239,6 +247,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed) 
 
     @commands.command()
@@ -262,6 +271,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)          
 
     @commands.command(aliases=["laughing","Laugh","Laughing"])
@@ -286,7 +296,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
-        
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)  
 
     @commands.command(aliases=["lie","Lie","Liar","LIAR",'lying'])
@@ -311,6 +321,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)      
 
     @commands.command(aliases=["Missing","miss","Miss"])
@@ -335,6 +346,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)  
 
     @commands.command(aliases=["Hug"])
@@ -358,6 +370,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)   
 
     @commands.command(aliases=["boops","bp"])
@@ -381,6 +394,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)   
 
     @commands.command(aliases=["Pat,'patting","pet"])
@@ -405,6 +419,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)     
 
     @commands.command(aliases=["PillowFight","Pillowfight","pf","PF",'pillowf','pfight'])
@@ -429,6 +444,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)  
 
     @commands.command(aliases=["pinching",'Pinch'])
@@ -453,6 +469,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)      
 
     @commands.command(aliases=["praying","prays"])
@@ -477,6 +494,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)   
 
     @commands.command(aliases=["salutes",'saluting'])
@@ -501,6 +519,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed) 
 
     @commands.command(aliases=["Marry","MARRY"])
@@ -526,6 +545,7 @@ class interaction(commands.Cog):
     
         embed=discord.Embed(title=f"{ctx.author.name} married {user.name} !! Congratulations to the newly weds",color = discord.Colour.purple())
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)    
 
     @commands.command(aliases=["Love"])
@@ -557,6 +577,7 @@ class interaction(commands.Cog):
        
         embed=discord.Embed(title=f"{ctx.author.name} sends love to {user.name}",color = discord.Colour.purple())
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed) 
 
     @commands.command(aliases=["Nom","NOM"])
@@ -581,6 +602,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)    
 
     @commands.command(aliases=["bites","biting"])
@@ -605,6 +627,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)          
 
     @commands.command(aliases=["Punch",'punching'])
@@ -629,6 +652,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed) 
 
     @commands.command(aliases=["STFU","shut","shutup","Shut"])
@@ -653,6 +677,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)       
 
     @commands.command(aliases=["sipping","slurp","sips","Sip"])
@@ -668,6 +693,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)
 
     @commands.command(aliases=["bore","boring"])
@@ -692,6 +718,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)     
 
     @commands.command(aliases=["smirking","smirks"])
@@ -716,6 +743,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)
 
     @commands.command()    
@@ -732,6 +760,7 @@ class interaction(commands.Cog):
         embed=discord.Embed(title=f"{ctx.author.name} is average Beetle enjoyer",color = discord.Colour.purple())    
         randomgif = random.choice(randomgifs)
         embed.set_image(url = randomgif)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)
 
     @commands.command(aliases=["Cuddle","cuddles",'cuddling'])
@@ -756,6 +785,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed) 
 
     @commands.command(aliases=["Sit",'sitting'])
@@ -779,6 +809,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)     
 
     @commands.command(aliases=["Slap"])
@@ -803,6 +834,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)
 
     @commands.command(aliases=["Spank","SPANK","spanking","Spanking"])
@@ -827,6 +859,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)     
 
     @commands.command(aliases=["Spit"])
@@ -851,6 +884,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)        
 
     @commands.command(aliases=["Threaten","THREATEN",'threat'])
@@ -875,6 +909,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)          
         
 
@@ -899,6 +934,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)  
 
     @commands.command(aliases=["Judge","JUDGE",'judging','Judging'])
@@ -922,6 +958,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)          
 
     @commands.command(aliases=["winking","winks"])
@@ -946,6 +983,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)          
 
     @commands.command(aliases=["Tickle","Tick"])
@@ -969,6 +1007,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)          
 
     @commands.command(aliases=["tg","touchg",'tgrass','touch'])
@@ -992,6 +1031,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)          
 
     @commands.command(aliases=["twerking","twerks"])
@@ -1016,6 +1056,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)   
 
     @commands.command(aliases=["waving","Wave","Waving"])
@@ -1040,6 +1081,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)  
 
     @commands.command(aliases=["hf","Hf","highfiving",'highf','hfive'])
@@ -1064,6 +1106,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)   
 
     @commands.command(aliases=["yawning","yawns"])
@@ -1088,6 +1131,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)  
 
     @commands.command(aliases=["vibing","Vibe","Vibing"])
@@ -1112,6 +1156,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)  
 
     @commands.command(aliases=["staring","stares"])
@@ -1136,6 +1181,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)     
 
     @commands.command(aliases=["dancing","dances"])
@@ -1160,6 +1206,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)
 
     @commands.command(aliases=["shocking","shocked"])
@@ -1184,6 +1231,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)  
 
     @commands.command(aliases=["licks",'licking'])
@@ -1208,6 +1256,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)       
 
     @commands.command(aliases=["pokes",'poking'])
@@ -1232,6 +1281,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)     
 
     @commands.command(aliases=["deals"])
@@ -1256,6 +1306,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)   
 
     @commands.command(aliases=["farting","farts"])
@@ -1280,6 +1331,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)  
 
     @commands.command(aliases=["fp","facep"])
@@ -1304,6 +1356,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)     
 
     @commands.command(aliases=["Fake"])
@@ -1328,6 +1381,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)        
 
     @commands.command()
@@ -1352,6 +1406,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)   
 
     @commands.command()
@@ -1376,6 +1431,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)  
 
     @commands.command(aliases=['eyer','eroll'])
@@ -1400,6 +1456,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)  
 
     @commands.command()
@@ -1424,6 +1481,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)   
 
     @commands.command()
@@ -1448,6 +1506,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed) 
     
     @commands.command()
@@ -1462,6 +1521,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed) 
     
     @commands.command()
@@ -1476,6 +1536,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)   
 
     @commands.command()
@@ -1500,6 +1561,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed) 
 
     @commands.command()
@@ -1524,6 +1586,7 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed)     
 
 async def setup(bot:commands.Bot) -> None:

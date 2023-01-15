@@ -31,7 +31,10 @@ class dice(commands.Cog):
             await webhook.delete()          
 
     @commands.hybrid_command(name="translate",aliases=['tl','tr','tral'])
-    async def translate(self,ctx,*, thing):
+    async def translate(self,ctx,*, thing=None):
+        if ctx.message.reference:
+            original = await ctx.fetch_message(ctx.message.reference.message_id)
+            thing = original.content
         translator = Translator()
         translation = translator.translate(thing, dest="english")
         embed = discord.Embed(title="Translation", color = discord.Colour.purple())

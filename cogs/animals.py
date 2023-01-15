@@ -425,9 +425,73 @@ class animals(commands.Cog):
         embed=discord.Embed(title=f"This is Patch",color = discord.Colour.purple())
         embed.set_image(url = url)
         embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
-        await ctx.send(embed=embed)                                                                 
+        await ctx.send(embed=embed)    
+
+    @commands.command()
+    async def hippo(self,ctx):
+        KEY = "AIzaSyBWKLC74AeG_xh_QPN37y9aJoIznvQ2KBk"  # click to set to your apikey
+        lmt = 50
+        ckey = "test" 
+        searchTerm = "cute hippopotamus"
+           
+        r = requests.get(f"https://tenor.googleapis.com/v2/search?q=%s&key=%s&client_key=%s&limit=%s" %(searchTerm, KEY, ckey,  lmt))
+        data = r.json()
+        randomgif = random.randint(0,49)
+        url = data['results'][randomgif]["media_formats"]['gif']['url']
+        embed=discord.Embed(title=f"{ctx.author.name} wants to see cute hippo !!",color = discord.Colour.purple())
+        embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=embed) 
+
+    @commands.command()
+    async def lion(self,ctx):
+        KEY = "AIzaSyBWKLC74AeG_xh_QPN37y9aJoIznvQ2KBk"  # click to set to your apikey
+        lmt = 50
+        ckey = "test" 
+        searchTerm = "cute lions"
+           
+        r = requests.get(f"https://tenor.googleapis.com/v2/search?q=%s&key=%s&client_key=%s&limit=%s" %(searchTerm, KEY, ckey,  lmt))
+        data = r.json()
+        randomgif = random.randint(0,49)
+        url = data['results'][randomgif]["media_formats"]['gif']['url']
+        embed=discord.Embed(title=f"{ctx.author.name} wants to see cute lion !!",color = discord.Colour.purple())
+        embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=embed) 
+
+    @commands.command()
+    async def zebra(self,ctx):
+        KEY = "AIzaSyBWKLC74AeG_xh_QPN37y9aJoIznvQ2KBk"  # click to set to your apikey
+        lmt = 50
+        ckey = "test" 
+        searchTerm = "animal zebra"
+           
+        r = requests.get(f"https://tenor.googleapis.com/v2/search?q=%s&key=%s&client_key=%s&limit=%s" %(searchTerm, KEY, ckey,  lmt))
+        data = r.json()
+        randomgif = random.randint(0,49)
+        url = data['results'][randomgif]["media_formats"]['gif']['url']
+        embed=discord.Embed(title=f"{ctx.author.name} wants to see cute zebra !!",color = discord.Colour.purple())
+        embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=embed) 
+
+    @commands.command()
+    async def penguin(self,ctx):
+        KEY = "AIzaSyBWKLC74AeG_xh_QPN37y9aJoIznvQ2KBk"  # click to set to your apikey
+        lmt = 50
+        ckey = "test" 
+        searchTerm = "cute penguin"
+           
+        r = requests.get(f"https://tenor.googleapis.com/v2/search?q=%s&key=%s&client_key=%s&limit=%s" %(searchTerm, KEY, ckey,  lmt))
+        data = r.json()
+        randomgif = random.randint(0,49)
+        url = data['results'][randomgif]["media_formats"]['gif']['url']
+        embed=discord.Embed(title=f"{ctx.author.name} wants to see cute penguin !!",color = discord.Colour.purple())
+        embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=embed)                                                                          
 
 async def setup(bot:commands.Bot) -> None:
     await bot.add_cog(animals(bot))       
-    print("cat, dog, otter, capybara, polar bear, racoon, panda, koalas, squirrels, hamsters, rabbit, duck, bunny, ferrets, turtle, monke, puppy, kitty, sloth, cow, fox, seal, pig, alpaca is loaded")    
+    print("cat, dog, otter, capybara, ,hippo, ,penguin, lion, zebra, polar bear, racoon, panda, koalas, squirrels, hamsters, rabbit, duck, bunny, ferrets, turtle, monke, puppy, kitty, sloth, cow, fox, seal, pig, alpaca is loaded")    
    

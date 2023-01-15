@@ -14,7 +14,8 @@ class help(commands.Cog,View):
         embed.add_field(name="Moderation Commands",value="clear/purge, warn, ban, kick, emoji_add, deleteemote, createemote, mute, unmute, lock, unlock, createrole, addrole, removerole",inline=False)
         embed.add_field(name="User Commands", value = "avatar, guildavatar, banner, serverinfo, userinfo",inline=False)
         embed.add_field(name="Fun Commands",value = "dice, say, repeat, truthordare(tord), wouldyourather(wyr), paranoia, neverhaveiever(nhie), translate, translation, joke, dadjoke, darkjoke, weather", inline=False)
-        embed.add_field(name= "Interaction Command", value = "block, bitch, bite, blush, bonk, boop, bow, bored, cheer, choke, cope, cry, cuddle, dance, deal, eating, eyeroll, fight, facepalm, fake, fart, fuck, highfive, hug, hurt, judge, kill, kiss, laugh, liar, lick, love, marry, missing, nom, pat, pillowfight, pinch, poke, pray, punch, realkiss, salute, sip, sit, shock, slap, sleep, smack, smirk, spank, stare, spit, stfu, threaten, tickle, tired, touchgrass, twerk, vibe, wave, wink, yawn",inline=False)
+        embed.add_field(name= "Interaction Command", value = "block, bitch, bite, blush, bonk, boop, bow, bored, cheer, choke, cope, cry, cuddle, dance, deal, eating, eyeroll, fight, facepalm, fake, fart, fuck, highfive, hug, hurt, judge, kill, kiss, laugh, liar, lick, love, marry, missing, nom, pat, pillowfight, pinch, poke, pray, punch, realkiss, run, salute, sip, sit, shock, slap, sleep, smack, smirk, spank, stare, spit, stfu, threaten, tickle, tired, touchgrass, twerk, vibe, wave, wink, yawn",inline=False)
+        embed.add_field(name="Animal Commands", value = "cat, dog, otter, capybara, ,hippo, ,penguin, lion, zebra, polar bear, racoon, panda, koalas, squirrels, hamsters, rabbit, duck, bunny, ferrets, turtle, monke, puppy, kitty, sloth, cow, fox, seal, pig, alpaca",inline=False)
         await ctx.send(embed=embed)  
     @help.command()
     async def purge(self,ctx):
@@ -553,7 +554,13 @@ class help(commands.Cog,View):
         embed = discord.Embed(title="Eyeroll Command",description="This command is an interaction you can do with or without a user",color = discord.Colour.purple())
         embed.add_field(name="**Syntax**",value="k!eyeroll @user or k!eyeroll",inline=False)
         embed.add_field(name="Aliases",value="The aliases for this command are eroll / eyer",inline=False)
-        await ctx.send(embed=embed)   
+        await ctx.send(embed=embed)  
+
+    @help.command()
+    async def run(self,ctx):
+        embed = discord.Embed(title="Run Command",description="This command is an interaction you can do with or without a user",color = discord.Colour.purple())
+        embed.add_field(name="**Syntax**",value="k!run @user or k!run",inline=False)
+        await ctx.send(embed=embed)       
 
     @help.command()
     async def smack(self,ctx):

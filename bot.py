@@ -85,6 +85,6 @@ bot = MyBot()
 
 bot.remove_command("help")        
 
-bot.run('MTA0Mzg1ODk0MDk5MzIyODgwMA.Gm_EjW.NqIKfa5fplbIlTHi1PPzOPHL3xWudW6sroqW5s')
+bot.run('MTA0Mzg1ODk0MDk5MzIyODgwMA.GoM_Ja.Cqce4NLksjcvDR86o5o7Wv3_gNF7VqUfaYXcdU')
 
 

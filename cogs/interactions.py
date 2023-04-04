@@ -34,7 +34,6 @@ class interaction(commands.Cog):
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed=discord.Embed(title=f"{ctx.author.name} has blocked {user.name}, They probably deserved it ",color = discord.Colour.purple())
         embed.set_image(url = url)
-        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
         await ctx.send(embed=embed) 
 
     @commands.command(aliases=["Bonk","BONK"])
@@ -58,9 +57,14 @@ class interaction(commands.Cog):
         randomgif = random.randint(0,49)
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         
-        embed=discord.Embed(title=f"{ctx.author.name} bonks {user.name} for being horny",color = discord.Colour.purple())
+        embed=discord.Embed(color = discord.Colour.purple())
         embed.set_image(url = url)
-        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
+        try:
+            if ctx.author.avatar.url:
+                embed.set_author(name= f"{ctx.author.name} bonks {user.name} for being horny" , icon_url=ctx.author.avatar.url)
+        except:
+            embed=discord.Embed(title = f"{ctx.author.name} bonks {user.name} for being horny",color = discord.Colour.purple())
+            embed.set_image(url = url)
         await ctx.send(embed=embed)      
 
     @commands.command(aliases=["cheering","Cheer","Cheering"])
@@ -1587,11 +1591,38 @@ class interaction(commands.Cog):
         url = data['results'][randomgif]["media_formats"]['gif']['url']
         embed.set_image(url = url)
         embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
-        await ctx.send(embed=embed)
-        
+        await ctx.send(embed=embed)     
+    
+    @commands.command()
+    async def e23(self,ctx):
+        embed=discord.Embed(title=f"This is Patch and Eesa",color = discord.Colour.purple())
+        KEY = "AIzaSyBWKLC74AeG_xh_QPN37y9aJoIznvQ2KBk"  # click to set to your apikey
+        lmt = 50
+        ckey = "test" 
+        searchTerm = "anime couple"  
+        r = requests.get(f"https://tenor.googleapis.com/v2/search?q=%s&key=%s&client_key=%s&limit=%s" %(searchTerm, KEY, ckey,  lmt))
+        data = r.json()
+        randomgif = random.randint(0,49)
+        url = data['results'][randomgif]["media_formats"]['gif']['url']
+        embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=embed)  
 
+    @commands.command(aliases=['kirby'])
+    async def Kirby(self,ctx):
+        embed=discord.Embed(title=f"For all the Kirby lovers",color = discord.Colour.purple())
+        KEY = "AIzaSyBWKLC74AeG_xh_QPN37y9aJoIznvQ2KBk"  # click to set to your apikey
+        lmt = 50
+        ckey = "test" 
+        searchTerm = "kirby"  
+        r = requests.get(f"https://tenor.googleapis.com/v2/search?q=%s&key=%s&client_key=%s&limit=%s" %(searchTerm, KEY, ckey,  lmt))
+        data = r.json()
+        randomgif = random.randint(0,49)
+        url = data['results'][randomgif]["media_formats"]['gif']['url']
+        embed.set_image(url = url)
+        embed.set_author(name=ctx.author.name, icon_url=ctx.author.avatar.url)
+        await ctx.send(embed=embed)      
         
-   
 
 async def setup(bot:commands.Bot) -> None:
     await bot.add_cog(interaction(bot))       

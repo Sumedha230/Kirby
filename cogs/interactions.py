@@ -1590,7 +1590,7 @@ class interaction(commands.Cog):
         await ctx.send(embed=embed)
         
     @commands.command()
-    async def 23(self,ctx):
+    async def e23(self,ctx):
         embed=discord.Embed(title=f"Patch and Eesa be like",color = discord.Colour.purple())
         KEY = "AIzaSyBWKLC74AeG_xh_QPN37y9aJoIznvQ2KBk"  # click to set to your apikey
         lmt = 50

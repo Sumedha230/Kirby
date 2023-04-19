@@ -22,7 +22,7 @@ class games(commands.Cog):
             button.callback = button_callback     
             view = View()
             view.add_item(button)
-            await interaction.response.send_message(embed=em,view=view)
+            await interaction.response.edit_message(embed=em,view=view)
         button = Button(label="Never Have I Ever",style=discord.ButtonStyle.primary)
         button.callback = button_callback      
         view = View()
@@ -43,7 +43,7 @@ class games(commands.Cog):
             button.callback = button_callback     
             view = View()
             view.add_item(button)
-            await interaction.response.send_message(embed=em,view=view)
+            await interaction.response.edit_message(embed=em,view=view)
         button = Button(label="Paranoia",style=discord.ButtonStyle.primary)
         button.callback = button_callback      
         view = View()
@@ -68,7 +68,7 @@ class games(commands.Cog):
             view = View()
             view.add_item(button)
             view.add_item(button2)
-            await interaction.response.send_message(embed=em,view=view)
+            await interaction.response.edit_message(embed=em,view=view)
         button.callback = button_callback    
         button2 = Button(label="Dare",style=discord.ButtonStyle.primary)
         async def button2_callback(interaction):
@@ -89,6 +89,17 @@ class games(commands.Cog):
         view.add_item(button2)
         em = discord.Embed(title="Truth or Dare",description = f"Choose either a Truth or a Dare",color = discord.Colour.purple())
         await ctx.send(embed=em,view=view)  
+    
+    @commands.hybrid_command(name="repeat",aliases=['rep'])
+    async def repeat(self,ctx, times: int,*,content:str):
+        """Repeats whatever the user has typed  using krepeat 2 hi or krep 2 hi"""
+        if 0<times<=5:
+            for i in range(times):
+                await ctx.send("".join(content)) 
+        else:
+            embed = discord.Embed(color = discord.Colour.purple(),description="Kirby is not a fool and won't spam the chat")
+            embed.set_image(url ="https://media.discordapp.net/attachments/1042790120652275853/1045611042228666408/kirby-mad.gif")
+            await ctx.send(embed=embed) 
 
     @commands.hybrid_command(name="would_you_rather",aliases=["wyr",'wouldyourather','wouldyr'])
     async def wyr(self,ctx):
@@ -100,7 +111,7 @@ class games(commands.Cog):
             button.callback = button_callback     
             view = View()
             view.add_item(button)
-            await interaction.response.send_message(embed=em,view=view)
+            await interaction.response.edit_message(embed=em,view=view)
         button = Button(label="Would You Rather",style=discord.ButtonStyle.primary)
         button.callback = button_callback      
         view = View()
@@ -180,26 +191,8 @@ class games(commands.Cog):
         em.add_field(name="Country Details",value=f"Country : {t['country']}\nTime in {t['country']} : {t['localtime']}\nCity : {t['name']}\nRegion : {t['region']}")
         em.set_thumbnail(url="https://media.tenor.com/Xh858Z_KDZcAAAAC/hurricane-storm.gif")
         
-        await ctx.send(embed=em)
+        await ctx.send(embed=em)  
 
-        
-        pprint(res)
-    
-
-#     @commands.hybrid_command()
-#     async def meme(self,ctx):
-#         url = "https://humor-jokes-and-memes.p.rapidapi.com/memes/random"
-#         querystring = {"keywords":"rocket","number":"3","media-type":"image","keywords-in-image":"false","min-rating":"4"}
-#         headers = {
-# 	"X-RapidAPI-Key": "eb205e7f48mshbe28519f8133dcap1aea11jsnaed55c3ce6bf",
-# 	"X-RapidAPI-Host": "humor-jokes-and-memes.p.rapidapi.com"
-# }
-#         response = requests.request("GET", url, headers=headers)
-#         res = response.json()
-#         await ctx.send(res['url'])
-#         pprint(res)
-        
-        
 
 async def setup(bot:commands.Bot) -> None:
     await bot.add_cog(games(bot))       

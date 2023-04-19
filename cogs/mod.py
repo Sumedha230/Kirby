@@ -71,6 +71,10 @@ class mod(commands.Cog):
                             await ctx.send("Not possible") 
                 await ctx.guild.create_role(name=name,display_icon=bValue)
                 await ctx.send(f"Role {name} has been created")
+    @createrole.error
+    async def createrole_error(self,ctx, error):
+        if isinstance(error,commands.CheckFailure):
+            await ctx.send(f'{error}')             
 
     @commands.command(aliases=["ar","add"])
     @commands.has_guild_permissions(manage_roles=True)
@@ -87,6 +91,10 @@ class mod(commands.Cog):
                 return
             await user.add_roles(role)  
             await ctx.send(f"Added {role} to {user.mention}")         
+    @addrole.error
+    async def addrole_error(self,ctx, error):
+        if isinstance(error,commands.CheckFailure):
+            await ctx.send(f'{error}') 
 
     @commands.command(aliases=["rr","remove"])
     @commands.has_guild_permissions(manage_roles=True)
@@ -102,7 +110,12 @@ class mod(commands.Cog):
                 await user.remove_roles(role)
                 await ctx.send(f"Successfully removed {role} from {user.mention}")
             else:
-                await ctx.send(f"{user.mention} does not have the role")     
+                await ctx.send(f"{user.mention} does not have the role")    
+
+    @removerole.error
+    async def removerole_error(self,ctx, error):
+        if isinstance(error,commands.CheckFailure):
+            await ctx.send(f'{error}') 
 
     @commands.hybrid_command(aliases=["Kick",'kicks'])
     @commands.has_guild_permissions(kick_members=True)
@@ -119,6 +132,10 @@ class mod(commands.Cog):
                 em = discord.Embed(title="Kicked",description=f"{user.mention} was kicked by {ctx.author.mention}",color = discord.Colour.purple())     
             await user.kick(reason=reason)
             await ctx.send(embed=em)
+    @kick.error
+    async def kick_error(self,ctx, error):
+        if isinstance(error,commands.CheckFailure):
+            await ctx.send(f'{error}') 
 
     @commands.hybrid_command()
     @commands.has_guild_permissions(moderate_members=True)
@@ -156,6 +173,11 @@ class mod(commands.Cog):
     
         await ctx.send(embed=embed) 
 
+    @mute.error
+    async def mute_error(self,ctx, error):
+        if isinstance(error,commands.CheckFailure):
+            await ctx.send(f'{error}')     
+
     @commands.hybrid_command(aliases=['um']) 
     @commands.has_guild_permissions(moderate_members=True)   
     async def unmute(self,ctx,member:discord.Member):
@@ -176,6 +198,11 @@ class mod(commands.Cog):
         await member.timeout(duration)
         embed = discord.Embed(title=f":white_check_mark: {member.name} has been successfully unmuted",color = discord.Colour.purple())
         await ctx.send(embed=embed)   
+    
+    @unmute.error
+    async def unmute_error(self,ctx, error):
+        if isinstance(error,commands.CheckFailure):
+            await ctx.send(f'{error}') 
 
     @commands.hybrid_command(name="purge",aliases=['clear','Clear','Purge','clr','Clr','CLR'])
     @commands.has_guild_permissions(manage_messages=True)
@@ -194,6 +221,11 @@ class mod(commands.Cog):
                 await ctx.channel.purge(limit=1)   
         except:
             await ctx.send("Bot does not have the permission for this command")  
+
+    @clear.error
+    async def clear_error(self,ctx, error):
+        if isinstance(error,commands.CheckFailure):
+            await ctx.send(f'{error}')         
 
     @commands.hybrid_command(aliases=["steal",'eadd'])
     @commands.has_guild_permissions(manage_emojis=True)
@@ -218,7 +250,12 @@ class mod(commands.Cog):
                     except:
                         await ctx.send("Not possible")
         else:
-            await ctx.send("You don't have the required administrator permissions")               
+            await ctx.send("You don't have the required administrator permissions")   
+
+    @emoji_add.error
+    async def emoji_add_error(self,ctx, error):
+        if isinstance(error,commands.CheckFailure):
+            await ctx.send(f'{error}')                     
 
     @commands.hybrid_command(aliases=["Warn",'warning','warns'])
     @commands.has_guild_permissions(kick_members=True)
@@ -242,6 +279,11 @@ class mod(commands.Cog):
                 await user.send(f" You were warned in {ctx.guild.name} by {ctx.author.name}")
             await ctx.send(embed=em)    
     
+    @warn.error
+    async def warn_error(self,ctx, error):
+        if isinstance(error,commands.CheckFailure):
+            await ctx.send(f'{error}') 
+
     @commands.hybrid_command()
     @commands.has_guild_permissions(manage_channels=True)
     async def lock(self,ctx,channel:discord.TextChannel=None):

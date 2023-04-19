@@ -34,7 +34,6 @@ class MyBot(commands.Bot):
             'cogs.user',
             'cogs.games',
             'cogs.mod',
-            'cogs.animals',
             'nsfw.realkiss_lick',
             'cogs.interactions',  
             'help'

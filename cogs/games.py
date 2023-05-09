@@ -90,16 +90,6 @@ class games(commands.Cog):
         em = discord.Embed(title="Truth or Dare",description = f"Choose either a Truth or a Dare",color = discord.Colour.purple())
         await ctx.send(embed=em,view=view)  
     
-    @commands.hybrid_command(name="repeat",aliases=['rep'])
-    async def repeat(self,ctx, times: int,*,content:str):
-        """Repeats whatever the user has typed  using krepeat 2 hi or krep 2 hi"""
-        if 0<times<=5:
-            for i in range(times):
-                await ctx.send("".join(content)) 
-        else:
-            embed = discord.Embed(color = discord.Colour.purple(),description="Kirby is not a fool and won't spam the chat")
-            embed.set_image(url ="https://media.discordapp.net/attachments/1042790120652275853/1045611042228666408/kirby-mad.gif")
-            await ctx.send(embed=embed) 
 
     @commands.hybrid_command(name="would_you_rather",aliases=["wyr",'wouldyourather','wouldyr'])
     async def wyr(self,ctx):

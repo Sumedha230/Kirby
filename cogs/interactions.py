@@ -1740,7 +1740,7 @@ class interaction(commands.Cog):
         KEY = "AIzaSyBWKLC74AeG_xh_QPN37y9aJoIznvQ2KBk"  # click to set to your apikey
         lmt = 50
         ckey = "test" 
-        searchTerm = "cream anime"  
+        searchTerm = "creampie"  
         r = requests.get(f"https://tenor.googleapis.com/v2/search?q=%s&key=%s&client_key=%s&limit=%s" %(searchTerm, KEY, ckey,  lmt))
         data = r.json()
         randomgif = random.randint(0,49)

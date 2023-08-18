@@ -1705,20 +1705,7 @@ class interaction(commands.Cog):
         await ctx.send(embed=embed)                
            
     
-    @commands.command()
-    async def e23(self,ctx):
-        embed=discord.Embed(title=f"This is Patch and Eesa",color = discord.Colour.purple())
-        KEY = "AIzaSyBWKLC74AeG_xh_QPN37y9aJoIznvQ2KBk"  # click to set to your apikey
-        lmt = 50
-        ckey = "test" 
-        searchTerm = "anime couple"  
-        r = requests.get(f"https://tenor.googleapis.com/v2/search?q=%s&key=%s&client_key=%s&limit=%s" %(searchTerm, KEY, ckey,  lmt))
-        data = r.json()
-        randomgif = random.randint(0,49)
-        url = data['results'][randomgif]["media_formats"]['gif']['url']
-        embed.set_image(url = url)
-        
-        await ctx.send(embed=embed)  
+
 
     @commands.command(aliases=['kirby'])
     async def Kirby(self,ctx):
@@ -1736,7 +1723,7 @@ class interaction(commands.Cog):
         await ctx.send(embed=embed)   
     @commands.command(aliases=['cream'])
     async def creampie(self,ctx):
-        embed=discord.Embed(title=f"For Agustin",color = discord.Colour.purple())
+        embed=discord.Embed(title=f"For Kashi babygrill",color = discord.Colour.purple())
         KEY = "AIzaSyBWKLC74AeG_xh_QPN37y9aJoIznvQ2KBk"  # click to set to your apikey
         lmt = 50
         ckey = "test" 
